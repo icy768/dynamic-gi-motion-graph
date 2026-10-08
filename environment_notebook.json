@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-08T20:13:09+08:00",
+  "python": "3.11.15",
+  "python_executable": "D:\\Anaconda\\envs\\pytorch_env\\python.exe",
+  "platform": "Windows-10-10.0.22631-SP0",
+  "packages": {
+    "torch": "2.13.0+cu126",
+    "torchvision": "0.28.0+cu126",
+    "numpy": "2.4.4",
+    "matplotlib": "3.11.1",
+    "pytorch-msssim": "1.0.0",
+    "Pillow": "12.2.0"
+  },
+  "purpose": "Observed notebook environment; not an installation lock file."
+}

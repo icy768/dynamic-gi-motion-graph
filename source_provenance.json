@@ -1,0 +1,68 @@
+{
+  "recorded_at": "2026-10-08T20:13:09+08:00",
+  "source_directory": "D:\\download\\DynGhost-mini-repro",
+  "source_head_commit": "130c64e3e35482dbcdc1516f29afe1c25d0d9656",
+  "import_basis": "Actual source working directory. Untracked modules are recorded separately; source HEAD does not identify their content.",
+  "files": [
+    {
+      "file": "benchmark_models.py",
+      "sha256": "cf7410d93b14f3077693f1ca39e1cadbdb58381ee74b948b60a8ea79400a7ebc",
+      "bytes": 9059,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "mini_repro_dynghost.py",
+      "sha256": "42dd55dce6ccf71543d0f7a3403db1b7d46fa8231ede5102fb8d636a2b5f6b80",
+      "bytes": 4153,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "train_frame_cnn.py",
+      "sha256": "c89f123d1fe5f48d9c91db526cacc615bfe9b27421d843c6efe707ba384dd704",
+      "bytes": 9357,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "train_mixed_sampling.py",
+      "sha256": "7fe7e839872618ad5d33bf2aa710508d81039492fc2ff6643078c66561f90d29",
+      "bytes": 7170,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "train_motion_tgnn.py",
+      "sha256": "6e9fd29a82d0444e2665821f4c87eb19f11f070048f60bbeadebc0b24ea4e3cb",
+      "bytes": 8748,
+      "tracked_in_source_repository": false
+    },
+    {
+      "file": "train_oracle_motion_tgnn.py",
+      "sha256": "2556771b1217aaf35805f173468bd66792a425eb361e8fdadafeecc6351925ee",
+      "bytes": 14587,
+      "tracked_in_source_repository": false
+    },
+    {
+      "file": "train_patch_tgnn.py",
+      "sha256": "85fe438aec264ae7b8d2ed81718c003b05c0db7f32cf08911f17483e14d96357",
+      "bytes": 12238,
+      "tracked_in_source_repository": false
+    },
+    {
+      "file": "train_spatiotemporal_transformer.py",
+      "sha256": "6f0b0f4b0aefa3a325d3ffe2613223f795042f5c11a12decb54d6d8508e24bfc",
+      "bytes": 8110,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "train_temporal_convgru.py",
+      "sha256": "1767103ff2ec406302d1db2da1476478590c04a5a446afc7a41b8c568233c749",
+      "bytes": 11459,
+      "tracked_in_source_repository": true
+    },
+    {
+      "file": "train_temporal_transformer.py",
+      "sha256": "7fd3c581880b2bf4c02efb373b7750466c0dd55a5428e701449cbfda9fb736ca",
+      "bytes": 7774,
+      "tracked_in_source_repository": true
+    }
+  ]
+}

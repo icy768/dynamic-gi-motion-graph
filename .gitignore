@@ -3,6 +3,7 @@
 /datasets/
 /assets/
 /checkpoints/
+/runs/
 *.pt
 *.pth
 *.ckpt

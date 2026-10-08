@@ -1,0 +1,8 @@
+# Direct runtime dependencies. See environment_notebook.json for observed versions.
+# Install a compatible torch/torchvision pair for the target CPU or CUDA image.
+torch
+torchvision
+numpy
+matplotlib
+pytorch-msssim
+Pillow
