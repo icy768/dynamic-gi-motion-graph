@@ -1,0 +1,71 @@
+{
+  "purpose": "full validation-set end-to-end diagnostic; not the held-out final test",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "summary": [
+    {
+      "rate": 128,
+      "method": "transformer",
+      "n_sequences": 120,
+      "mean_psnr_db": 17.68028885523478,
+      "mean_relative_measurement_residual": 0.1730625752514849,
+      "mean_motion_epe_px": 0.8725779291242362
+    },
+    {
+      "rate": 128,
+      "method": "cnn",
+      "n_sequences": 120,
+      "mean_psnr_db": 17.428188641866047,
+      "mean_relative_measurement_residual": 0.2503227673470974,
+      "mean_motion_epe_px": 0.8725779291242362
+    },
+    {
+      "rate": 128,
+      "method": "fixed",
+      "n_sequences": 120,
+      "mean_psnr_db": 17.191091362635294,
+      "mean_relative_measurement_residual": 0.26152577907778324,
+      "mean_motion_epe_px": 0.8725779291242362
+    },
+    {
+      "rate": 128,
+      "method": "motion",
+      "n_sequences": 120,
+      "mean_psnr_db": 18.310391942660015,
+      "mean_relative_measurement_residual": 0.2150383539730683,
+      "mean_motion_epe_px": 0.8725779291242362
+    },
+    {
+      "rate": 256,
+      "method": "transformer",
+      "n_sequences": 120,
+      "mean_psnr_db": 19.914549589157104,
+      "mean_relative_measurement_residual": 0.12817377410829067,
+      "mean_motion_epe_px": 0.7286543231457472
+    },
+    {
+      "rate": 256,
+      "method": "cnn",
+      "n_sequences": 120,
+      "mean_psnr_db": 19.900833662350973,
+      "mean_relative_measurement_residual": 0.16617061950576803,
+      "mean_motion_epe_px": 0.7286543231457472
+    },
+    {
+      "rate": 256,
+      "method": "fixed",
+      "n_sequences": 120,
+      "mean_psnr_db": 19.778649401664733,
+      "mean_relative_measurement_residual": 0.16849071263180423,
+      "mean_motion_epe_px": 0.7286543231457472
+    },
+    {
+      "rate": 256,
+      "method": "motion",
+      "n_sequences": 120,
+      "mean_psnr_db": 20.65493763287862,
+      "mean_relative_measurement_residual": 0.14375268573251862,
+      "mean_motion_epe_px": 0.7286543231457472
+    }
+  ]
+}

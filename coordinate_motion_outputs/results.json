@@ -1,0 +1,108 @@
+{
+  "config": {
+    "seed": 20260902,
+    "estimator": "direct DGI motion regressor with x/y coordinate channels",
+    "uses_ground_truth_motion_at_inference": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0960521793365479,
+      "val_vector_mae_pixels": 2.4213662347445886
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.095575281381607,
+      "val_vector_mae_pixels": 2.4194232418778396
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.094417435526848,
+      "val_vector_mae_pixels": 2.421858088920514
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0947348475456238,
+      "val_vector_mae_pixels": 2.422001093980812
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0942969965934752,
+      "val_vector_mae_pixels": 2.4221800100058317
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0946634024381638,
+      "val_vector_mae_pixels": 2.427759428677105
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0938788008689881,
+      "val_vector_mae_pixels": 2.420371924943867
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.082998769879341,
+      "val_vector_mae_pixels": 2.387782322278335
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.9429625082015991,
+      "val_vector_mae_pixels": 2.1457935175015814
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.8709781616926193,
+      "val_vector_mae_pixels": 2.1387555199231776
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.8642162343859673,
+      "val_vector_mae_pixels": 2.1143323568449843
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.8327386328577995,
+      "val_vector_mae_pixels": 2.0982229574139986
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "pairs": 700,
+      "coordinate_motion_vector_mae_pixels": 1.870230404479163,
+      "coordinate_motion_vector_rmse_pixels": 2.0591567885629436,
+      "within_1_pixel_ratio": 0.14142857142857143,
+      "simple_cnn_vector_mae_pixels": 1.5716
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "pairs": 700,
+      "coordinate_motion_vector_mae_pixels": 1.8674490087798663,
+      "coordinate_motion_vector_rmse_pixels": 2.051537888396758,
+      "within_1_pixel_ratio": 0.15714285714285714,
+      "simple_cnn_vector_mae_pixels": 1.5334
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "pairs": 700,
+      "coordinate_motion_vector_mae_pixels": 1.8381764696325575,
+      "coordinate_motion_vector_rmse_pixels": 2.010877427432248,
+      "within_1_pixel_ratio": 0.14142857142857143,
+      "simple_cnn_vector_mae_pixels": 1.5785
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "pairs": 700,
+      "coordinate_motion_vector_mae_pixels": 1.836221876932042,
+      "coordinate_motion_vector_rmse_pixels": 2.008661100533848,
+      "within_1_pixel_ratio": 0.15,
+      "simple_cnn_vector_mae_pixels": 1.566
+    }
+  ],
+  "parameters": 25770
+}

@@ -1,0 +1,114 @@
+{
+  "config": {
+    "run_seed": 20260904,
+    "fixed_data_and_pattern_seed": 20260902,
+    "epochs": 10
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.27182342365384105,
+      "val_mse": 0.04194335642969236
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.08249720204621554,
+      "val_mse": 0.01577259999855111
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.06675196781754494,
+      "val_mse": 0.01447590366199923
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.06033806258812547,
+      "val_mse": 0.012277648509674085
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.05524496113881469,
+      "val_mse": 0.01206377558943738
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.05546143338084221,
+      "val_mse": 0.010950118105150371
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.05113002566620708,
+      "val_mse": 0.011746842743741581
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.05239520097151398,
+      "val_mse": 0.012154370858722056
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.04953906325623393,
+      "val_mse": 0.011626217486870398
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0471074821986258,
+      "val_mse": 0.010944921911868733
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.02106751374900341,
+      "mse_std": 0.006988849355368242,
+      "psnr_mean_db": 17.017242431640625,
+      "psnr_std_db": 1.5458703251988488,
+      "ssim_mean": 0.5477392765879631,
+      "ssim_std": 0.06409074318580828,
+      "temporal_difference_error_mean": 0.04797138451598584,
+      "temporal_difference_error_std": 0.019447724876907733
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.011918774012010545,
+      "mse_std": 0.004699048043675688,
+      "psnr_mean_db": 19.601735849380493,
+      "psnr_std_db": 1.8630658221167058,
+      "ssim_mean": 0.730396374464035,
+      "ssim_std": 0.058065190939458194,
+      "temporal_difference_error_mean": 0.03503807150758803,
+      "temporal_difference_error_std": 0.014559431762438695
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.007306518324185163,
+      "mse_std": 0.0030917254986463157,
+      "psnr_mean_db": 21.77983882904053,
+      "psnr_std_db": 1.9953931661829047,
+      "ssim_mean": 0.8235897922515869,
+      "ssim_std": 0.047782618107703,
+      "temporal_difference_error_mean": 0.028016488486900925,
+      "temporal_difference_error_std": 0.011378212331260018
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.00526007263106294,
+      "mse_std": 0.0024346212321511443,
+      "psnr_mean_db": 23.212991485595705,
+      "psnr_std_db": 1.9542594203657984,
+      "ssim_mean": 0.874135068655014,
+      "ssim_std": 0.03479726633706897,
+      "temporal_difference_error_mean": 0.023999642999842762,
+      "temporal_difference_error_std": 0.009112994424990271
+    }
+  ],
+  "elapsed_seconds": 166.95990300178528
+}

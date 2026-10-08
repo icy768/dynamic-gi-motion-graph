@@ -1,0 +1,38 @@
+[
+  {
+    "pattern_count": 128,
+    "sampling_ratio": 0.03125,
+    "transformer_psnr_mean": 17.391212577819825,
+    "transformer_psnr_std": 0.3254052438261076,
+    "joint_tgnn_psnr_mean": 17.994731079737345,
+    "joint_tgnn_psnr_std": 0.36195627279521086,
+    "joint_minus_transformer_db": 0.6035185019175202
+  },
+  {
+    "pattern_count": 256,
+    "sampling_ratio": 0.0625,
+    "transformer_psnr_mean": 19.975174105962115,
+    "transformer_psnr_std": 0.3315658519547224,
+    "joint_tgnn_psnr_mean": 20.431745602289837,
+    "joint_tgnn_psnr_std": 0.21236294998681293,
+    "joint_minus_transformer_db": 0.4565714963277223
+  },
+  {
+    "pattern_count": 512,
+    "sampling_ratio": 0.125,
+    "transformer_psnr_mean": 22.185859190622967,
+    "transformer_psnr_std": 0.35917251130732286,
+    "joint_tgnn_psnr_mean": 22.625395526885985,
+    "joint_tgnn_psnr_std": 0.030172078038646494,
+    "joint_minus_transformer_db": 0.4395363362630178
+  },
+  {
+    "pattern_count": 1024,
+    "sampling_ratio": 0.25,
+    "transformer_psnr_mean": 23.67399700164795,
+    "transformer_psnr_std": 0.40207422603466325,
+    "joint_tgnn_psnr_mean": 24.261944478352863,
+    "joint_tgnn_psnr_std": 0.023964745779412152,
+    "joint_minus_transformer_db": 0.5879474767049118
+  }
+]

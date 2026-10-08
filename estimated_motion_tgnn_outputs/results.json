@@ -1,0 +1,129 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "graph": "four-neighbor spatial edges plus DGI-estimated global bilinear motion edges",
+    "motion_estimator": "frozen DgiMotionNet; seven pairwise estimates averaged per sequence",
+    "uses_ground_truth_motion_at_inference": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.20842330947518348,
+      "val_mse": 0.02384145916827644
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.07499060783535243,
+      "val_mse": 0.01432927195467831
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.06225514903664589,
+      "val_mse": 0.01878656500581807
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05840802760794759,
+      "val_mse": 0.01189963672174296
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.05641562612727284,
+      "val_mse": 0.017932852177182212
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.055201352722942826,
+      "val_mse": 0.017231556365974635
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.05314607722684741,
+      "val_mse": 0.012399552392404681
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.05093460757285356,
+      "val_mse": 0.011840501039356847
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.05091797048225999,
+      "val_mse": 0.011128742527216674
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.04856140857562423,
+      "val_mse": 0.010223722952893392
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "EstimatedMotionTGNN",
+      "mse_mean": 0.017997889509424568,
+      "mse_std": 0.00591623991203595,
+      "psnr_mean_db": 17.65502600669861,
+      "psnr_std_db": 1.325959572574037,
+      "ssim_mean": 0.677160918712616,
+      "ssim_std": 0.04402637099583037,
+      "temporal_difference_error_mean": 0.04261799160391092,
+      "temporal_difference_error_std": 0.015040195564019357
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "EstimatedMotionTGNN",
+      "mse_mean": 0.010804910687729716,
+      "mse_std": 0.0039154154781987065,
+      "psnr_mean_db": 19.94722961425781,
+      "psnr_std_db": 1.608183290061125,
+      "ssim_mean": 0.7895525342226029,
+      "ssim_std": 0.037180692743125715,
+      "temporal_difference_error_mean": 0.0338963898923248,
+      "temporal_difference_error_std": 0.012735147416121995
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "EstimatedMotionTGNN",
+      "mse_mean": 0.006699536049272865,
+      "mse_std": 0.002920584339261894,
+      "psnr_mean_db": 22.09583969116211,
+      "psnr_std_db": 1.7724461733003898,
+      "ssim_mean": 0.870595418214798,
+      "ssim_std": 0.032453923547801085,
+      "temporal_difference_error_mean": 0.027240477106533944,
+      "temporal_difference_error_std": 0.010594511951960654
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "EstimatedMotionTGNN",
+      "mse_mean": 0.004673372346442193,
+      "mse_std": 0.002058521881675132,
+      "psnr_mean_db": 23.686380290985106,
+      "psnr_std_db": 1.8465027372653633,
+      "ssim_mean": 0.9139322757720947,
+      "ssim_std": 0.025061759774740622,
+      "temporal_difference_error_mean": 0.02314996485132724,
+      "temporal_difference_error_std": 0.009061386033889169
+    }
+  ],
+  "parameters": {
+    "motion_estimator": 20962,
+    "reconstructor": 35505
+  },
+  "elapsed_seconds": 149.19558835029602
+}

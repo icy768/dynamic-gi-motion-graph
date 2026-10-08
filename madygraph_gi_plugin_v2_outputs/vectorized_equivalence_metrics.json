@@ -1,0 +1,98 @@
+{
+  "cnn": {
+    "128": {
+      "psnr_db": 18.533981784184775,
+      "ssim": 0.7336351503928502,
+      "foreground_psnr_db": 13.476386936505635,
+      "temporal_difference_error": 0.04933349189038078
+    },
+    "256": {
+      "psnr_db": 20.81388513247172,
+      "ssim": 0.843997756143411,
+      "foreground_psnr_db": 14.952604532241821,
+      "temporal_difference_error": 0.038105222194766
+    }
+  },
+  "fixed": {
+    "128": {
+      "psnr_db": 18.255792593955995,
+      "ssim": 0.7324286793669065,
+      "foreground_psnr_db": 13.394150876998902,
+      "temporal_difference_error": 0.05011139598985513
+    },
+    "256": {
+      "psnr_db": 20.655290921529133,
+      "ssim": 0.841091783841451,
+      "foreground_psnr_db": 14.877878340085347,
+      "temporal_difference_error": 0.03827937631867826
+    }
+  },
+  "motion": {
+    "128": {
+      "psnr_db": 19.38367708524068,
+      "ssim": 0.7437683686614036,
+      "foreground_psnr_db": 13.944827898343403,
+      "temporal_difference_error": 0.04593807994388044
+    },
+    "256": {
+      "psnr_db": 21.51641723314921,
+      "ssim": 0.8533247202634812,
+      "foreground_psnr_db": 15.440208347638448,
+      "temporal_difference_error": 0.03619789940615495
+    }
+  },
+  "motion_input_ablation": {
+    "128": {
+      "estimated_correct": {
+        "psnr_db": 19.38367708524068,
+        "ssim": 0.7437683686614036,
+        "foreground_psnr_db": 13.944827898343403,
+        "temporal_difference_error": 0.04593807994388044
+      },
+      "zero_motion_at_inference": {
+        "psnr_db": 16.725724291801452,
+        "ssim": 0.6572536905606587,
+        "foreground_psnr_db": 11.737015755971273,
+        "temporal_difference_error": 0.06778483474627137
+      },
+      "wrong_sequence_motion_roll37": {
+        "psnr_db": 16.161665360132854,
+        "ssim": 0.6160051224132379,
+        "foreground_psnr_db": 10.952716366449993,
+        "temporal_difference_error": 0.07811799167344967
+      },
+      "reversed_motion_at_inference": {
+        "psnr_db": 15.511810469627381,
+        "ssim": 0.5780635786553224,
+        "foreground_psnr_db": 10.262013789017995,
+        "temporal_difference_error": 0.08239786184082429
+      }
+    },
+    "256": {
+      "estimated_correct": {
+        "psnr_db": 21.51641723314921,
+        "ssim": 0.8533247202634812,
+        "foreground_psnr_db": 15.440208347638448,
+        "temporal_difference_error": 0.03619789940615495
+      },
+      "zero_motion_at_inference": {
+        "psnr_db": 18.365583523114523,
+        "ssim": 0.7567455669244131,
+        "foreground_psnr_db": 12.92217976252238,
+        "temporal_difference_error": 0.06070209339571496
+      },
+      "wrong_sequence_motion_roll37": {
+        "psnr_db": 17.365862544377645,
+        "ssim": 0.7047629863023758,
+        "foreground_psnr_db": 11.941697144508362,
+        "temporal_difference_error": 0.07071005602677663
+      },
+      "reversed_motion_at_inference": {
+        "psnr_db": 16.67516485055288,
+        "ssim": 0.6596263212462267,
+        "foreground_psnr_db": 11.211673931280773,
+        "temporal_difference_error": 0.07515259070011476
+      }
+    }
+  }
+}

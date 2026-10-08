@@ -1,0 +1,124 @@
+{
+  "config": {
+    "seed": 20260902,
+    "input": "two adjacent DGI frames",
+    "estimator": "direct residual multi-scale global-motion regressor",
+    "uses_ground_truth_motion_at_inference": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0945497405529023,
+      "val_vector_mae_pixels": 2.4275711125383777
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.0951470267772674,
+      "val_vector_mae_pixels": 2.426852628056492
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0944790315628052,
+      "val_vector_mae_pixels": 2.4272555679260264
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0943502551317215,
+      "val_vector_mae_pixels": 2.4256942954269194
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0943200731277465,
+      "val_vector_mae_pixels": 2.425999906304337
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0944445270299912,
+      "val_vector_mae_pixels": 2.4267043702659152
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0943312591314316,
+      "val_vector_mae_pixels": 2.425397149668563
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0942168605327607,
+      "val_vector_mae_pixels": 2.4252273610837403
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0942814594507217,
+      "val_vector_mae_pixels": 2.4262516217749743
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.0941527217626572,
+      "val_vector_mae_pixels": 2.4260264550291355
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.0942941832542419,
+      "val_vector_mae_pixels": 2.4250804377808457
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.0943940776586532,
+      "val_vector_mae_pixels": 2.4261976663378024
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.094352397918701,
+      "val_vector_mae_pixels": 2.425129842687221
+    },
+    {
+      "epoch": 14,
+      "train_loss": 1.0942061775922776,
+      "val_vector_mae_pixels": 2.4256953158016716
+    },
+    {
+      "epoch": 15,
+      "train_loss": 1.0941374176740646,
+      "val_vector_mae_pixels": 2.425786116453154
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "pairs": 700,
+      "residual_multiscale_vector_mae_pixels": 2.1394828932625907,
+      "residual_multiscale_vector_rmse_pixels": 2.2795060786631023,
+      "within_1_pixel_ratio": 0.0,
+      "simple_cnn_vector_mae_pixels": 1.5716
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "pairs": 700,
+      "residual_multiscale_vector_mae_pixels": 2.139485457795007,
+      "residual_multiscale_vector_rmse_pixels": 2.279509027523577,
+      "within_1_pixel_ratio": 0.0,
+      "simple_cnn_vector_mae_pixels": 1.5334
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "pairs": 700,
+      "residual_multiscale_vector_mae_pixels": 2.139486988271986,
+      "residual_multiscale_vector_rmse_pixels": 2.2795097451045607,
+      "within_1_pixel_ratio": 0.0,
+      "simple_cnn_vector_mae_pixels": 1.5785
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "pairs": 700,
+      "residual_multiscale_vector_mae_pixels": 2.1394858525480545,
+      "residual_multiscale_vector_rmse_pixels": 2.2795083763268154,
+      "within_1_pixel_ratio": 0.0,
+      "simple_cnn_vector_mae_pixels": 1.566
+    }
+  ],
+  "parameters": 205346
+}

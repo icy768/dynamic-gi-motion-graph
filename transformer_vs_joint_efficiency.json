@@ -1,0 +1,18 @@
+{
+  "config": {
+    "input": "one 8-frame 64x64 DGI sequence",
+    "pattern_count": 256,
+    "repeats": 50,
+    "dgi_generation_included": false
+  },
+  "SpatioTemporalTransformer": {
+    "parameters": 61361,
+    "latency_ms": 4.342422001063824,
+    "peak_memory_mb": 14.60107421875
+  },
+  "JointMotionTGNN": {
+    "parameters": 56467,
+    "latency_ms": 32.41493600187823,
+    "peak_memory_mb": 14.8203125
+  }
+}

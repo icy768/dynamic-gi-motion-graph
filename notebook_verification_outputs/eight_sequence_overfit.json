@@ -1,0 +1,163 @@
+{
+  "purpose": "training-path overfit check only; same 8 sequences used for optimization and score",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "sequences": 8,
+  "rate": 128,
+  "epochs": 30,
+  "initial_psnr_db": 17.646696090698242,
+  "final_train_psnr_db": 18.70658302307129,
+  "gain_db": 1.0598869323730469,
+  "history": [
+    {
+      "epoch": 1,
+      "train_mse_batch_mean": 0.017149670980870724,
+      "train_psnr_db": 17.676834106445312
+    },
+    {
+      "epoch": 2,
+      "train_mse_batch_mean": 0.01717041525989771,
+      "train_psnr_db": 17.683937072753906
+    },
+    {
+      "epoch": 3,
+      "train_mse_batch_mean": 0.01710590533912182,
+      "train_psnr_db": 17.675973892211914
+    },
+    {
+      "epoch": 4,
+      "train_mse_batch_mean": 0.017088434658944607,
+      "train_psnr_db": 17.671463012695312
+    },
+    {
+      "epoch": 5,
+      "train_mse_batch_mean": 0.01713249273598194,
+      "train_psnr_db": 17.670930862426758
+    },
+    {
+      "epoch": 6,
+      "train_mse_batch_mean": 0.017096439376473427,
+      "train_psnr_db": 17.689550399780273
+    },
+    {
+      "epoch": 7,
+      "train_mse_batch_mean": 0.01703519932925701,
+      "train_psnr_db": 17.707317352294922
+    },
+    {
+      "epoch": 8,
+      "train_mse_batch_mean": 0.017006649635732174,
+      "train_psnr_db": 17.729541778564453
+    },
+    {
+      "epoch": 9,
+      "train_mse_batch_mean": 0.016971739009022713,
+      "train_psnr_db": 17.748516082763672
+    },
+    {
+      "epoch": 10,
+      "train_mse_batch_mean": 0.016839386895298958,
+      "train_psnr_db": 17.783226013183594
+    },
+    {
+      "epoch": 11,
+      "train_mse_batch_mean": 0.016798701137304306,
+      "train_psnr_db": 17.819616317749023
+    },
+    {
+      "epoch": 12,
+      "train_mse_batch_mean": 0.01652569230645895,
+      "train_psnr_db": 17.910655975341797
+    },
+    {
+      "epoch": 13,
+      "train_mse_batch_mean": 0.016158397309482098,
+      "train_psnr_db": 18.018714904785156
+    },
+    {
+      "epoch": 14,
+      "train_mse_batch_mean": 0.01575908763334155,
+      "train_psnr_db": 18.185413360595703
+    },
+    {
+      "epoch": 15,
+      "train_mse_batch_mean": 0.015264995861798525,
+      "train_psnr_db": 18.35633087158203
+    },
+    {
+      "epoch": 16,
+      "train_mse_batch_mean": 0.015125321224331856,
+      "train_psnr_db": 18.49496078491211
+    },
+    {
+      "epoch": 17,
+      "train_mse_batch_mean": 0.014349284581840038,
+      "train_psnr_db": 18.585163116455078
+    },
+    {
+      "epoch": 18,
+      "train_mse_batch_mean": 0.014095521066337824,
+      "train_psnr_db": 18.671476364135742
+    },
+    {
+      "epoch": 19,
+      "train_mse_batch_mean": 0.013851129915565252,
+      "train_psnr_db": 18.691747665405273
+    },
+    {
+      "epoch": 20,
+      "train_mse_batch_mean": 0.013788529671728611,
+      "train_psnr_db": 18.39817237854004
+    },
+    {
+      "epoch": 21,
+      "train_mse_batch_mean": 0.014029738493263721,
+      "train_psnr_db": 18.556026458740234
+    },
+    {
+      "epoch": 22,
+      "train_mse_batch_mean": 0.01432834891602397,
+      "train_psnr_db": 18.590347290039062
+    },
+    {
+      "epoch": 23,
+      "train_mse_batch_mean": 0.014466014690697193,
+      "train_psnr_db": 18.63654327392578
+    },
+    {
+      "epoch": 24,
+      "train_mse_batch_mean": 0.014255642890930176,
+      "train_psnr_db": 18.612245559692383
+    },
+    {
+      "epoch": 25,
+      "train_mse_batch_mean": 0.013947713188827038,
+      "train_psnr_db": 18.783645629882812
+    },
+    {
+      "epoch": 26,
+      "train_mse_batch_mean": 0.01396133378148079,
+      "train_psnr_db": 18.51646614074707
+    },
+    {
+      "epoch": 27,
+      "train_mse_batch_mean": 0.013768508564680815,
+      "train_psnr_db": 18.841272354125977
+    },
+    {
+      "epoch": 28,
+      "train_mse_batch_mean": 0.013506073504686356,
+      "train_psnr_db": 18.75152015686035
+    },
+    {
+      "epoch": 29,
+      "train_mse_batch_mean": 0.013350199908018112,
+      "train_psnr_db": 18.879810333251953
+    },
+    {
+      "epoch": 30,
+      "train_mse_batch_mean": 0.013533949851989746,
+      "train_psnr_db": 18.70658302307129
+    }
+  ]
+}

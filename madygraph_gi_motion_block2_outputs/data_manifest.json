@@ -1,0 +1,31 @@
+{
+  "paper_reference": "Lu et al., Motion-aware Dynamic Graph Neural Network for Video Compressive Sensing, TPAMI 2024",
+  "task": "MadyGraph-inspired residual plugin for per-frame bucket GI; not a video-SCI reproduction",
+  "data_seed": 20260902,
+  "refiner_run_seed": 20261812,
+  "seed_offset": 0,
+  "rates": [
+    128,
+    256
+  ],
+  "train_val_test_sequences": [
+    800,
+    120,
+    120
+  ],
+  "test_block": 2,
+  "data_split": "same training/validation identities; deterministic held-out block indices 360:480 in the MNIST test permutation",
+  "coarse_backbone": "C:\\Users\\lingye\\Desktop\\\u6587\u732e\\\u6587\u732e\u53ca\u7b14\u8bb0\\graph_protocol_v2_trained\\best_transformer.pt",
+  "motion_estimator": "C:\\Users\\lingye\\Desktop\\\u6587\u732e\\\u6587\u732e\u53ca\u7b14\u8bb0\\spatial_motion_outputs\\best_spatial_motion_net.pt",
+  "gi_measurement_consistency": "A^T(y_t-Ax_coarse_t), scaled by one per-rate RMS from training to preserve per-frame confidence",
+  "measurement_residual_train_rms_by_rate": {
+    "128": 0.006315945647656918,
+    "256": 0.004695618990808725
+  },
+  "refiner_objective": "reconstruction + 0.15 temporal difference + 0.10*(1-SSIM); checkpoint selected on validation MSE + 0.02*(1-validation SSIM)",
+  "graph_variants": [
+    "motion"
+  ],
+  "motion_source_at_test": "simulator ground-truth displacement for oracle; estimated from adjacent DGI frames otherwise",
+  "epochs": 5
+}

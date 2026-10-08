@@ -1,0 +1,20 @@
+[
+  {
+    "method": "Transformer",
+    "parameters": 61361,
+    "latency_ms_batch1_sequence8": 4.3454400007613,
+    "peak_memory_mb": 16.20068359375
+  },
+  {
+    "method": "GraphOraclePair",
+    "parameters": 35505,
+    "latency_ms_batch1_sequence8": 28.921936000697315,
+    "peak_memory_mb": 17.04443359375
+  },
+  {
+    "method": "GraphEstimatedPair",
+    "parameters": 666659,
+    "latency_ms_batch1_sequence8": 44.51611599884927,
+    "peak_memory_mb": 17.044921875
+  }
+]

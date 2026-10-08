@@ -1,0 +1,99 @@
+{
+  "config": {
+    "seed": 20260902,
+    "input": "two adjacent DGI frames",
+    "estimator": "shared two-scale encoder plus local correlation volumes",
+    "uses_ground_truth_motion_at_inference": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.097576692700386,
+      "val_vector_mae_pixels": 2.422386545883048
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.0958471167087556,
+      "val_vector_mae_pixels": 2.4233923735717933
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.09532297372818,
+      "val_vector_mae_pixels": 2.425363535930713
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0949325013160705,
+      "val_vector_mae_pixels": 2.422050819865295
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.094917054772377,
+      "val_vector_mae_pixels": 2.426256616324896
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0947265714406966,
+      "val_vector_mae_pixels": 2.4249916691333055
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0948701924085618,
+      "val_vector_mae_pixels": 2.4251526948419357
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0946845674514771,
+      "val_vector_mae_pixels": 2.4234114457986187
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0951192307472228,
+      "val_vector_mae_pixels": 2.422174330836251
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.0947613716125488,
+      "val_vector_mae_pixels": 2.421979100434553
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "pairs": 700,
+      "multiscale_correlation_vector_mae_pixels": 2.139921088388988,
+      "multiscale_correlation_vector_rmse_pixels": 2.2795319049087297,
+      "within_1_pixel_ratio": 0.0,
+      "previous_simple_motion_mae_pixels": 1.5716
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "pairs": 700,
+      "multiscale_correlation_vector_mae_pixels": 2.1399114995343345,
+      "multiscale_correlation_vector_rmse_pixels": 2.2795196417809485,
+      "within_1_pixel_ratio": 0.0,
+      "previous_simple_motion_mae_pixels": 1.5334
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "pairs": 700,
+      "multiscale_correlation_vector_mae_pixels": 2.1399022473607743,
+      "multiscale_correlation_vector_rmse_pixels": 2.279512138233898,
+      "within_1_pixel_ratio": 0.0,
+      "previous_simple_motion_mae_pixels": 1.5785
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "pairs": 700,
+      "multiscale_correlation_vector_mae_pixels": 2.1398953568935393,
+      "multiscale_correlation_vector_rmse_pixels": 2.279504790410357,
+      "within_1_pixel_ratio": 0.0,
+      "previous_simple_motion_mae_pixels": 1.566
+    }
+  ],
+  "parameters": 35898
+}

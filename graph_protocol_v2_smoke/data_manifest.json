@@ -1,0 +1,212 @@
+{
+  "speed_1_2": [
+    {
+      "sequence_id": 0,
+      "mnist_test_index": 4571,
+      "scenario": "speed_1_2",
+      "start_x": -1.450818227617856,
+      "start_y": 3.467763538985528,
+      "angle_rad": 0.029005897037611934,
+      "initial_speed_pixels": 1.9650269936734175,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 1,
+      "mnist_test_index": 6978,
+      "scenario": "speed_1_2",
+      "start_x": -0.6210752437475229,
+      "start_y": -2.7443978017302078,
+      "angle_rad": 3.86092560601229,
+      "initial_speed_pixels": 1.6078686479740256,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 2,
+      "mnist_test_index": 8688,
+      "scenario": "speed_1_2",
+      "start_x": 3.904027387413695,
+      "start_y": 3.925518415047036,
+      "angle_rad": 6.072799976306391,
+      "initial_speed_pixels": 1.0871781501927846,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 3,
+      "mnist_test_index": 7344,
+      "scenario": "speed_1_2",
+      "start_x": -1.7948836715797674,
+      "start_y": 0.1297175423880299,
+      "angle_rad": 2.7744581072251724,
+      "initial_speed_pixels": 1.358180126522714,
+      "acceleration_pixels_per_frame2": 0.0
+    }
+  ],
+  "speed_2_4": [
+    {
+      "sequence_id": 0,
+      "mnist_test_index": 3761,
+      "scenario": "speed_2_4",
+      "start_x": 1.9440042966954278,
+      "start_y": -0.14102596975690496,
+      "angle_rad": 3.6041544077667425,
+      "initial_speed_pixels": 2.676440233428247,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 1,
+      "mnist_test_index": 5486,
+      "scenario": "speed_2_4",
+      "start_x": -2.792854428198704,
+      "start_y": -2.770891495990478,
+      "angle_rad": 0.2526161910457335,
+      "initial_speed_pixels": 3.7097313163869527,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 2,
+      "mnist_test_index": 6554,
+      "scenario": "speed_2_4",
+      "start_x": 3.8972346704994543,
+      "start_y": -1.3892445764496433,
+      "angle_rad": 5.793754083055136,
+      "initial_speed_pixels": 2.772977341873201,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 3,
+      "mnist_test_index": 6083,
+      "scenario": "speed_2_4",
+      "start_x": 2.1186167617484095,
+      "start_y": 0.12959578993280285,
+      "angle_rad": 5.267002915204756,
+      "initial_speed_pixels": 2.7663227530660066,
+      "acceleration_pixels_per_frame2": 0.0
+    }
+  ],
+  "speed_4_6": [
+    {
+      "sequence_id": 0,
+      "mnist_test_index": 2398,
+      "scenario": "speed_4_6",
+      "start_x": 3.1637147050169236,
+      "start_y": 1.8151481133735041,
+      "angle_rad": 2.7953195251613967,
+      "initial_speed_pixels": 5.860872822233122,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 1,
+      "mnist_test_index": 2553,
+      "scenario": "speed_4_6",
+      "start_x": 2.1811478010057392,
+      "start_y": 1.4553211353975213,
+      "angle_rad": 1.8504519249098152,
+      "initial_speed_pixels": 5.94616047452775,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 2,
+      "mnist_test_index": 9739,
+      "scenario": "speed_4_6",
+      "start_x": 1.259640432251473,
+      "start_y": 0.8585333254549106,
+      "angle_rad": 3.003319950359889,
+      "initial_speed_pixels": 4.381836867140454,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 3,
+      "mnist_test_index": 647,
+      "scenario": "speed_4_6",
+      "start_x": 0.6178001925776222,
+      "start_y": 1.1784964893634342,
+      "angle_rad": 4.2848042078213995,
+      "initial_speed_pixels": 4.812742493996211,
+      "acceleration_pixels_per_frame2": 0.0
+    }
+  ],
+  "speed_6_8": [
+    {
+      "sequence_id": 0,
+      "mnist_test_index": 9197,
+      "scenario": "speed_6_8",
+      "start_x": -1.2498033821790013,
+      "start_y": 3.6550922992630106,
+      "angle_rad": 2.7326865426125755,
+      "initial_speed_pixels": 6.060098295166046,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 1,
+      "mnist_test_index": 522,
+      "scenario": "speed_6_8",
+      "start_x": -3.592838221745769,
+      "start_y": -0.9729428059463885,
+      "angle_rad": 4.531997129638099,
+      "initial_speed_pixels": 6.477919627753115,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 2,
+      "mnist_test_index": 8068,
+      "scenario": "speed_6_8",
+      "start_x": -0.4925707229627383,
+      "start_y": 3.5718715182210277,
+      "angle_rad": 3.2426444309229225,
+      "initial_speed_pixels": 6.296986061912717,
+      "acceleration_pixels_per_frame2": 0.0
+    },
+    {
+      "sequence_id": 3,
+      "mnist_test_index": 3164,
+      "scenario": "speed_6_8",
+      "start_x": 0.24563424081213547,
+      "start_y": 0.3459395675135042,
+      "angle_rad": 3.468818836033293,
+      "initial_speed_pixels": 6.098893525628411,
+      "acceleration_pixels_per_frame2": 0.0
+    }
+  ],
+  "acceleration": [
+    {
+      "sequence_id": 0,
+      "mnist_test_index": 1150,
+      "scenario": "acceleration",
+      "start_x": -3.166221446414972,
+      "start_y": 2.556822431116278,
+      "angle_rad": 0.5145553614554147,
+      "initial_speed_pixels": 1.3786927606350812,
+      "acceleration_pixels_per_frame2": 0.5791318918723523
+    },
+    {
+      "sequence_id": 1,
+      "mnist_test_index": 8210,
+      "scenario": "acceleration",
+      "start_x": -1.843601156466871,
+      "start_y": -1.6887282668438424,
+      "angle_rad": 2.788718340697576,
+      "initial_speed_pixels": 1.6773916795513457,
+      "acceleration_pixels_per_frame2": 0.6098729583588539
+    },
+    {
+      "sequence_id": 2,
+      "mnist_test_index": 6646,
+      "scenario": "acceleration",
+      "start_x": 0.26828628858529857,
+      "start_y": -1.1303077079371775,
+      "angle_rad": 1.8243124214371278,
+      "initial_speed_pixels": 1.395095786365463,
+      "acceleration_pixels_per_frame2": 0.7316305053839364
+    },
+    {
+      "sequence_id": 3,
+      "mnist_test_index": 1660,
+      "scenario": "acceleration",
+      "start_x": 1.8276741826746496,
+      "start_y": -1.076042339783049,
+      "angle_rad": 6.227806846253627,
+      "initial_speed_pixels": 1.80686783398288,
+      "acceleration_pixels_per_frame2": 0.5078500443485288
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "description": "在 DGI 输入特征上复现现有 8x8 patch 局部匹配规则；误差越小越好。",
+  "results": [
+    {
+      "pattern_count": 128,
+      "patch_grid": "8x8",
+      "patch_width_pixels": 8.0,
+      "true_motion_mean_pixels": [
+        -0.14890438318252563,
+        -0.06891598552465439
+      ],
+      "true_motion_speed_mean_pixels": 2.1405608654022217,
+      "matched_edge_mean_vector_pixels": [
+        0.012678571045398712,
+        -0.028035713359713554
+      ],
+      "matched_edge_self_ratio": 0.714241087436676,
+      "matched_edge_vector_mae_pixels": 4.127313137054443,
+      "same_position_edge_vector_mae_pixels": 2.1405608654022217
+    },
+    {
+      "pattern_count": 256,
+      "patch_grid": "8x8",
+      "patch_width_pixels": 8.0,
+      "true_motion_mean_pixels": [
+        -0.14890438318252563,
+        -0.06891598552465439
+      ],
+      "true_motion_speed_mean_pixels": 2.1405608654022217,
+      "matched_edge_mean_vector_pixels": [
+        0.014821428805589676,
+        -0.015892857685685158
+      ],
+      "matched_edge_self_ratio": 0.6891071200370789,
+      "matched_edge_vector_mae_pixels": 4.298151016235352,
+      "same_position_edge_vector_mae_pixels": 2.1405608654022217
+    },
+    {
+      "pattern_count": 512,
+      "patch_grid": "8x8",
+      "patch_width_pixels": 8.0,
+      "true_motion_mean_pixels": [
+        -0.14890438318252563,
+        -0.06891598552465439
+      ],
+      "true_motion_speed_mean_pixels": 2.1405608654022217,
+      "matched_edge_mean_vector_pixels": [
+        -0.013035714626312256,
+        -0.018214285373687744
+      ],
+      "matched_edge_self_ratio": 0.7153348326683044,
+      "matched_edge_vector_mae_pixels": 4.063118934631348,
+      "same_position_edge_vector_mae_pixels": 2.1405608654022217
+    },
+    {
+      "pattern_count": 1024,
+      "patch_grid": "8x8",
+      "patch_width_pixels": 8.0,
+      "true_motion_mean_pixels": [
+        -0.14890438318252563,
+        -0.06891598552465439
+      ],
+      "true_motion_speed_mean_pixels": 2.1405608654022217,
+      "matched_edge_mean_vector_pixels": [
+        -0.019821427762508392,
+        0.02250000089406967
+      ],
+      "matched_edge_self_ratio": 0.7106919884681702,
+      "matched_edge_vector_mae_pixels": 4.066772937774658,
+      "same_position_edge_vector_mae_pixels": 2.1405608654022217
+    }
+  ]
+}

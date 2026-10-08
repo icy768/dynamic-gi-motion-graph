@@ -1,0 +1,25 @@
+{
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "dtype": "torch.float64",
+  "measurement": {
+    "adjoint_relative_error": 0.0,
+    "residual_max_abs_error_vs_explicit_formula": 0.0,
+    "residual_api_parameters": [
+      "bucket",
+      "coarse",
+      "patterns"
+    ]
+  },
+  "warp": {
+    "zero_displacement_max_abs_error": 4.76837158203125e-07,
+    "dx_plus4_dy_minus4_peak_yx": [
+      7,
+      9
+    ],
+    "integer_translation_target_max_abs_error": 0.0,
+    "half_shift_sample_at_original": 0.4999995231628418,
+    "half_shift_sample_one_feature_cell_right": 0.5,
+    "pixel_to_feature_scale": 4
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "runs": [
+    "C:\\Users\\lingye\\Desktop\\文献\\文献及笔记\\joint_motion_tgnn_outputs",
+    "C:\\Users\\lingye\\Desktop\\文献\\文献及笔记\\joint_motion_tgnn_seed_20260903",
+    "C:\\Users\\lingye\\Desktop\\文献\\文献及笔记\\joint_motion_tgnn_seed_20260904"
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "runs": 3,
+      "psnr_mean_db_across_runs_mean": 17.994731079737345,
+      "psnr_mean_db_across_runs_std": 0.36195627279521086,
+      "ssim_mean_across_runs_mean": 0.7125608599185944,
+      "ssim_mean_across_runs_std": 0.04044524257507567,
+      "temporal_difference_error_mean_across_runs_mean": 0.041413628083343305,
+      "temporal_difference_error_mean_across_runs_std": 0.0021961620991819103,
+      "motion_vector_error_pixels_mean_across_runs_mean": 1.4063217096030713,
+      "motion_vector_error_pixels_mean_across_runs_std": 0.018379887950862914
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "runs": 3,
+      "psnr_mean_db_across_runs_mean": 20.431745602289837,
+      "psnr_mean_db_across_runs_std": 0.21236294998681293,
+      "ssim_mean_across_runs_mean": 0.8173586901028952,
+      "ssim_mean_across_runs_std": 0.021061307026722365,
+      "temporal_difference_error_mean_across_runs_mean": 0.03247588057070971,
+      "temporal_difference_error_mean_across_runs_std": 0.000938565664976377,
+      "motion_vector_error_pixels_mean_across_runs_mean": 1.3572192878524463,
+      "motion_vector_error_pixels_mean_across_runs_std": 0.04564618525765785
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "runs": 3,
+      "psnr_mean_db_across_runs_mean": 22.625395526885985,
+      "psnr_mean_db_across_runs_std": 0.030172078038646494,
+      "ssim_mean_across_runs_mean": 0.887945363521576,
+      "ssim_mean_across_runs_std": 0.007508109077561514,
+      "temporal_difference_error_mean_across_runs_mean": 0.025906109333348765,
+      "temporal_difference_error_mean_across_runs_std": 0.0003334007302891568,
+      "motion_vector_error_pixels_mean_across_runs_mean": 1.4130822622776031,
+      "motion_vector_error_pixels_mean_across_runs_std": 0.03825302076587888
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "runs": 3,
+      "psnr_mean_db_across_runs_mean": 24.261944478352863,
+      "psnr_mean_db_across_runs_std": 0.023964745779412152,
+      "ssim_mean_across_runs_mean": 0.9229909519354503,
+      "ssim_mean_across_runs_std": 0.002034431225458577,
+      "temporal_difference_error_mean_across_runs_mean": 0.021925592011151216,
+      "temporal_difference_error_mean_across_runs_std": 0.00015591883113295663,
+      "motion_vector_error_pixels_mean_across_runs_mean": 1.4233032087484994,
+      "motion_vector_error_pixels_mean_across_runs_std": 0.022250181970163884
+    }
+  ]
+}

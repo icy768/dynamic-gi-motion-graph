@@ -1,0 +1,63 @@
+# Local datasets and model assets
+/data/
+/datasets/
+/assets/
+/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.npy
+*.npz
+
+# Paper PDFs and local archives
+*.pdf
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.gz
+*.bundle
+
+# Temporary files and tool caches
+__pycache__/
+*.py[cod]
+/.tmp_paper_notes/
+/tmp/
+/.local-tools/
+/.local-backup/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.matplotlib/
+.ipynb_checkpoints/
+.venv/
+venv/
+.vscode/
+.idea/
+*.log
+*.tmp
+*.bak
+~$*
+/111.docx
+Thumbs.db
+.DS_Store
+
+# Local authentication and configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+id_rsa*
+id_ed25519*
+credentials
+credentials.json
+/.codex/
+/.agents/
+
+# Keep existing CSV, JSON, PNG, Markdown and authored Word notes tracked.

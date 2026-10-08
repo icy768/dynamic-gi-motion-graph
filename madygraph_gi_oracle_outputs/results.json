@@ -1,0 +1,371 @@
+{
+  "manifest": {
+    "paper_reference": "Lu et al., Motion-aware Dynamic Graph Neural Network for Video Compressive Sensing, TPAMI 2024",
+    "task": "MadyGraph-inspired residual plugin for per-frame bucket GI; not a video-SCI reproduction",
+    "data_seed": 20260902,
+    "refiner_run_seed": 20261812,
+    "seed_offset": 0,
+    "rates": [
+      128,
+      256
+    ],
+    "train_val_test_sequences": [
+      800,
+      120,
+      120
+    ],
+    "test_block": 2,
+    "data_split": "same training/validation identities; deterministic held-out block indices 360:480 in the MNIST test permutation",
+    "coarse_backbone": "C:\\Users\\lingye\\Desktop\\\u6587\u732e\\\u6587\u732e\u53ca\u7b14\u8bb0\\graph_protocol_v2_trained\\best_transformer.pt",
+    "motion_estimator": "C:\\Users\\lingye\\Desktop\\\u6587\u732e\\\u6587\u732e\u53ca\u7b14\u8bb0\\spatial_motion_outputs\\best_spatial_motion_net.pt",
+    "gi_measurement_consistency": "A^T(y_t-Ax_coarse_t), scaled by one per-rate RMS from training to preserve per-frame confidence",
+    "measurement_residual_train_rms_by_rate": {
+      "128": 0.006315945647656918,
+      "256": 0.004695618990808725
+    },
+    "refiner_objective": "reconstruction + 0.15 temporal difference + 0.10*(1-SSIM); checkpoint selected on validation MSE + 0.02*(1-validation SSIM)",
+    "graph_variants": [
+      "oracle"
+    ],
+    "motion_source_at_test": "simulator ground-truth displacement for oracle; estimated from adjacent DGI frames otherwise",
+    "epochs": 5
+  },
+  "histories": {
+    "oracle": [
+      {
+        "epoch": 1,
+        "train_loss": 0.08497088722884655,
+        "val_mse": 0.013308807042388555,
+        "val_ssim": 0.7375177336235841,
+        "val_selection_score": 0.018558452369916874
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.07380360022187232,
+        "val_mse": 0.01130764486345773,
+        "val_ssim": 0.7607375760873158,
+        "val_selection_score": 0.016092893341711413
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.06806915216147899,
+        "val_mse": 0.010244958755113961,
+        "val_ssim": 0.7836624823510647,
+        "val_selection_score": 0.014571709108092665
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.0651790963113308,
+        "val_mse": 0.00951836452295538,
+        "val_ssim": 0.7872345298528671,
+        "val_selection_score": 0.013773673925898037
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.06280392907559872,
+        "val_mse": 0.009590082075737883,
+        "val_ssim": 0.7998699203133584,
+        "val_selection_score": 0.013592683669470716
+      }
+    ]
+  },
+  "parameters": {
+    "oracle": {
+      "parameters": 27961,
+      "checkpoint": "C:\\Users\\lingye\\Desktop\\\u6587\u732e\\\u6587\u732e\u53ca\u7b14\u8bb0\\madygraph_gi_oracle_outputs\\best_oracle_refiner.pt"
+    }
+  },
+  "summary": [
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 19.08395791053772,
+      "psnr_db_std": 2.29925765081377,
+      "ssim_mean": 0.7480079680681229,
+      "ssim_std": 0.06296851419066621,
+      "foreground_psnr_db_mean": 14.062062191963197,
+      "foreground_psnr_db_std": 1.2982554569028841,
+      "temporal_difference_error_mean": 0.028529797820374368,
+      "temporal_difference_error_std": 0.009810643611856391
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 17.845488238334656,
+      "psnr_db_std": 2.146539254556701,
+      "ssim_mean": 0.6879707396030426,
+      "ssim_std": 0.07081329887778096,
+      "foreground_psnr_db_mean": 12.92350504398346,
+      "foreground_psnr_db_std": 1.4279630721649716,
+      "temporal_difference_error_mean": 0.033856814028695226,
+      "temporal_difference_error_std": 0.011051816766832877
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 19.608955764770506,
+      "psnr_db_std": 1.767815358543782,
+      "ssim_mean": 0.757536132633686,
+      "ssim_std": 0.05027827023251783,
+      "foreground_psnr_db_mean": 14.458884763717652,
+      "foreground_psnr_db_std": 0.9091152047172345,
+      "temporal_difference_error_mean": 0.044506991864182055,
+      "temporal_difference_error_std": 0.01237132947870376
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 17.766974020004273,
+      "psnr_db_std": 1.647369910704046,
+      "ssim_mean": 0.6808826491236687,
+      "ssim_std": 0.058855689275417906,
+      "foreground_psnr_db_mean": 12.794849920272828,
+      "foreground_psnr_db_std": 0.9311756853149313,
+      "temporal_difference_error_mean": 0.056072353245690466,
+      "temporal_difference_error_std": 0.016295063319424125
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 21.220057439804076,
+      "psnr_db_std": 2.5691202233223667,
+      "ssim_mean": 0.783312526345253,
+      "ssim_std": 0.06291257612001608,
+      "foreground_psnr_db_mean": 15.229331016540527,
+      "foreground_psnr_db_std": 1.3454231242388013,
+      "temporal_difference_error_mean": 0.05285745481960476,
+      "temporal_difference_error_std": 0.020178879273583358
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 18.395690298080446,
+      "psnr_db_std": 2.2593464372198766,
+      "ssim_mean": 0.6874658063054084,
+      "ssim_std": 0.06352510246015611,
+      "foreground_psnr_db_mean": 12.670127511024475,
+      "foreground_psnr_db_std": 1.332887815987799,
+      "temporal_difference_error_mean": 0.0723595588002354,
+      "temporal_difference_error_std": 0.024136038309832207
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 120,
+      "psnr_db_mean": 19.9709903717041,
+      "psnr_db_std": 2.398521701773607,
+      "ssim_mean": 0.7629522090156873,
+      "ssim_std": 0.06040998290218532,
+      "foreground_psnr_db_mean": 14.583425990740459,
+      "foreground_psnr_db_std": 1.2858103514994315,
+      "temporal_difference_error_mean": 0.04196474816805373,
+      "temporal_difference_error_std": 0.017829118847774755
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "method": "TransformerCoarse",
+      "sequences": 120,
+      "psnr_db_mean": 18.002717518806456,
+      "psnr_db_std": 2.037478731020933,
+      "ssim_mean": 0.6854397316773733,
+      "ssim_std": 0.06412273742699555,
+      "foreground_psnr_db_mean": 12.796160825093587,
+      "foreground_psnr_db_std": 1.2431716515333022,
+      "temporal_difference_error_mean": 0.054096242024873696,
+      "temporal_difference_error_std": 0.023855678015083155
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 21.72193169593811,
+      "psnr_db_std": 2.5507222715862685,
+      "ssim_mean": 0.8574452579021454,
+      "ssim_std": 0.04699759807422927,
+      "foreground_psnr_db_mean": 15.718587875366211,
+      "foreground_psnr_db_std": 1.477196630598903,
+      "temporal_difference_error_mean": 0.022412719507701694,
+      "temporal_difference_error_std": 0.007671702846036096
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 20.483824968338013,
+      "psnr_db_std": 2.280338010961415,
+      "ssim_mean": 0.8221467763185502,
+      "ssim_std": 0.049303212206789,
+      "foreground_psnr_db_mean": 14.516384983062744,
+      "foreground_psnr_db_std": 1.3067874731409466,
+      "temporal_difference_error_mean": 0.026271291845478117,
+      "temporal_difference_error_std": 0.008512816559792925
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 21.896978092193603,
+      "psnr_db_std": 1.8901606963332425,
+      "ssim_mean": 0.8598206132650376,
+      "ssim_std": 0.03853135202621582,
+      "foreground_psnr_db_mean": 16.081906414031984,
+      "foreground_psnr_db_std": 1.0820290715022491,
+      "temporal_difference_error_mean": 0.03443700496573001,
+      "temporal_difference_error_std": 0.009635978474706574
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 20.027990341186523,
+      "psnr_db_std": 1.7694385039753626,
+      "ssim_mean": 0.8099153310060501,
+      "ssim_std": 0.04786060328199257,
+      "foreground_psnr_db_mean": 14.266321611404418,
+      "foreground_psnr_db_std": 0.998645989152443,
+      "temporal_difference_error_mean": 0.04287214775104076,
+      "temporal_difference_error_std": 0.012229889207129262
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 40,
+      "psnr_db_mean": 23.13282036781311,
+      "psnr_db_std": 2.2793136388859367,
+      "ssim_mean": 0.8750260755419731,
+      "ssim_std": 0.04642316355018867,
+      "foreground_psnr_db_mean": 16.588386368751525,
+      "foreground_psnr_db_std": 1.3844295275903316,
+      "temporal_difference_error_mean": 0.04006628841161728,
+      "temporal_difference_error_std": 0.014846073870170753
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "method": "TransformerCoarse",
+      "sequences": 40,
+      "psnr_db_mean": 20.57984890937805,
+      "psnr_db_std": 2.2885519868102504,
+      "ssim_mean": 0.8172072857618332,
+      "ssim_std": 0.05500460743220367,
+      "foreground_psnr_db_mean": 14.060214257240295,
+      "foreground_psnr_db_std": 1.3564493427095532,
+      "temporal_difference_error_mean": 0.05270906863734126,
+      "temporal_difference_error_std": 0.018883131507073228
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "method": "OracleMotionGraphResidual",
+      "sequences": 120,
+      "psnr_db_mean": 22.250576718648276,
+      "psnr_db_std": 2.3245246792395,
+      "ssim_mean": 0.8640973155697187,
+      "ssim_std": 0.04447381834038442,
+      "foreground_psnr_db_mean": 16.129626886049905,
+      "foreground_psnr_db_std": 1.3620910692498747,
+      "temporal_difference_error_mean": 0.03230533762834966,
+      "temporal_difference_error_std": 0.01328992093839875
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "method": "TransformerCoarse",
+      "sequences": 120,
+      "psnr_db_mean": 20.36388807296753,
+      "psnr_db_std": 2.122545434092894,
+      "ssim_mean": 0.8164231310288111,
+      "ssim_std": 0.05063961853308349,
+      "foreground_psnr_db_mean": 14.28097361723582,
+      "foreground_psnr_db_std": 1.2347471370615333,
+      "temporal_difference_error_mean": 0.040617502744620046,
+      "temporal_difference_error_std": 0.017597257005840805
+    }
+  ],
+  "paired_gains": [
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.238469672203064,
+      "paired_psnr_gain_std_db": 0.6990523829480954,
+      "paired_win_rate": 0.975
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.8419817447662354,
+      "paired_psnr_gain_std_db": 0.5557334392137261,
+      "paired_win_rate": 1.0
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 2.824367141723633,
+      "paired_psnr_gain_std_db": 0.721745756809762,
+      "paired_win_rate": 1.0
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.968272852897644,
+      "paired_psnr_gain_std_db": 0.9288883053347171,
+      "paired_win_rate": 0.9916666666666667
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.2381067276000977,
+      "paired_psnr_gain_std_db": 0.6671770773396344,
+      "paired_win_rate": 0.975
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.86898775100708,
+      "paired_psnr_gain_std_db": 0.6438314344450393,
+      "paired_win_rate": 1.0
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 2.5529714584350587,
+      "paired_psnr_gain_std_db": 0.7644715855412617,
+      "paired_win_rate": 1.0
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "method": "OracleMotionGraphResidual",
+      "paired_psnr_gain_mean_db": 1.8866886456807455,
+      "paired_psnr_gain_std_db": 0.874064025109487,
+      "paired_win_rate": 0.9916666666666667
+    }
+  ],
+  "elapsed_seconds": 25.585925579071045
+}

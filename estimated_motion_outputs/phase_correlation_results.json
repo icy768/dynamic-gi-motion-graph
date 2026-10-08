@@ -1,0 +1,52 @@
+{
+  "config": {
+    "seed": 20260902,
+    "test_sequences": 100,
+    "frame_pairs_per_sequence": 7,
+    "estimator": "Hann-windowed phase correlation with integer-pixel peak",
+    "max_search_shift_pixels": 5,
+    "uses_ground_truth_for_estimation": false
+  },
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "pairs": 700,
+      "phase_correlation_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_vector_rmse_pixels": 2.2833058834075928,
+      "zero_motion_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_better_than_zero_ratio": 0.0,
+      "within_1_pixel_ratio": 0.0
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "pairs": 700,
+      "phase_correlation_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_vector_rmse_pixels": 2.2833058834075928,
+      "zero_motion_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_better_than_zero_ratio": 0.0,
+      "within_1_pixel_ratio": 0.0
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "pairs": 700,
+      "phase_correlation_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_vector_rmse_pixels": 2.2833058834075928,
+      "zero_motion_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_better_than_zero_ratio": 0.0,
+      "within_1_pixel_ratio": 0.0
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "pairs": 700,
+      "phase_correlation_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_vector_rmse_pixels": 2.2833058834075928,
+      "zero_motion_vector_mae_pixels": 2.1405608654022217,
+      "phase_correlation_better_than_zero_ratio": 0.0,
+      "within_1_pixel_ratio": 0.0
+    }
+  ]
+}

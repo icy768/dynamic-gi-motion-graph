@@ -1,0 +1,134 @@
+{
+  "config": {
+    "seed": 20260902,
+    "epochs": 10,
+    "motion_loss_weight": 0.05,
+    "initialization": "pretrained EstimatedMotionTGNN",
+    "uses_ground_truth_motion_at_inference": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "reconstruction_loss": 0.04835663205012679,
+      "motion_loss": 0.6673990926146507,
+      "val_mse": 0.00983122298688007
+    },
+    {
+      "epoch": 2,
+      "reconstruction_loss": 0.04646891955286264,
+      "motion_loss": 0.6531355291604996,
+      "val_mse": 0.009697879905676625
+    },
+    {
+      "epoch": 3,
+      "reconstruction_loss": 0.045681333635002375,
+      "motion_loss": 0.6566178902983666,
+      "val_mse": 0.009927779789965523
+    },
+    {
+      "epoch": 4,
+      "reconstruction_loss": 0.04506918912753463,
+      "motion_loss": 0.6538946065306663,
+      "val_mse": 0.009536112640974655
+    },
+    {
+      "epoch": 5,
+      "reconstruction_loss": 0.045426793564110994,
+      "motion_loss": 0.6505838060379028,
+      "val_mse": 0.011882856755255489
+    },
+    {
+      "epoch": 6,
+      "reconstruction_loss": 0.04518154235556722,
+      "motion_loss": 0.6449816915392875,
+      "val_mse": 0.012003257784090237
+    },
+    {
+      "epoch": 7,
+      "reconstruction_loss": 0.04435419306159019,
+      "motion_loss": 0.6502564868330956,
+      "val_mse": 0.00947436565256794
+    },
+    {
+      "epoch": 8,
+      "reconstruction_loss": 0.043870033230632544,
+      "motion_loss": 0.6419102659821511,
+      "val_mse": 0.010040383312055685
+    },
+    {
+      "epoch": 9,
+      "reconstruction_loss": 0.04385684691369533,
+      "motion_loss": 0.6291170549392701,
+      "val_mse": 0.009423716541399093
+    },
+    {
+      "epoch": 10,
+      "reconstruction_loss": 0.042779135685414076,
+      "motion_loss": 0.627154937684536,
+      "val_mse": 0.009790162200806663
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "JointMotionTGNN",
+      "mse_mean": 0.01798264476470649,
+      "mse_std": 0.00498391443429101,
+      "psnr_mean_db": 17.612274017333984,
+      "psnr_std_db": 1.1888369248215949,
+      "ssim_mean": 0.6698119986057282,
+      "ssim_std": 0.044457255642663014,
+      "temporal_difference_error_mean": 0.043678810130804775,
+      "temporal_difference_error_std": 0.014221841067324832,
+      "motion_vector_error_pixels_mean": 1.3982924261689187,
+      "motion_vector_error_pixels_std": 0.6949058267067062
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "JointMotionTGNN",
+      "mse_mean": 0.01026857758872211,
+      "mse_std": 0.0038845702849361783,
+      "psnr_mean_db": 20.21293071746826,
+      "psnr_std_db": 1.7547894063904648,
+      "ssim_mean": 0.7949086284637451,
+      "ssim_std": 0.04338384819976091,
+      "temporal_difference_error_mean": 0.03342000557109714,
+      "temporal_difference_error_std": 0.012182908231306572,
+      "motion_vector_error_pixels_mean": 1.3568105790764093,
+      "motion_vector_error_pixels_std": 0.6605639716719951
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "JointMotionTGNN",
+      "mse_mean": 0.0059825739520601925,
+      "mse_std": 0.002450613486291922,
+      "psnr_mean_db": 22.600160083770753,
+      "psnr_std_db": 1.8503164320941086,
+      "ssim_mean": 0.8799537962675095,
+      "ssim_std": 0.03278316187249764,
+      "temporal_difference_error_mean": 0.026201268397271632,
+      "temporal_difference_error_std": 0.009979928655645415,
+      "motion_vector_error_pixels_mean": 1.4112088331580162,
+      "motion_vector_error_pixels_std": 0.637419215721478
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "JointMotionTGNN",
+      "mse_mean": 0.00408199725789018,
+      "mse_std": 0.0017342808947704385,
+      "psnr_mean_db": 24.289605865478517,
+      "psnr_std_db": 1.9294579047089386,
+      "ssim_mean": 0.9208414912223816,
+      "ssim_std": 0.02513196071467963,
+      "temporal_difference_error_mean": 0.022039198619313537,
+      "temporal_difference_error_std": 0.008400670304530502,
+      "motion_vector_error_pixels_mean": 1.4024431259930135,
+      "motion_vector_error_pixels_std": 0.6838159500951746
+    }
+  ],
+  "elapsed_seconds": 187.2374186515808
+}
