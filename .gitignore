@@ -4,6 +4,8 @@
 /assets/
 /checkpoints/
 /runs/
+/dist/
+/CODE_VERSION.json
 *.pt
 *.pth
 *.ckpt

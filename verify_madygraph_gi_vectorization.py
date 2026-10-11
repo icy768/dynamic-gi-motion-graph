@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import json
 import sys
 from pathlib import Path
@@ -20,7 +22,7 @@ from train_spatial_motion_diagnostic import SpatialMotionNet
 
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE / "madygraph_gi_plugin_v2_outputs"
+OUT = PROJECT_ROOT / 'madygraph_gi_plugin_v2_outputs'
 
 
 def main():

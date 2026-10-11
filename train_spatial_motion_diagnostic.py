@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import json
 import sys
@@ -22,7 +24,7 @@ from train_graph_protocol_v2 import (
 )
 
 
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 
 
 class SpatialMotionNet(nn.Module):
@@ -101,7 +103,7 @@ def evaluate_motion(model, loader, bank, device):
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--epochs", type=int, default=20)
-    parser.add_argument("--output-dir", type=Path, default=Path("spatial_motion_outputs"))
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / 'spatial_motion_outputs')
     args = parser.parse_args()
     sys.path[:0] = [str(PROJECT), str(Path(__file__).resolve().parent)]
     from mini_repro_dynghost import make_patterns

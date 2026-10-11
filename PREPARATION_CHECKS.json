@@ -1,0 +1,205 @@
+{
+  "checked_at_utc": "2026-10-11T12:10:50+00:00",
+  "purpose": "Engineering preparation only; no reserved final test evaluation or new scientific conclusion",
+  "project_layout": "One self-contained project root; runtime paths inferred from script location",
+  "runtime_source_sha256": "035e6ad969a76850d581dea1b3d13d798812bd97941df580b6ad5c56ac895489",
+  "required_assets": {
+    "verified_files": 6,
+    "bytes": 57749421,
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  },
+  "mnist_raw_bytes": 54950048,
+  "frozen_checkpoint_bytes": 2799373,
+  "local_preflight": {
+    "passed": true,
+    "assets": {
+      "verified_files": 6,
+      "bytes": 57749421,
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "python_files_parsed": 43,
+    "runtime": {
+      "created_at_utc": "2026-10-11T12:05:13+00:00",
+      "python": "3.11.15",
+      "platform": "Windows-10-10.0.22631-SP0",
+      "packages": {
+        "torch": "2.13.0+cu126",
+        "torchvision": "0.28.0+cu126",
+        "numpy": "2.4.4",
+        "matplotlib": "3.11.1",
+        "pytorch-msssim": "1.0.0",
+        "Pillow": "12.2.0"
+      },
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+      "code_version": {
+        "commit": "a2dd0aed895369c01592d4a57e8513c955b65b62",
+        "working_tree_dirty": true,
+        "runtime_source_sha256": "035e6ad969a76850d581dea1b3d13d798812bd97941df580b6ad5c56ac895489"
+      },
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "validation_sequences_used": 2,
+    "reserved_final_test_read": false,
+    "checks": [
+      {
+        "pattern_count": 128,
+        "bucket_dgi_max_abs_difference": 0.0,
+        "zero_measurement_residual_max_abs": 0.0,
+        "three_refiner_forward_shapes": [
+          2,
+          8,
+          1,
+          64,
+          64
+        ]
+      },
+      {
+        "pattern_count": 256,
+        "bucket_dgi_max_abs_difference": 0.0,
+        "zero_measurement_residual_max_abs": 0.0,
+        "three_refiner_forward_shapes": [
+          2,
+          8,
+          1,
+          64,
+          64
+        ]
+      }
+    ]
+  },
+  "local_gpu_smoke": {
+    "passed": true,
+    "runtime": {
+      "created_at_utc": "2026-10-11T12:05:34+00:00",
+      "python": "3.11.15",
+      "platform": "Windows-10-10.0.22631-SP0",
+      "packages": {
+        "torch": "2.13.0+cu126",
+        "torchvision": "0.28.0+cu126",
+        "numpy": "2.4.4",
+        "matplotlib": "3.11.1",
+        "pytorch-msssim": "1.0.0",
+        "Pillow": "12.2.0"
+      },
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+      "code_version": {
+        "commit": "a2dd0aed895369c01592d4a57e8513c955b65b62",
+        "working_tree_dirty": true,
+        "runtime_source_sha256": "035e6ad969a76850d581dea1b3d13d798812bd97941df580b6ad5c56ac895489"
+      },
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "training_sequences": 16,
+    "validation_sequences": 8,
+    "epochs": 1,
+    "variant_order_max_parameter_difference": 4.76837158203125e-07,
+    "reserved_final_test_read": false,
+    "directory": "runs/preparation_smoke/1791720314196617500",
+    "completed": [
+      "forward",
+      "backward",
+      "checkpoint_selection",
+      "variant_order_invariance",
+      "validation_metrics",
+      "paired_statistics",
+      "figures",
+      "stage_timing"
+    ]
+  },
+  "relocation_check": {
+    "passed": true,
+    "archive_crc_passed": true,
+    "unique_members": true,
+    "verified_package_files": 286,
+    "launched_from_a_different_working_directory": true,
+    "device": "cpu",
+    "all_resources_resolved_inside_moved_project": true,
+    "reserved_final_test_read": false
+  },
+  "dependency_and_protocol_guards": {
+    "passed": true,
+    "imported_python_modules": [
+      "benchmark_graph_v3_efficiency.py",
+      "benchmark_madygraph_gi_plugin_efficiency.py",
+      "benchmark_models.py",
+      "benchmark_transformer_vs_joint.py",
+      "diagnose_dgi_motion_correlation.py",
+      "evaluate_graph_protocol_v2.py",
+      "evaluate_madygraph_gi_final.py",
+      "evaluate_madygraph_measurement_noise.py",
+      "finetune_fair_oracle_tgnn.py",
+      "gi_experiment.py",
+      "inspect_madygraph_gi_plugin.py",
+      "mini_repro_dynghost.py",
+      "motion_edge_diagnostic.py",
+      "oracle_motion_graph_ablation.py",
+      "package_gi_project.py",
+      "phase_correlation_motion_diagnostic.py",
+      "project_paths.py",
+      "run_eight_sequence_overfit.py",
+      "run_notebook_smoke.py",
+      "run_server_experiment.py",
+      "summarize_joint_repeats.py",
+      "summarize_transformer_vs_joint.py",
+      "train_coordinate_motion.py",
+      "train_dgi_motion_estimator.py",
+      "train_estimated_motion_tgnn.py",
+      "train_frame_cnn.py",
+      "train_graph_protocol_v2.py",
+      "train_joint_motion_tgnn.py",
+      "train_madygraph_gi_plugin.py",
+      "train_mixed_sampling.py",
+      "train_motion_tgnn.py",
+      "train_multiscale_correlation_motion.py",
+      "train_oracle_motion_tgnn.py",
+      "train_patch_tgnn.py",
+      "train_residual_multiscale_motion.py",
+      "train_spatial_estimated_graph.py",
+      "train_spatial_motion_diagnostic.py",
+      "train_spatiotemporal_transformer.py",
+      "train_temporal_convgru.py",
+      "train_temporal_transformer.py",
+      "train_transformer_repeat.py",
+      "verify_gi_measurement_and_warp.py",
+      "verify_madygraph_gi_vectorization.py"
+    ],
+    "smoke_checkpoints_rejected_for_formal_test": true,
+    "external_output_path_rejected": true,
+    "diagnostic_checkpoint_validation_passed": true,
+    "reserved_final_test_read": false
+  },
+  "linux_launcher_bash_syntax_passed": true,
+  "powershell_launcher_parse_passed": true,
+  "generated_figures_visually_checked": [
+    "paired_gains.png",
+    "example_reconstructions.png"
+  ],
+  "reserved_final_test_block": 3,
+  "reserved_final_test_evaluated": false,
+  "server_experiment_started": false,
+  "remaining_server_checks": [
+    "Linux image torch/torchvision compatibility",
+    "CUDA availability",
+    "preflight on rented GPU",
+    "formal three-seed training and block-3 final evaluation"
+  ],
+  "limitations": [
+    "Local GPU execution used Windows and RTX 4050 Laptop GPU; a Hengyuan Linux instance has not been tested",
+    "Preparation metrics use eight validation sequences and one training epoch; they are not final experiment results",
+    "Frozen coarse and motion models are shared across refiner seeds"
+  ]
+}

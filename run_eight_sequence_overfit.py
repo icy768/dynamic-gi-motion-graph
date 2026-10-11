@@ -1,6 +1,8 @@
 """Overfit one tiny training subset to validate the refiner learning path."""
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import json
 import sys
 from pathlib import Path
@@ -10,7 +12,7 @@ import torch.nn.functional as F
 from torch.utils.data import Subset
 
 HERE = Path(__file__).resolve().parent
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 sys.path[:0] = [str(PROJECT), str(HERE)]
 
 from mini_repro_dynghost import make_patterns
@@ -30,7 +32,7 @@ def main() -> None:
     transformer = MiniSpatioTemporalTransformer().to(device).eval()
     transformer.load_state_dict(torch.load(HERE / "graph_protocol_v2_trained" / "best_transformer.pt", map_location=device))
     motion_net = SpatialMotionNet().to(device).eval()
-    motion_net.load_state_dict(torch.load(HERE / "spatial_motion_outputs" / "best_spatial_motion_net.pt", map_location=device))
+    motion_net.load_state_dict(torch.load(PROJECT_ROOT / 'spatial_motion_outputs' / "best_spatial_motion_net.pt", map_location=device))
     rate = 128
     patterns = make_patterns(rate, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device)
     with torch.inference_mode():
@@ -78,7 +80,7 @@ def main() -> None:
         "gain_db": final - initial,
         "history": history,
     }
-    out = HERE / "notebook_verification_outputs"
+    out = PROJECT_ROOT / 'notebook_verification_outputs'
     out.mkdir(exist_ok=True)
     (out / "eight_sequence_overfit.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(json.dumps(payload, indent=2))

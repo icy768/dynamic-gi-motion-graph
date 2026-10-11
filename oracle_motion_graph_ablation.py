@@ -4,6 +4,8 @@
 随机种子和训练轮数。该模型代表“同位置时序边”，用于分离正确运动边带来的收益。
 """
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import csv
 import json
@@ -18,14 +20,14 @@ from torch.utils.data import DataLoader
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT)
     parser.add_argument("--epochs", type=int, default=10)
-    parser.add_argument("--output-dir", type=Path, default=HERE / "oracle_ablation_outputs")
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / 'oracle_ablation_outputs')
     return parser.parse_args()
 
 
@@ -148,7 +150,7 @@ def main():
     sample_target, _, sample_motion = next(iter(test_loader))
     sample = coarse_sequence(sample_target[:1].to(device), bank[256])
     efficiency = measure_oracle_efficiency(model, sample, torch.zeros_like(sample_motion[:1], device=device), device)
-    oracle_results = json.loads((project_root / "oracle_motion_tgnn_outputs" / "results.json").read_text(encoding="utf-8"))
+    oracle_results = json.loads((project_root / str(PROJECT_ROOT / 'oracle_motion_tgnn_outputs') / "results.json").read_text(encoding="utf-8"))
     oracle_summary = oracle_results["summary"]
     comparison = []
     for baseline, oracle in zip(summary, oracle_summary):

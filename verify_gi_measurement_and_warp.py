@@ -1,6 +1,8 @@
 """Notebook-scale numerical checks for GI operators and motion warping."""
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import json
 import math
 import sys
@@ -8,7 +10,7 @@ from pathlib import Path
 
 import torch
 
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 sys.path.insert(0, str(PROJECT))
 from train_madygraph_gi_plugin import gi_forward, physical_residual
 from train_graph_protocol_v2 import IMAGE_SIZE
@@ -65,7 +67,7 @@ def main() -> None:
             "pixel_to_feature_scale": 4,
         },
     }
-    out = Path(__file__).resolve().parent / "notebook_verification_outputs"
+    out = Path(__file__).resolve().parent / str(PROJECT_ROOT / 'notebook_verification_outputs')
     out.mkdir(exist_ok=True)
     (out / "operator_warp_checks.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(json.dumps(payload, indent=2))

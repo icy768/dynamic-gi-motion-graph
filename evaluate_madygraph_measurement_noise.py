@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import csv
 import json
 import sys
@@ -22,7 +24,7 @@ from train_spatial_motion_diagnostic import SpatialMotionNet
 
 
 HERE = Path(__file__).resolve().parent
-OUT = HERE / "madygraph_gi_plugin_noise_outputs"
+OUT = PROJECT_ROOT / 'madygraph_gi_plugin_noise_outputs'
 TEST_BLOCK = 2
 NOISE_LEVELS = (0.0, 0.01, 0.03, 0.05, 0.10, 0.20, 0.50)
 NOISE_REPEATS = 3
@@ -85,11 +87,11 @@ def main():
     transformer.load_state_dict(torch.load(BASE_DIR / "best_transformer.pt", map_location=device))
     motion_net = SpatialMotionNet().to(device).eval()
     motion_net.load_state_dict(torch.load(MOTION_PATH, map_location=device))
-    manifest = json.loads((HERE / "madygraph_gi_plugin_v2_outputs" / "data_manifest.json").read_text(encoding="utf-8"))
+    manifest = json.loads((PROJECT_ROOT / 'madygraph_gi_plugin_v2_outputs' / "data_manifest.json").read_text(encoding="utf-8"))
     models = {}
     for kind in ("cnn", "fixed", "motion"):
         model = ResidualRefiner(kind).to(device).eval()
-        model.load_state_dict(torch.load(HERE / "madygraph_gi_plugin_v2_outputs" / f"best_{kind}_refiner.pt", map_location=device))
+        model.load_state_dict(torch.load(PROJECT_ROOT / 'madygraph_gi_plugin_v2_outputs' / f"best_{kind}_refiner.pt", map_location=device))
         models[kind] = model
 
     OUT.mkdir(parents=True, exist_ok=True)

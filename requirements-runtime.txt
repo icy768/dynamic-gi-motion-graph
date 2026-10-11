@@ -1,0 +1,5 @@
+# Preserve the CUDA image's compatible torch/torchvision pair.
+numpy>=1.24,<3
+matplotlib>=3.7,<4
+pytorch-msssim==1.0.0
+Pillow>=10,<13

@@ -1,5 +1,7 @@
 """诊断现有 8x8 局部匹配图的跨帧边是否反映真实平移。"""
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import json
 import sys
@@ -11,7 +13,7 @@ from torch.utils.data import DataLoader
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 
 
 def selected_offsets(model, pooled, batch, frames, dim):
@@ -38,7 +40,7 @@ def selected_offsets(model, pooled, batch, frames, dim):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT)
-    parser.add_argument("--output", type=Path, default=HERE / "oracle_ablation_outputs" / "motion_edge_diagnostic.json")
+    parser.add_argument("--output", type=Path, default=PROJECT_ROOT / 'oracle_ablation_outputs' / "motion_edge_diagnostic.json")
     args = parser.parse_args()
     project = args.project_root.resolve()
     sys.path.insert(0, str(project))
@@ -50,7 +52,7 @@ def main():
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = MotionAwarePatchTGNN().to(device)
-    model.load_state_dict(torch.load(project / "motion_tgnn_outputs" / "best_motion_tgnn.pt", map_location=device))
+    model.load_state_dict(torch.load(project / str(PROJECT_ROOT / 'motion_tgnn_outputs') / "best_motion_tgnn.pt", map_location=device))
     model.eval()
     loader = DataLoader(MovingMNISTWithMotion(project / "data", False, 100, SEED + 300), batch_size=4, shuffle=False)
     results = []

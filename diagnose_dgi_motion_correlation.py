@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import sys
 from pathlib import Path
 
@@ -13,7 +15,7 @@ from torch.utils.data import DataLoader
 from train_graph_protocol_v2 import IMAGE_SIZE, RATES, SEED, make_splits, seed_all
 
 
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 
 
 def candidate_motion(device: torch.device, radius: int = 7) -> torch.Tensor:

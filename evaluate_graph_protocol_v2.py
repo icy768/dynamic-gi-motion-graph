@@ -15,6 +15,8 @@ inputs for every comparison.
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import csv
 import json
@@ -34,8 +36,8 @@ from torchvision import datasets, transforms
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
-DEFAULT_OUT = HERE / "graph_protocol_v2_outputs"
+DEFAULT_PROJECT = PROJECT_ROOT
+DEFAULT_OUT = PROJECT_ROOT / 'graph_protocol_v2_outputs'
 SEED = 20260902
 SEQ_LEN = 8
 IMAGE_SIZE = 64
@@ -273,13 +275,13 @@ def main() -> None:
 
     transformer = MiniSpatioTemporalTransformer().to(device)
     transformer.load_state_dict(torch.load(
-        project / "spatiotemporal_transformer_outputs" / "best_spatiotemporal_transformer.pt",
+        project / str(PROJECT_ROOT / 'spatiotemporal_transformer_outputs') / "best_spatiotemporal_transformer.pt",
         map_location=device,
     ))
     transformer.eval()
 
     joint_state = torch.load(
-        HERE / "joint_motion_tgnn_outputs" / "best_joint_motion_tgnn.pt",
+        PROJECT_ROOT / 'joint_motion_tgnn_outputs' / "best_joint_motion_tgnn.pt",
         map_location=device,
     )
     motion_net = DgiMotionNet().to(device)

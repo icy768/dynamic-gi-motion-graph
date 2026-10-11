@@ -1,4 +1,6 @@
 """端到端联合微调：MotionNet 与连续运动 TGNN 共同优化。"""
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse,csv,json,sys,time
 from pathlib import Path
 import numpy as np
@@ -7,11 +9,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from pytorch_msssim import ssim
 from torch.utils.data import DataLoader
-HERE=Path(__file__).resolve().parent;PROJECT=Path(r"D:\download\DynGhost-mini-repro")
+HERE=Path(__file__).resolve().parent;PROJECT=PROJECT_ROOT
 def csv_save(path,rows):
  with path.open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=rows[0].keys());w.writeheader();w.writerows(rows)
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=10);ap.add_argument('--motion-weight',type=float,default=.05);ap.add_argument('--output-dir',type=Path,default=HERE/'joint_motion_tgnn_outputs');ap.add_argument('--initial-checkpoint',type=Path,default=HERE/'estimated_motion_tgnn_outputs'/'best_estimated_motion_tgnn.pt');ap.add_argument('--run-seed',type=int,default=None,help='仅改变训练随机性；数据、散斑与测试集保持固定');args=ap.parse_args();project=args.project_root.resolve();sys.path[:0]=[str(project),str(HERE)]
+ ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=10);ap.add_argument('--motion-weight',type=float,default=.05);ap.add_argument('--output-dir',type=Path,default=HERE/str(PROJECT_ROOT / 'joint_motion_tgnn_outputs'));ap.add_argument('--initial-checkpoint',type=Path,default=HERE/str(PROJECT_ROOT / 'estimated_motion_tgnn_outputs')/'best_estimated_motion_tgnn.pt');ap.add_argument('--run-seed',type=int,default=None,help='仅改变训练随机性；数据、散斑与测试集保持固定');args=ap.parse_args();project=args.project_root.resolve();sys.path[:0]=[str(project),str(HERE)]
  from mini_repro_dynghost import IMAGE_SIZE,SEED,make_patterns
  from train_frame_cnn import reconstruction_loss
  from train_mixed_sampling import RATES,coarse_sequence,stats,temporal_error

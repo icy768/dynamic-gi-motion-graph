@@ -1,0 +1,89 @@
+{
+  "config": {
+    "seed": 20260902,
+    "image_size": 64,
+    "seq_len": 8,
+    "num_patterns": 256,
+    "sampling_ratio": 0.0625,
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "batch_size": 8,
+    "epochs": 10,
+    "learning_rate": 0.001,
+    "hidden_channels_per_direction": 16
+  },
+  "fixed_test": {
+    "mnist_split": "test",
+    "mnist_index": 7,
+    "label": 9,
+    "dgi_mse": 0.21551625430583954,
+    "dgi_psnr_db": 6.665199696372418,
+    "frame_cnn_mse": 0.02735714241862297,
+    "frame_cnn_psnr_db": 15.62929268671116,
+    "temporal_mse": 0.011574077419936657,
+    "temporal_psnr_db": 19.36513616931965
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.22289646930992604,
+      "val_mse": 0.05148721275230249,
+      "val_psnr_db": 12.883006179622162
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.15587043814361096,
+      "val_mse": 0.03727786540985108,
+      "val_psnr_db": 14.28548964002182
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.16053436554968356,
+      "val_mse": 0.04429413427909215,
+      "val_psnr_db": 13.536537821040248
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.1393699137866497,
+      "val_mse": 0.05023248853782813,
+      "val_psnr_db": 12.990153061829607
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.12504050344228745,
+      "val_mse": 0.05308227986097336,
+      "val_psnr_db": 12.750504326467677
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.12983486756682397,
+      "val_mse": 0.09394521489739419,
+      "val_psnr_db": 10.271253358038102
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.12466593600809574,
+      "val_mse": 0.06101874982317289,
+      "val_psnr_db": 12.14536694603468
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.12317262515425682,
+      "val_mse": 0.03653068554898103,
+      "val_psnr_db": 14.373421775733048
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.10957287717610598,
+      "val_mse": 0.024716141074895857,
+      "val_psnr_db": 16.070193345824816
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.11194770257920027,
+      "val_mse": 0.04032331059376399,
+      "val_psnr_db": 13.944438189836507
+    }
+  ],
+  "elapsed_seconds": 105.69154047966003
+}

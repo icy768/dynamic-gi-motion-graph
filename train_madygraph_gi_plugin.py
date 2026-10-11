@@ -11,8 +11,11 @@ Transformer coarse reconstructions and residual features:
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import csv
+import hashlib
 import json
 import math
 import random
@@ -24,16 +27,24 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
+
+from project_paths import (
+    CHECKPOINT_DIR, DEFAULT_RUN, MOTION_PATH as FROZEN_MOTION_PATH,
+    asset_hashes, code_version, project_path,
+)
 
 from train_graph_protocol_v2 import (
     BouncingMovingMNIST,
     IMAGE_SIZE,
     RATES,
     SEED,
+    TRAIN_N,
     TEST_N,
     VAL_N,
     make_splits,
+    make_train_validation,
+    make_test_block,
     seed_all,
     speed_bin_name,
 )
@@ -41,12 +52,12 @@ from train_spatial_motion_diagnostic import SpatialMotionNet
 
 
 HERE = Path(__file__).resolve().parent
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 DATA_DIR = PROJECT / "data"
-BASE_DIR = HERE / "graph_protocol_v2_trained"
-MOTION_PATH = HERE / "spatial_motion_outputs" / "best_spatial_motion_net.pt"
-DEFAULT_OUT = HERE / "madygraph_gi_plugin_outputs"
-EPOCHS = 10
+BASE_DIR = CHECKPOINT_DIR
+MOTION_PATH = FROZEN_MOTION_PATH
+DEFAULT_OUT = DEFAULT_RUN / "seed0"
+EPOCHS = 5
 BATCH = 8
 
 
@@ -103,6 +114,32 @@ def physical_residual(bucket: torch.Tensor, coarse: torch.Tensor, patterns: torc
     coarse_bucket = gi_forward(coarse, patterns)
     residual = ((bucket - coarse_bucket) @ matrix) / patterns.shape[0]
     return residual.reshape(batch, frames, 1, height, width)
+
+
+def dgi_from_bucket(bucket: torch.Tensor, patterns: torch.Tensor) -> torch.Tensor:
+    """DGI from measured buckets using the same P/sqrt(H*W) operator."""
+    batch, frames, count = bucket.shape
+    height, width = patterns.shape[-2:]
+    if count != len(patterns):
+        raise ValueError("bucket count does not match patterns")
+    raw_bucket = bucket.reshape(batch * frames, count) * math.sqrt(height * width)
+    illumination = patterns.sum((1, 2)).clamp_min(1e-8)
+    normalized = raw_bucket / illumination[None]
+    centered = normalized - normalized.mean(1, keepdim=True)
+    centered_patterns = patterns - patterns.mean(0, keepdim=True)
+    reconstruction = torch.einsum("nm,mhw->nhw", centered, centered_patterns) / count
+    low = reconstruction.amin((-2, -1), keepdim=True)
+    high = reconstruction.amax((-2, -1), keepdim=True)
+    reconstruction = (reconstruction - low) / (high - low + 1e-8)
+    return reconstruction.reshape(batch, frames, 1, height, width)
+
+
+def relative_measurement_residual(pred, bucket, patterns):
+    error = (gi_forward(pred, patterns) - bucket).flatten(1)
+    observed = bucket.flatten(1)
+    return torch.linalg.vector_norm(error, dim=1) / torch.linalg.vector_norm(
+        observed, dim=1
+    ).clamp_min(1e-12)
 
 
 class ResidualRefiner(nn.Module):
@@ -189,18 +226,16 @@ class ResidualRefiner(nn.Module):
 
 
 def precompute(loader, transformer, motion_net, bank, device):
-    from train_mixed_sampling import coarse_sequence
-
-    out = {rate: {k: [] for k in ("target", "coarse", "residual", "motion", "truth_motion", "labels", "indices", "speed")} for rate in RATES}
+    out = {rate: {k: [] for k in ("target", "bucket", "coarse", "residual", "motion", "truth_motion", "labels", "indices", "speed")} for rate in RATES}
     transformer.eval()
     motion_net.eval()
     with torch.inference_mode():
         for target, labels, truth_motion, speeds, indices in loader:
             target_gpu = target.to(device)
             for rate in RATES:
-                coarse_dgi = coarse_sequence(target_gpu, bank[rate])
-                coarse = transformer(coarse_dgi)
                 bucket = gi_forward(target_gpu, bank[rate])  # simulator only; inference supplies measured bucket
+                coarse_dgi = dgi_from_bucket(bucket, bank[rate])
+                coarse = transformer(coarse_dgi)
                 residual = physical_residual(bucket, coarse, bank[rate])
                 b, t = coarse_dgi.shape[:2]
                 pairs = torch.cat((coarse_dgi[:, :-1], coarse_dgi[:, 1:]), dim=2)
@@ -208,6 +243,7 @@ def precompute(loader, transformer, motion_net, bank, device):
                 estimated = estimated.reshape(b, t - 1, 2)
                 dest = out[rate]
                 dest["target"].append(target.cpu())
+                dest["bucket"].append(bucket.cpu())
                 dest["coarse"].append(coarse.cpu())
                 dest["residual"].append(residual.cpu())
                 dest["motion"].append(estimated.cpu())
@@ -226,7 +262,7 @@ def batches(data, order, start, batch_size, device):
     return {k: v[ids].to(device) for k, v in data.items()}
 
 
-def evaluate_model(model, splits, device, motion_key="motion"):
+def evaluate_model(model, splits, device, motion_key="motion", bank=None):
     rows = []
     model.eval()
     with torch.inference_mode():
@@ -236,6 +272,7 @@ def evaluate_model(model, splits, device, motion_key="motion"):
                 batch = {k: v[start:start + 4].to(device) for k, v in data.items()}
                 pred = model(batch["coarse"], batch["residual"], batch[motion_key])
                 pred = pred.clamp(0, 1)
+                residuals = relative_measurement_residual(pred, batch["bucket"], bank[rate]) if bank else None
                 for i, row in enumerate(metric_rows(
                     pred, batch["target"], batch["labels"], batch["indices"]
                 )):
@@ -244,15 +281,20 @@ def evaluate_model(model, splits, device, motion_key="motion"):
                         "speed_pixels_per_frame": float(batch["speed"][i]),
                         "speed_bin": speed_bin_name(float(batch["speed"][i])),
                         **row,
+                        **({"relative_measurement_residual": float(residuals[i])} if residuals is not None else {}),
                     })
     return rows
 
 
-def train_one(kind, splits, device, epochs, output):
+def train_one(kind, splits, device, epochs, output, run_seed=None):
     from train_frame_cnn import reconstruction_loss
     from train_mixed_sampling import temporal_error
     from pytorch_msssim import ssim
 
+    if run_seed is not None:
+        seed_all(run_seed)
+    order_seed = (run_seed if run_seed is not None else torch.initial_seed()) + 100000
+    order_generator = torch.Generator().manual_seed(order_seed)
     model = ResidualRefiner(kind).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-4)
     best_val = float("inf")
@@ -261,7 +303,7 @@ def train_one(kind, splits, device, epochs, output):
     train_n = len(splits["train"][RATES[0]]["target"])
     for epoch in range(1, epochs + 1):
         model.train()
-        order = torch.randperm(train_n)
+        order = torch.randperm(train_n, generator=order_generator)
         total = count = 0
         rate_offset = epoch % len(RATES)
         for batch_index, start in enumerate(range(0, train_n, BATCH)):
@@ -309,12 +351,13 @@ def train_one(kind, splits, device, epochs, output):
         val_mse = float(np.mean(vals))
         val_ssim = float(np.mean(val_ssims))
         val_score = val_mse + 0.02 * (1.0 - val_ssim)
-        history.append({"epoch": epoch, "train_loss": total / count, "val_mse": val_mse, "val_ssim": val_ssim, "val_selection_score": val_score})
+        history.append({"epoch": epoch, "train_loss": total / count, "val_mse": val_mse, "val_ssim": val_ssim, "val_selection_score": val_score,
+                        "minibatch_order_sha256": hashlib.sha256(order.numpy().tobytes()).hexdigest()})
         print(f"{kind} epoch={epoch:02d}/{epochs} loss={total/count:.5f} val_mse={val_mse:.6f} val_ssim={val_ssim:.4f}", flush=True)
         if val_score < best_val:
             best_val = val_score
             torch.save(model.state_dict(), best_path)
-    model.load_state_dict(torch.load(best_path, map_location=device))
+    model.load_state_dict(torch.load(best_path, map_location=device, weights_only=True))
     return model, history, best_path
 
 
@@ -326,174 +369,140 @@ def summarize(rows):
             for method in methods:
                 group = [r for r in rows if r["pattern_count"] == rate and r["method"] == method
                          and (speed_bin == "all" or r["speed_bin"] == speed_bin)]
+                if not group:
+                    continue
                 result = {"pattern_count": rate, "speed_bin": speed_bin, "method": method, "sequences": len(group)}
-                for key in ("psnr_db", "ssim", "foreground_psnr_db", "temporal_difference_error"):
+                for key in ("mse", "psnr_db", "ssim", "foreground_psnr_db", "temporal_difference_error", "relative_measurement_residual"):
+                    if not all(key in row for row in group):
+                        continue
                     values = np.asarray([r[key] for r in group], dtype=float)
                     result[f"{key}_mean"] = float(values.mean())
-                    result[f"{key}_std"] = float(values.std(ddof=1))
+                    result[f"{key}_std"] = float(values.std(ddof=1)) if len(values) > 1 else 0.0
                 results.append(result)
     return results
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", type=int, default=EPOCHS)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUT)
-    parser.add_argument(
-        "--seed-offset", type=int, default=0,
-        help="vary refiner initialization and minibatch order while holding data/masks fixed",
-    )
-    parser.add_argument(
-        "--variants", default="cnn,fixed,motion",
-        help="comma-separated refiners: cnn, fixed, motion, oracle",
-    )
-    parser.add_argument(
-        "--test-block", type=int, default=1,
-        help="held-out 120-sequence block after validation in the deterministic MNIST test permutation",
-    )
-    args = parser.parse_args()
-    sys.path[:0] = [str(PROJECT), str(HERE)]
-    from mini_repro_dynghost import make_patterns
-    from train_spatiotemporal_transformer import MiniSpatioTemporalTransformer
+    from gi_experiment import choose_device, load_frozen, make_bank, runtime_metadata, verify_assets, write_json
 
+    parser = argparse.ArgumentParser(description="Train GI refiners; final-test evaluation is a separate command")
+    parser.add_argument("--epochs", type=int, default=EPOCHS)
+    parser.add_argument("--output-dir", type=Path, default=None)
+    parser.add_argument("--seed-offset", type=int, default=0)
+    parser.add_argument("--variants", default="cnn,fixed,motion")
+    parser.add_argument("--test-block", type=int, default=3)
+    parser.add_argument("--train-limit", type=int, default=TRAIN_N)
+    parser.add_argument("--val-limit", type=int, default=VAL_N)
+    parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--skip-test", dest="skip_test", action="store_true")
+    mode.add_argument("--evaluate-test", dest="skip_test", action="store_false", help="Legacy explicit test evaluation; do not use for the reserved final block")
+    parser.set_defaults(skip_test=True)
+    args = parser.parse_args()
+    kinds = [kind.strip() for kind in args.variants.split(",") if kind.strip()]
+    if not kinds or len(kinds) != len(set(kinds)) or set(kinds) - {"cnn", "fixed", "motion", "oracle"}:
+        parser.error("variants must be distinct values from cnn,fixed,motion,oracle")
+    if args.epochs < 1 or not 1 <= args.train_limit <= TRAIN_N or not 1 <= args.val_limit <= VAL_N:
+        parser.error("invalid epochs or train/validation limits")
+    if args.seed_offset < 0:
+        parser.error("seed offset must be nonnegative")
+    if not args.skip_test and args.test_block >= 3:
+        parser.error("reserved final blocks must be evaluated with evaluate_madygraph_gi_final.py")
+    verify_assets()
+    output = project_path(args.output_dir or (DEFAULT_RUN / f"seed{args.seed_offset}"))
+    if (output / "results.json").exists():
+        parser.error("completed training already exists; choose another output directory")
+    output.mkdir(parents=True, exist_ok=True)
+    device = choose_device(args.device)
     run_seed = SEED + 910 + args.seed_offset
     seed_all(run_seed)
-    output = args.output_dir.resolve()
-    output.mkdir(parents=True, exist_ok=True)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"device={device}", flush=True)
+    print(f"device={device} seed_offset={args.seed_offset} test_evaluation={not args.skip_test}", flush=True)
     if device.type == "cuda":
-        print(f"gpu={torch.cuda.get_device_name(0)}", flush=True)
-
-    train_set, val_set, _ = make_splits(PROJECT)
-    split_rng = np.random.default_rng(SEED + 700)
-    split_rng.permutation(60000)
-    heldout_indices = split_rng.permutation(10000)
-    test_start = VAL_N + TEST_N * args.test_block
-    test_set = BouncingMovingMNIST(
-        PROJECT / "data", False,
-        heldout_indices[test_start:test_start + TEST_N],
-        SEED + 703 + args.test_block,
-    )
+        torch.cuda.reset_peak_memory_stats(device)
+    train_set, val_set = make_train_validation(PROJECT)
+    train_ids = train_set.indices[:args.train_limit].tolist()
+    val_ids = val_set.indices[:args.val_limit].tolist()
     loaders = {
-        "train": DataLoader(train_set, batch_size=8, shuffle=False),
-        "val": DataLoader(val_set, batch_size=8, shuffle=False),
-        "test": DataLoader(test_set, batch_size=4, shuffle=False),
+        "train": DataLoader(Subset(train_set, range(args.train_limit)), batch_size=BATCH, shuffle=False),
+        "val": DataLoader(Subset(val_set, range(args.val_limit)), batch_size=BATCH, shuffle=False),
     }
-    bank = {rate: make_patterns(rate, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device) for rate in RATES}
-    transformer = MiniSpatioTemporalTransformer().to(device)
-    transformer.load_state_dict(torch.load(BASE_DIR / "best_transformer.pt", map_location=device))
-    motion_net = SpatialMotionNet().to(device)
-    motion_net.load_state_dict(torch.load(MOTION_PATH, map_location=device))
-    for parameter in transformer.parameters():
-        parameter.requires_grad_(False)
-    for parameter in motion_net.parameters():
-        parameter.requires_grad_(False)
-
-    start_time = time.time()
+    if not args.skip_test:
+        loaders["test"] = DataLoader(make_test_block(PROJECT, args.test_block), batch_size=4, shuffle=False)
+    transformer, motion_net = load_frozen(device)
+    bank = make_bank(device)
+    start_time = time.perf_counter()
     splits = {}
     for split_name, loader in loaders.items():
         print(f"precompute={split_name}", flush=True)
         splits[split_name] = precompute(loader, transformer, motion_net, bank, device)
     residual_scales = {}
     for rate in RATES:
-        scale = float(splits["train"][rate]["residual"].square().mean().sqrt())
+        scale = max(float(splits["train"][rate]["residual"].square().mean().sqrt()), 1e-8)
         residual_scales[rate] = scale
         for split_name in splits:
-            splits[split_name][rate]["residual"] = (
-                splits[split_name][rate]["residual"] / max(scale, 1e-8)
-            ).clamp(-8, 8)
+            splits[split_name][rate]["residual"] = (splits[split_name][rate]["residual"] / scale).clamp(-8, 8)
+    if device.type == "cuda":
+        torch.cuda.synchronize(device)
+    precompute_seconds = time.perf_counter() - start_time
     manifest = {
-        "paper_reference": "Lu et al., Motion-aware Dynamic Graph Neural Network for Video Compressive Sensing, TPAMI 2024",
-        "task": "MadyGraph-inspired residual plugin for per-frame bucket GI; not a video-SCI reproduction",
-        "data_seed": SEED,
-        "refiner_run_seed": run_seed,
-        "seed_offset": args.seed_offset,
-        "rates": list(RATES),
-        "train_val_test_sequences": [len(train_set), len(val_set), len(test_set)],
-        "test_block": args.test_block,
-        "data_split": f"same training/validation identities; deterministic held-out block indices {test_start}:{test_start + TEST_N} in the MNIST test permutation",
-        "coarse_backbone": str(BASE_DIR / "best_transformer.pt"),
-        "motion_estimator": str(MOTION_PATH),
-        "gi_measurement_consistency": "A^T(y_t-Ax_coarse_t), scaled by one per-rate RMS from training to preserve per-frame confidence",
+        "schema_version": 2, "phase": "training_only" if args.skip_test else "legacy_training_and_test",
+        "task": "Motion-guided refinement for per-frame bucket GI",
+        "data_seed": SEED, "refiner_run_seed": run_seed, "seed_offset": args.seed_offset,
+        "rates": list(RATES), "resolution": [IMAGE_SIZE, IMAGE_SIZE], "frames": 8,
+        "train_val_test_sequences": [args.train_limit, args.val_limit, 0 if args.skip_test else TEST_N],
+        "training_mnist_indices": train_ids, "validation_mnist_indices": val_ids,
+        "test_evaluated": not args.skip_test, "reserved_test_block": args.test_block,
+        "coarse_backbone": "checkpoints/best_transformer.pt",
+        "motion_estimator": "checkpoints/best_spatial_motion_net.pt",
+        "checkpoint_sha256": asset_hashes(),
+        "measurement_operator": "P/sqrt(H*W); per-frame bucket observations",
         "measurement_residual_train_rms_by_rate": residual_scales,
-        "refiner_objective": "reconstruction + 0.15 temporal difference + 0.10*(1-SSIM); checkpoint selected on validation MSE + 0.02*(1-validation SSIM)",
-        "graph_variants": args.variants.split(","),
-        "motion_source_at_test": "simulator ground-truth displacement for oracle; estimated from adjacent DGI frames otherwise",
-        "epochs": args.epochs,
+        "refiner_objective": "reconstruction + 0.15 temporal difference + 0.10*(1-SSIM)",
+        "checkpoint_selection": "validation MSE + 0.02*(1-validation SSIM)",
+        "graph_variants": kinds, "epochs": args.epochs, "batch_size": BATCH,
+        "minibatch_order_seed": run_seed + 100000,
+        "fairness": "each variant resets initialization seed; an independent CPU generator produces identical epoch orders",
+        "runtime": runtime_metadata(device),
     }
-    (output / "data_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-
+    write_json(output / "data_manifest.json", manifest)
     all_rows = []
-    histories = {}
-    params = {}
-    baseline_rows = []
-    for rate in RATES:
-        data = splits["test"][rate]
-        rows = metric_rows(data["coarse"], data["target"], data["labels"], data["indices"])
-        for i, row in enumerate(rows):
-            baseline_rows.append({
-                "pattern_count": rate,
-                "speed_pixels_per_frame": float(data["speed"][i]),
-                "speed_bin": speed_bin_name(float(data["speed"][i])),
-                "method": "TransformerCoarse",
-                **row,
-            })
-    all_rows.extend(baseline_rows)
-
-    kinds = [kind.strip() for kind in args.variants.split(",") if kind.strip()]
-    if not kinds or set(kinds) - {"cnn", "fixed", "motion", "oracle"}:
-        raise ValueError(f"unsupported variants: {kinds}")
+    if not args.skip_test:
+        for rate in RATES:
+            data = splits["test"][rate]
+            prediction = data["coarse"].clamp(0, 1)
+            residuals = relative_measurement_residual(prediction.to(device), data["bucket"].to(device), bank[rate])
+            for i, row in enumerate(metric_rows(prediction, data["target"], data["labels"], data["indices"])):
+                all_rows.append({"pattern_count": rate, "speed_pixels_per_frame": float(data["speed"][i]),
+                                 "speed_bin": speed_bin_name(float(data["speed"][i])), "method": "TransformerCoarse",
+                                 **row, "relative_measurement_residual": float(residuals[i])})
+    histories, params = {}, {}
     for kind in kinds:
-        model, histories[kind], checkpoint = train_one(kind, splits, device, args.epochs, output)
-        params[kind] = {
-            "parameters": sum(p.numel() for p in model.parameters()),
-            "checkpoint": str(checkpoint),
-        }
-        rows = evaluate_model(
-            model, splits, device,
-            motion_key="truth_motion" if kind == "oracle" else "motion",
-        )
-        for row in rows:
-            all_rows.append({**row, "method": {"cnn": "CNNResidual", "fixed": "FixedGraphResidual", "motion": "MotionGraphResidual", "oracle": "OracleMotionGraphResidual"}[kind]})
-
-    summary = summarize(all_rows)
-    index = {(r["pattern_count"], r["method"], r["mnist_index"]): r for r in all_rows}
-    gains = []
-    for rate in RATES:
-        for method in ({"cnn": "CNNResidual", "fixed": "FixedGraphResidual", "motion": "MotionGraphResidual", "oracle": "OracleMotionGraphResidual"}[kind] for kind in kinds):
-            for speed_bin in ("1-2", "2-4", "4-6", "all"):
-                ids = [r["mnist_index"] for r in all_rows if r["pattern_count"] == rate and r["method"] == "TransformerCoarse"
-                       and (speed_bin == "all" or r["speed_bin"] == speed_bin)]
-                delta = np.asarray([index[(rate, method, i)]["psnr_db"] - index[(rate, "TransformerCoarse", i)]["psnr_db"] for i in ids])
-                gains.append({
-                    "pattern_count": rate,
-                    "speed_bin": speed_bin,
-                    "method": method,
-                    "paired_psnr_gain_mean_db": float(delta.mean()),
-                    "paired_psnr_gain_std_db": float(delta.std(ddof=1)),
-                    "paired_win_rate": float(np.mean(delta > 0)),
-                })
-    csv_write(output / "benchmark_detail.csv", all_rows)
-    csv_write(output / "benchmark_summary.csv", summary)
-    csv_write(output / "paired_gains.csv", gains)
-    result = {
-        "manifest": manifest,
-        "histories": histories,
-        "parameters": params,
-        "summary": summary,
-        "paired_gains": gains,
-        "elapsed_seconds": time.time() - start_time,
-    }
-    (output / "results.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
-    for row in summary:
-        if row["speed_bin"] == "all":
-            print(
-                f"rate={row['pattern_count']} method={row['method']} "
-                f"PSNR={row['psnr_db_mean']:.2f} SSIM={row['ssim_mean']:.3f} "
-                f"temporal={row['temporal_difference_error_mean']:.4f}", flush=True
-            )
-    print(f"saved={output}", flush=True)
+        if device.type == "cuda":
+            torch.cuda.synchronize(device)
+        train_start = time.perf_counter()
+        model, histories[kind], checkpoint = train_one(kind, splits, device, args.epochs, output, run_seed=run_seed)
+        if device.type == "cuda":
+            torch.cuda.synchronize(device)
+        params[kind] = {"parameters": sum(p.numel() for p in model.parameters()),
+                        "checkpoint": checkpoint.relative_to(PROJECT_ROOT).as_posix(),
+                        "training_seconds": time.perf_counter() - train_start}
+        csv_write(output / f"history_{kind}.csv", histories[kind])
+        if not args.skip_test:
+            rows = evaluate_model(model, splits, device, motion_key="truth_motion" if kind == "oracle" else "motion", bank=bank)
+            all_rows.extend({**row, "method": {"cnn":"CNNResidual", "fixed":"FixedGraphResidual", "motion":"MotionGraphResidual", "oracle":"OracleMotionGraphResidual"}[kind]} for row in rows)
+        del model
+    orders = [[epoch["minibatch_order_sha256"] for epoch in histories[kind]] for kind in kinds]
+    if any(order != orders[0] for order in orders[1:]):
+        raise RuntimeError("Variant minibatch orders differ")
+    summary = summarize(all_rows) if all_rows else []
+    if all_rows:
+        csv_write(output / "benchmark_detail.csv", all_rows)
+        csv_write(output / "benchmark_summary.csv", summary)
+    result = {"manifest": manifest, "histories": histories, "parameters": params, "summary": summary,
+              "precompute_seconds": precompute_seconds, "elapsed_seconds": time.perf_counter() - start_time,
+              "peak_cuda_memory_mb": torch.cuda.max_memory_allocated(device) / 1024**2 if device.type == "cuda" else None}
+    write_json(output / "results.json", result)
+    print(f"saved={output} elapsed_seconds={result['elapsed_seconds']:.2f}", flush=True)
 
 
 if __name__ == "__main__":

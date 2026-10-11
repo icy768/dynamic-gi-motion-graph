@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv, json, os, random, time
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,8 +16,8 @@ from train_mixed_sampling import RATES, coarse_sequence, frame_forward, temporal
 
 TRAIN_N, VAL_N, TEST_N = 800, 120, 100
 BATCH, EPOCHS, LR = 8, 10, 5e-4
-OUT = "temporal_transformer_outputs"
-MIXED_DIR = "mixed_sampling_outputs"
+OUT = str(PROJECT_ROOT / 'temporal_transformer_outputs')
+MIXED_DIR = str(PROJECT_ROOT / 'mixed_sampling_outputs')
 
 class MiniTemporalTransformer(nn.Module):
     def __init__(self, dim=32, heads=4, layers=2):
@@ -67,9 +69,9 @@ def main():
     os.makedirs(OUT,exist_ok=True); device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"device={device}")
     bank={m:make_patterns(m,IMAGE_SIZE,IMAGE_SIZE,seed=SEED).to(device) for m in RATES}
-    train=DataLoader(MovingMNISTSequences("./data",True,TRAIN_N,SEED+200),batch_size=BATCH,shuffle=True,num_workers=0)
-    val=DataLoader(MovingMNISTSequences("./data",False,VAL_N,SEED+201),batch_size=BATCH,shuffle=False,num_workers=0)
-    test=DataLoader(MovingMNISTSequences("./data",False,TEST_N,SEED+300),batch_size=4,shuffle=False,num_workers=0)
+    train=DataLoader(MovingMNISTSequences(str(PROJECT_DATA_DIR),True,TRAIN_N,SEED+200),batch_size=BATCH,shuffle=True,num_workers=0)
+    val=DataLoader(MovingMNISTSequences(str(PROJECT_DATA_DIR),False,VAL_N,SEED+201),batch_size=BATCH,shuffle=False,num_workers=0)
+    test=DataLoader(MovingMNISTSequences(str(PROJECT_DATA_DIR),False,TEST_N,SEED+300),batch_size=4,shuffle=False,num_workers=0)
     model=MiniTemporalTransformer().to(device); opt=torch.optim.AdamW(model.parameters(),lr=LR,weight_decay=1e-4)
     history=[]; best=float("inf"); start=time.time()
     for epoch in range(1,EPOCHS+1):

@@ -1,0 +1,281 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "parameters": 61361,
+    "alternating_spatial_temporal_attention": true,
+    "skip_connections": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.29307956613600256,
+      "val_mse": 0.03821478998482538
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.09058238331228495,
+      "val_mse": 0.01558572215338548
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.06827995708212256,
+      "val_mse": 0.012673174054846944
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05871878976002336,
+      "val_mse": 0.011445924053502192
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.05398130413144827,
+      "val_mse": 0.017856270275175726
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.05154076647013426,
+      "val_mse": 0.01128096958224584
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.052259667217731474,
+      "val_mse": 0.010009213572872492
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.04730738963931799,
+      "val_mse": 0.010557217104117929
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0452648008801043,
+      "val_mse": 0.010374213928783623
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.04526532622054219,
+      "val_mse": 0.009757637863852626
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "FrameCNN",
+      "mse_mean": 0.05145088385790587,
+      "mse_std": 0.019140077874721426,
+      "psnr_mean_db": 13.182587327957153,
+      "psnr_std_db": 1.6542607156772124,
+      "ssim_mean": 0.22614903390407562,
+      "ssim_std": 0.03437752100841832,
+      "temporal_difference_error_mean": 0.10532737463712692,
+      "temporal_difference_error_std": 0.035821576681202456
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03783179529942572,
+      "mse_std": 0.024100299068197672,
+      "psnr_mean_db": 15.025560913085938,
+      "psnr_std_db": 2.7444697738592376,
+      "ssim_mean": 0.4618780246376991,
+      "ssim_std": 0.1460847155901391,
+      "temporal_difference_error_mean": 0.05619817145168781,
+      "temporal_difference_error_std": 0.023195882614019666
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.04994331081397831,
+      "mse_std": 0.028198832600660573,
+      "psnr_mean_db": 13.60492259979248,
+      "psnr_std_db": 2.286526416965545,
+      "ssim_mean": 0.22343972191214562,
+      "ssim_std": 0.05664723565959777,
+      "temporal_difference_error_mean": 0.07082191849127412,
+      "temporal_difference_error_std": 0.02788881903594678
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.01863708602730185,
+      "mse_std": 0.006946193012291757,
+      "psnr_mean_db": 17.609793853759765,
+      "psnr_std_db": 1.7121550978333375,
+      "ssim_mean": 0.661202130317688,
+      "ssim_std": 0.06319716209053557,
+      "temporal_difference_error_mean": 0.04397164630703628,
+      "temporal_difference_error_std": 0.018069077952033972
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "FrameCNN",
+      "mse_mean": 0.043651862195692955,
+      "mse_std": 0.028077174038644324,
+      "psnr_mean_db": 14.307781524658203,
+      "psnr_std_db": 2.4897593338274175,
+      "ssim_mean": 0.3026205579191446,
+      "ssim_std": 0.0650431332086646,
+      "temporal_difference_error_mean": 0.10384584004990756,
+      "temporal_difference_error_std": 0.04540025243855476
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03473871324909851,
+      "mse_std": 0.04826704406378984,
+      "psnr_mean_db": 16.455813417434694,
+      "psnr_std_db": 3.668496782092463,
+      "ssim_mean": 0.5265560268610716,
+      "ssim_std": 0.1904094274528755,
+      "temporal_difference_error_mean": 0.052621856331825256,
+      "temporal_difference_error_std": 0.025834787931229508
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.048200717349536716,
+      "mse_std": 0.05306082207209172,
+      "psnr_mean_db": 14.636380467414856,
+      "psnr_std_db": 3.3676501605402374,
+      "ssim_mean": 0.2775207881629467,
+      "ssim_std": 0.09170010940329619,
+      "temporal_difference_error_mean": 0.06764242235571145,
+      "temporal_difference_error_std": 0.03175061604977365
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.010443691643886269,
+      "mse_std": 0.004522917113668969,
+      "psnr_mean_db": 20.23499464035034,
+      "psnr_std_db": 1.9918855289939805,
+      "ssim_mean": 0.8061325287818909,
+      "ssim_std": 0.0540138091662088,
+      "temporal_difference_error_mean": 0.0324813941726461,
+      "temporal_difference_error_std": 0.013461661257023794
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "FrameCNN",
+      "mse_mean": 0.021718663135543465,
+      "mse_std": 0.016404978848644624,
+      "psnr_mean_db": 17.38522035598755,
+      "psnr_std_db": 2.4835757343625384,
+      "ssim_mean": 0.432948637008667,
+      "ssim_std": 0.07610147482856609,
+      "temporal_difference_error_mean": 0.06819959942251444,
+      "temporal_difference_error_std": 0.027026569633889178
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.01372541643679142,
+      "mse_std": 0.016777097797841534,
+      "psnr_mean_db": 19.793389492034912,
+      "psnr_std_db": 2.7962662051195273,
+      "ssim_mean": 0.7215968170762062,
+      "ssim_std": 0.1280164626431823,
+      "temporal_difference_error_mean": 0.03558994178660214,
+      "temporal_difference_error_std": 0.01565534600521652
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.019989400650374592,
+      "mse_std": 0.021427464724057776,
+      "psnr_mean_db": 18.031116104125978,
+      "psnr_std_db": 2.75363164331568,
+      "ssim_mean": 0.4058111330866814,
+      "ssim_std": 0.10527223171869235,
+      "temporal_difference_error_mean": 0.04590744689106941,
+      "temporal_difference_error_std": 0.020136830956465204
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.006225392444757744,
+      "mse_std": 0.002702900483058408,
+      "psnr_mean_db": 22.46211889266968,
+      "psnr_std_db": 1.9228268179690118,
+      "ssim_mean": 0.8811108314990997,
+      "ssim_std": 0.036947617203775665,
+      "temporal_difference_error_mean": 0.02581608548760414,
+      "temporal_difference_error_std": 0.01012803886204788
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "FrameCNN",
+      "mse_mean": 0.01126257814699784,
+      "mse_std": 0.006914899215189152,
+      "psnr_mean_db": 20.204609117507935,
+      "psnr_std_db": 2.5477472175609415,
+      "ssim_mean": 0.6382204017043114,
+      "ssim_std": 0.09039527085949038,
+      "temporal_difference_error_mean": 0.04423124841414392,
+      "temporal_difference_error_std": 0.017738543466102992
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "BiConvGRU",
+      "mse_mean": 0.006438948874128983,
+      "mse_std": 0.003496525153718626,
+      "psnr_mean_db": 22.46469615936279,
+      "psnr_std_db": 2.2253818864689476,
+      "ssim_mean": 0.8588874542713165,
+      "ssim_std": 0.05315929291504745,
+      "temporal_difference_error_mean": 0.026879408448003232,
+      "temporal_difference_error_std": 0.010284687554918126
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.009218736042967066,
+      "mse_std": 0.004302677408018021,
+      "psnr_mean_db": 20.807931575775147,
+      "psnr_std_db": 2.0378404127728054,
+      "ssim_mean": 0.5881617680191994,
+      "ssim_std": 0.0809505166843865,
+      "temporal_difference_error_mean": 0.033999191145412624,
+      "temporal_difference_error_std": 0.01421312324338581
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "SpatioTemporalTransformer",
+      "mse_mean": 0.004527545738965273,
+      "mse_std": 0.0021527307252334447,
+      "psnr_mean_db": 23.856864490509032,
+      "psnr_std_db": 1.9155897764754601,
+      "ssim_mean": 0.9143332058191299,
+      "ssim_std": 0.02678354411597743,
+      "temporal_difference_error_mean": 0.022440611897036434,
+      "temporal_difference_error_std": 0.00834092292947607
+    }
+  ],
+  "elapsed_seconds": 77.19641971588135
+}

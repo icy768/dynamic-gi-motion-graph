@@ -1,4 +1,6 @@
 """加入显式像素坐标的 DGI 全局位移回归。"""
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse,csv,json,random,sys
 from pathlib import Path
 import numpy as np
@@ -6,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-HERE=Path(__file__).resolve().parent; PROJECT=Path(r"D:\download\DynGhost-mini-repro"); SEED=20260902; RATES=(128,256,512,1024)
+HERE=Path(__file__).resolve().parent; PROJECT=PROJECT_ROOT; SEED=20260902; RATES=(128,256,512,1024)
 class CoordinateMotionNet(nn.Module):
  def __init__(self):
   super().__init__();grid=torch.linspace(-1,1,64);yy,xx=torch.meshgrid(grid,grid,indexing='ij');self.register_buffer('coords',torch.stack((xx,yy))[None]);self.net=nn.Sequential(nn.Conv2d(4,20,5,stride=2,padding=2),nn.GELU(),nn.Conv2d(20,36,3,stride=2,padding=1),nn.GELU(),nn.Conv2d(36,48,3,stride=2,padding=1),nn.GELU(),nn.AdaptiveAvgPool2d(1));self.head=nn.Sequential(nn.Flatten(),nn.Linear(48,32),nn.GELU(),nn.Linear(32,2))
@@ -25,7 +27,7 @@ def evaluate(model,loader,bank,dev):
    sid+=b
  return out
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=12);ap.add_argument('--output-dir',type=Path,default=HERE/'coordinate_motion_outputs');args=ap.parse_args();project=args.project_root.resolve();sys.path.insert(0,str(project));from mini_repro_dynghost import IMAGE_SIZE,make_patterns;from train_mixed_sampling import coarse_sequence;from train_oracle_motion_tgnn import MovingMNISTWithMotion
+ ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=12);ap.add_argument('--output-dir',type=Path,default=HERE/str(PROJECT_ROOT / 'coordinate_motion_outputs'));args=ap.parse_args();project=args.project_root.resolve();sys.path.insert(0,str(project));from mini_repro_dynghost import IMAGE_SIZE,make_patterns;from train_mixed_sampling import coarse_sequence;from train_oracle_motion_tgnn import MovingMNISTWithMotion
  seed();dev=torch.device('cuda' if torch.cuda.is_available() else 'cpu');out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True);bank={n:make_patterns(n,IMAGE_SIZE,IMAGE_SIZE,SEED).to(dev) for n in RATES};train=DataLoader(MovingMNISTWithMotion(project/'data',True,800,SEED+200),batch_size=8,shuffle=True);val=DataLoader(MovingMNISTWithMotion(project/'data',False,120,SEED+201),batch_size=8);test=DataLoader(MovingMNISTWithMotion(project/'data',False,100,SEED+300),batch_size=8)
  m=CoordinateMotionNet().to(dev);opt=torch.optim.AdamW(m.parameters(),lr=1e-3,weight_decay=1e-4);best=1e9;hist=[];ckpt=out/'best_coordinate_motion.pt'
  for ep in range(1,args.epochs+1):

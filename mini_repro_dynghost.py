@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import os
 import math
 import random
@@ -15,7 +17,7 @@ torch.manual_seed(SEED)
 IMAGE_SIZE = 64
 SEQ_LEN = 8
 NUM_PATTERNS = 256
-OUT_DIR = 'mini_outputs'
+OUT_DIR = str(PROJECT_ROOT / 'mini_outputs')
 os.makedirs(OUT_DIR, exist_ok=True)
 
 def normalize01(x, eps=1e-8):
@@ -32,7 +34,7 @@ def translate(img, dx, dy):
     return F.grid_sample(img[None, None], grid, align_corners=False, padding_mode='zeros')[0, 0]
 
 def make_sequence():
-    mnist = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+    mnist = datasets.MNIST(root=str(PROJECT_DATA_DIR), train=False, download=True, transform=transforms.ToTensor())
     img, label = mnist[7]
     img = F.interpolate(img[None], size=(IMAGE_SIZE, IMAGE_SIZE), mode='bilinear', align_corners=False)[0, 0]
     angle = math.radians(25)

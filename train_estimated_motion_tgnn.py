@@ -2,6 +2,8 @@
 
 估计器仅从 DGI 序列推理全局位移；重建模型和 Oracle / Zero-motion 消融保持同一结构。
 """
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse
 import csv
 import json
@@ -16,7 +18,7 @@ from pytorch_msssim import ssim
 from torch.utils.data import DataLoader
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 
 def save_csv(path, rows):
     with path.open("w", newline="", encoding="utf-8-sig") as f:
@@ -26,8 +28,8 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--project-root",type=Path,default=DEFAULT_PROJECT)
     parser.add_argument("--epochs",type=int,default=10)
-    parser.add_argument("--output-dir",type=Path,default=HERE / "estimated_motion_tgnn_outputs")
-    parser.add_argument("--motion-checkpoint",type=Path,default=HERE / "estimated_motion_outputs" / "best_dgi_motion_net.pt")
+    parser.add_argument("--output-dir",type=Path,default=PROJECT_ROOT / 'estimated_motion_tgnn_outputs')
+    parser.add_argument("--motion-checkpoint",type=Path,default=PROJECT_ROOT / 'estimated_motion_outputs' / "best_dgi_motion_net.pt")
     parser.add_argument("--fusion",choices=("mean","median"),default="mean",help="融合七组相邻帧位移的方式")
     args=parser.parse_args(); project=args.project_root.resolve(); sys.path[:0]=[str(project),str(HERE)]
     from mini_repro_dynghost import IMAGE_SIZE, SEED, make_patterns

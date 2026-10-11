@@ -3,6 +3,8 @@
 估计器输入仅为相邻两帧 DGI 图；模拟器真值位移仅用于离线评估。
 """
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import csv
 import json
@@ -14,7 +16,7 @@ from torch.utils.data import DataLoader
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 RATES = (128, 256, 512, 1024)
 MAX_SHIFT_PIXELS = 5
 
@@ -44,7 +46,7 @@ def phase_correlation_shift(previous, following, max_shift=MAX_SHIFT_PIXELS):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT)
-    parser.add_argument("--output-dir", type=Path, default=HERE / "estimated_motion_outputs")
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / 'estimated_motion_outputs')
     args = parser.parse_args()
     project = args.project_root.resolve()
     sys.path.insert(0, str(project))

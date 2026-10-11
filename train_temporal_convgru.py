@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv
 import json
 import math
@@ -25,8 +27,8 @@ BATCH_SIZE = 8
 EPOCHS = 10
 LEARNING_RATE = 1e-3
 HIDDEN_CHANNELS = 16
-OUT_DIR = "temporal_convgru_outputs"
-FRAME_CNN_PATH = os.path.join("frame_cnn_outputs", "best_frame_cnn.pt")
+OUT_DIR = str(PROJECT_ROOT / 'temporal_convgru_outputs')
+FRAME_CNN_PATH = os.path.join(str(PROJECT_ROOT / 'frame_cnn_outputs'), "best_frame_cnn.pt")
 
 
 class MovingMNISTSequences(Dataset):
@@ -158,8 +160,8 @@ def main():
         print(f"gpu={torch.cuda.get_device_name(0)}")
 
     patterns = make_patterns(NUM_PATTERNS, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device)
-    train_set = MovingMNISTSequences("./data", True, TRAIN_SEQUENCES, SEED + 10)
-    val_set = MovingMNISTSequences("./data", False, VAL_SEQUENCES, SEED + 11)
+    train_set = MovingMNISTSequences(str(PROJECT_DATA_DIR), True, TRAIN_SEQUENCES, SEED + 10)
+    val_set = MovingMNISTSequences(str(PROJECT_DATA_DIR), False, VAL_SEQUENCES, SEED + 11)
     train_loader = DataLoader(
         train_set, batch_size=BATCH_SIZE, shuffle=True, num_workers=0, pin_memory=True
     )

@@ -1,0 +1,141 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "patch_grid": 8,
+    "hidden_channels": 32,
+    "graph": "4-neighbor spatial plus same-position temporal edges"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2773334887623787,
+      "val_mse": 0.05349872242077254
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.16800432704389096,
+      "val_mse": 0.030027997972016843
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.11340661730617285,
+      "val_mse": 0.028589113827911204
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.09712380431592464,
+      "val_mse": 0.0245351319987094
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.09262329898774624,
+      "val_mse": 0.030551549134543166
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.08959283955395221,
+      "val_mse": 0.018610211023284744
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.08745085090398788,
+      "val_mse": 0.022704870119438662
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.08993605524301529,
+      "val_mse": 0.019281415910033198
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0815148252621293,
+      "val_mse": 0.018750291735341307
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.08361624509096145,
+      "val_mse": 0.024964842244905108
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "PatchTGNN",
+      "mse_mean": 0.0311715910769999,
+      "mse_std": 0.013406209638499608,
+      "psnr_mean_db": 15.425577735900879,
+      "psnr_std_db": 1.8020728123131498,
+      "ssim_mean": 0.36187069460749627,
+      "ssim_std": 0.06286173977819247,
+      "temporal_difference_error_mean": 0.05732278654351831,
+      "temporal_difference_error_std": 0.019858586747496083
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "PatchTGNN",
+      "mse_mean": 0.02289104773197323,
+      "mse_std": 0.01420781422644971,
+      "psnr_mean_db": 16.992144746780397,
+      "psnr_std_db": 2.165088199580791,
+      "ssim_mean": 0.43014736235141754,
+      "ssim_std": 0.09001514432998249,
+      "temporal_difference_error_mean": 0.05150253881700337,
+      "temporal_difference_error_std": 0.019032202795981595
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "PatchTGNN",
+      "mse_mean": 0.012671192032285035,
+      "mse_std": 0.008639834320668314,
+      "psnr_mean_db": 19.4452454662323,
+      "psnr_std_db": 1.8512979272126304,
+      "ssim_mean": 0.5518965147435665,
+      "ssim_std": 0.09432392768496879,
+      "temporal_difference_error_mean": 0.03873365914449096,
+      "temporal_difference_error_std": 0.01397984473562544
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "PatchTGNN",
+      "mse_mean": 0.008181635972578078,
+      "mse_std": 0.0028142349735267155,
+      "psnr_mean_db": 21.112192230224608,
+      "psnr_std_db": 1.465630776965611,
+      "ssim_mean": 0.6917299550771713,
+      "ssim_std": 0.077616212702414,
+      "temporal_difference_error_mean": 0.03212574930861592,
+      "temporal_difference_error_std": 0.011689130398911687
+    }
+  ],
+  "parameters": {
+    "PatchTGNN": 50297,
+    "SpatioTemporalTransformer": 61361
+  },
+  "efficiency": {
+    "PatchTGNN": {
+      "latency_ms": 2.0673366661261148,
+      "peak_memory_mb": 61.61962890625,
+      "parameters": 50297
+    },
+    "SpatioTemporalTransformer": {
+      "latency_ms": 2.8701199994732938,
+      "peak_memory_mb": 57.17333984375,
+      "parameters": 61361
+    }
+  },
+  "elapsed_seconds": 42.23667097091675
+}

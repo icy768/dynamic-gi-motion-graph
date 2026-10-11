@@ -1,9 +1,11 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv, json
 from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-RUNS = [ROOT / 'joint_motion_tgnn_outputs', ROOT / 'joint_motion_tgnn_seed_20260903', ROOT / 'joint_motion_tgnn_seed_20260904']
+RUNS = [PROJECT_ROOT / 'joint_motion_tgnn_outputs', ROOT / 'joint_motion_tgnn_seed_20260903', ROOT / 'joint_motion_tgnn_seed_20260904']
 rows = []
 for run in RUNS:
     with (run / 'benchmark_summary.csv').open(encoding='utf-8-sig') as f:

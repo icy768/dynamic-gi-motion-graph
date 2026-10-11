@@ -1,0 +1,42 @@
+{
+  "config": {
+    "image_size": 64,
+    "seq_len": 8,
+    "seed": 20260902,
+    "mnist_split": "test",
+    "mnist_index": 7,
+    "mnist_label": 9,
+    "pattern_counts": [
+      128,
+      256,
+      512,
+      1024
+    ]
+  },
+  "results": [
+    {
+      "num_patterns": 128,
+      "sampling_ratio": 0.03125,
+      "mse": 0.2220693826675415,
+      "psnr_db": 6.535113147299521
+    },
+    {
+      "num_patterns": 256,
+      "sampling_ratio": 0.0625,
+      "mse": 0.21551625430583954,
+      "psnr_db": 6.665199696372418
+    },
+    {
+      "num_patterns": 512,
+      "sampling_ratio": 0.125,
+      "mse": 0.18915978074073792,
+      "psnr_db": 7.231711980566051
+    },
+    {
+      "num_patterns": 1024,
+      "sampling_ratio": 0.25,
+      "mse": 0.18534399569034576,
+      "psnr_db": 7.320214785893022
+    }
+  ]
+}

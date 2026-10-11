@@ -12,6 +12,8 @@ training updates.  Models:
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import argparse
 import csv
 import json
@@ -31,7 +33,7 @@ from torchvision import datasets, transforms
 
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 DEFAULT_OUT = HERE / "graph_protocol_v2_trained"
 SEED = 20260902
 IMAGE_SIZE = 64
@@ -150,19 +152,39 @@ class JointPairGraph(nn.Module):
         return per_pair_reconstruct(self.reconstructor, coarse, pair), pair
 
 
-def make_splits(project: Path):
+def split_indices():
     rng = np.random.default_rng(SEED + 700)
     train_perm = rng.permutation(60000)
     test_perm = rng.permutation(10000)
+    return train_perm, test_perm
+
+
+def make_train_validation(project: Path):
+    train_perm, test_perm = split_indices()
     train = BouncingMovingMNIST(
         project / "data", True, train_perm[:TRAIN_N], SEED + 701
     )
     val = BouncingMovingMNIST(
         project / "data", False, test_perm[:VAL_N], SEED + 702
     )
-    test = BouncingMovingMNIST(
-        project / "data", False, test_perm[VAL_N:VAL_N + TEST_N], SEED + 703
+    return train, val
+
+
+def make_test_block(project: Path, block: int = 3):
+    if block < 0:
+        raise ValueError("test block must be nonnegative")
+    _, test_perm = split_indices()
+    start = VAL_N + TEST_N * block
+    if start + TEST_N > len(test_perm):
+        raise ValueError("test block exceeds available MNIST identities")
+    return BouncingMovingMNIST(
+        project / "data", False, test_perm[start:start + TEST_N], SEED + 703 + block
     )
+
+
+def make_splits(project: Path):
+    train, val = make_train_validation(project)
+    test = make_test_block(project, 0)
     assert set(val.indices.tolist()).isdisjoint(set(test.indices.tolist()))
     return train, val, test
 

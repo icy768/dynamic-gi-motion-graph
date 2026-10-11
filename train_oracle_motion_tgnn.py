@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv
 import json
 import math
@@ -23,8 +25,8 @@ from train_temporal_convgru import MovingMNISTSequences
 TRAIN_N, VAL_N, TEST_N = 800, 120, 100
 BATCH, EPOCHS, LR = 8, 10, 5e-4
 DIM = 32
-OUT = "oracle_motion_tgnn_outputs"
-TRANSFORMER_DIR = "spatiotemporal_transformer_outputs"
+OUT = str(PROJECT_ROOT / 'oracle_motion_tgnn_outputs')
+TRANSFORMER_DIR = str(PROJECT_ROOT / 'spatiotemporal_transformer_outputs')
 
 
 class MovingMNISTWithMotion(MovingMNISTSequences):
@@ -202,15 +204,15 @@ def main():
     bank = {count: make_patterns(count, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device)
             for count in RATES}
     train_loader = DataLoader(
-        MovingMNISTWithMotion("./data", True, TRAIN_N, SEED + 200),
+        MovingMNISTWithMotion(str(PROJECT_DATA_DIR), True, TRAIN_N, SEED + 200),
         batch_size=BATCH, shuffle=True, num_workers=0,
     )
     val_loader = DataLoader(
-        MovingMNISTWithMotion("./data", False, VAL_N, SEED + 201),
+        MovingMNISTWithMotion(str(PROJECT_DATA_DIR), False, VAL_N, SEED + 201),
         batch_size=BATCH, shuffle=False, num_workers=0,
     )
     test_loader = DataLoader(
-        MovingMNISTWithMotion("./data", False, TEST_N, SEED + 300),
+        MovingMNISTWithMotion(str(PROJECT_DATA_DIR), False, TEST_N, SEED + 300),
         batch_size=4, shuffle=False, num_workers=0,
     )
     model = OracleMotionTGNN().to(device)

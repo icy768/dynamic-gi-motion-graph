@@ -1,8 +1,10 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv, json
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parent
-sources={'Transformer':[Path(r'D:\download\DynGhost-mini-repro\spatiotemporal_transformer_outputs\benchmark_summary.csv'),ROOT/'transformer_seed_20260903'/'benchmark_summary.csv',ROOT/'transformer_seed_20260904'/'benchmark_summary.csv'],'JointMotionTGNN':[ROOT/'joint_motion_tgnn_outputs'/'benchmark_summary.csv',ROOT/'joint_motion_tgnn_seed_20260903'/'benchmark_summary.csv',ROOT/'joint_motion_tgnn_seed_20260904'/'benchmark_summary.csv']}
+sources={'Transformer':[PROJECT_ROOT/str(PROJECT_ROOT / 'spatiotemporal_transformer_outputs')/'benchmark_summary.csv',ROOT/'transformer_seed_20260903'/'benchmark_summary.csv',ROOT/'transformer_seed_20260904'/'benchmark_summary.csv'],'JointMotionTGNN':[ROOT/str(PROJECT_ROOT / 'joint_motion_tgnn_outputs')/'benchmark_summary.csv',ROOT/'joint_motion_tgnn_seed_20260903'/'benchmark_summary.csv',ROOT/'joint_motion_tgnn_seed_20260904'/'benchmark_summary.csv']}
 data={}
 for name,paths in sources.items():
  data[name]={}

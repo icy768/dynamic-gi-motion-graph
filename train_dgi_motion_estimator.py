@@ -3,6 +3,8 @@
 训练标签来自模拟器，推理输入仅为两帧 DGI。该实验先验证可学习边估计是否可行，
 不将真值位移提供给重建网络。
 """
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse
 import csv
 import json
@@ -17,7 +19,7 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+DEFAULT_PROJECT = PROJECT_ROOT
 RATES = (128, 256, 512, 1024)
 SEED = 20260902
 
@@ -58,7 +60,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", type=Path, default=DEFAULT_PROJECT)
     parser.add_argument("--epochs", type=int, default=10)
-    parser.add_argument("--output-dir", type=Path, default=HERE / "estimated_motion_outputs")
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / 'estimated_motion_outputs')
     args = parser.parse_args(); project = args.project_root.resolve(); sys.path.insert(0, str(project))
     from mini_repro_dynghost import IMAGE_SIZE, make_patterns
     from train_mixed_sampling import coarse_sequence

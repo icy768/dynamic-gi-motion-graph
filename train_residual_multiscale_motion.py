@@ -1,4 +1,6 @@
 """残差多尺度 CNN：从相邻 DGI 帧直接回归全局平移。"""
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse,csv,json,random,sys
 from pathlib import Path
 import numpy as np
@@ -6,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-HERE=Path(__file__).resolve().parent; PROJECT=Path(r"D:\download\DynGhost-mini-repro");SEED=20260902;RATES=(128,256,512,1024)
+HERE=Path(__file__).resolve().parent; PROJECT=PROJECT_ROOT;SEED=20260902;RATES=(128,256,512,1024)
 class ResBlock(nn.Module):
  def __init__(self,c): super().__init__();self.a=nn.Conv2d(c,c,3,padding=1);self.b=nn.Conv2d(c,c,3,padding=1)
  def forward(self,x):return F.gelu(x+self.b(F.gelu(self.a(x))))
@@ -29,7 +31,7 @@ def rows(model,loader,bank,device):
    sid+=b
  return out
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=15);ap.add_argument('--output-dir',type=Path,default=HERE/'residual_multiscale_motion_outputs');args=ap.parse_args();project=args.project_root.resolve();sys.path.insert(0,str(project));from mini_repro_dynghost import IMAGE_SIZE,make_patterns;from train_mixed_sampling import coarse_sequence;from train_oracle_motion_tgnn import MovingMNISTWithMotion
+ ap=argparse.ArgumentParser();ap.add_argument('--project-root',type=Path,default=PROJECT);ap.add_argument('--epochs',type=int,default=15);ap.add_argument('--output-dir',type=Path,default=HERE/str(PROJECT_ROOT / 'residual_multiscale_motion_outputs'));args=ap.parse_args();project=args.project_root.resolve();sys.path.insert(0,str(project));from mini_repro_dynghost import IMAGE_SIZE,make_patterns;from train_mixed_sampling import coarse_sequence;from train_oracle_motion_tgnn import MovingMNISTWithMotion
  seed();dev=torch.device('cuda' if torch.cuda.is_available() else 'cpu');out=args.output_dir.resolve();out.mkdir(parents=True,exist_ok=True);bank={n:make_patterns(n,IMAGE_SIZE,IMAGE_SIZE,SEED).to(dev) for n in RATES};train=DataLoader(MovingMNISTWithMotion(project/'data',True,800,SEED+200),batch_size=8,shuffle=True);val=DataLoader(MovingMNISTWithMotion(project/'data',False,120,SEED+201),batch_size=8);test=DataLoader(MovingMNISTWithMotion(project/'data',False,100,SEED+300),batch_size=8)
  model=ResidualMultiScaleMotionNet().to(dev);opt=torch.optim.AdamW(model.parameters(),lr=8e-4,weight_decay=1e-4);best=1e9;hist=[];ckpt=out/'best_residual_multiscale_motion.pt'
  for ep in range(1,args.epochs+1):

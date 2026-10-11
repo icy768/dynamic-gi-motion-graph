@@ -1,0 +1,172 @@
+{
+  "config": {
+    "seed": 20260902,
+    "test_sequences": 100,
+    "pattern_counts": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "training_pattern_count": 256,
+    "note": "Only 256 patterns is in-distribution; other rates test zero-shot sampling-rate generalization."
+  },
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "trained_at_this_ratio": false,
+      "method": "DGI",
+      "mse_mean": 0.2229041711986065,
+      "mse_std": 0.01290742876615746,
+      "psnr_mean_db": 6.526099467277527,
+      "psnr_std_db": 0.25352274066927266,
+      "psnr_median_db": 6.557110786437988,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "trained_at_this_ratio": false,
+      "method": "FrameCNN",
+      "mse_mean": 0.055402600076049566,
+      "mse_std": 0.02389426934991896,
+      "psnr_mean_db": 12.969069719314575,
+      "psnr_std_db": 1.934531477769268,
+      "psnr_median_db": 12.774041652679443,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "trained_at_this_ratio": false,
+      "method": "BiConvGRU",
+      "mse_mean": 0.037805437734350564,
+      "mse_std": 0.024822978150322583,
+      "psnr_mean_db": 15.143128118515016,
+      "psnr_std_db": 2.9221322307255067,
+      "psnr_median_db": 15.121498107910156,
+      "temporal_minus_frame_mean_db": 2.1740583992004394,
+      "temporal_win_rate": 0.88
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "trained_at_this_ratio": true,
+      "method": "DGI",
+      "mse_mean": 0.2139889407157898,
+      "mse_std": 0.012331069828436587,
+      "psnr_mean_db": 6.703244280815125,
+      "psnr_std_db": 0.2508443079252728,
+      "psnr_median_db": 6.688789367675781,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "trained_at_this_ratio": true,
+      "method": "FrameCNN",
+      "mse_mean": 0.040099657960236075,
+      "mse_std": 0.020006651272891956,
+      "psnr_mean_db": 14.504184198379516,
+      "psnr_std_db": 2.2291116539452744,
+      "psnr_median_db": 14.228591918945312,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "trained_at_this_ratio": true,
+      "method": "BiConvGRU",
+      "mse_mean": 0.022348077420610936,
+      "mse_std": 0.016961597595985294,
+      "psnr_mean_db": 17.444410676956178,
+      "psnr_std_db": 2.8135396385484297,
+      "psnr_median_db": 17.53932285308838,
+      "temporal_minus_frame_mean_db": 2.94022647857666,
+      "temporal_win_rate": 0.98
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "trained_at_this_ratio": false,
+      "method": "DGI",
+      "mse_mean": 0.1987973865866661,
+      "mse_std": 0.00925406783233277,
+      "psnr_mean_db": 7.020621728897095,
+      "psnr_std_db": 0.2044882543376727,
+      "psnr_median_db": 6.995728969573975,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "trained_at_this_ratio": false,
+      "method": "FrameCNN",
+      "mse_mean": 0.023409576462581752,
+      "mse_std": 0.012397853647088104,
+      "psnr_mean_db": 16.8157004737854,
+      "psnr_std_db": 2.1061525516835444,
+      "psnr_median_db": 16.861005783081055,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "trained_at_this_ratio": false,
+      "method": "BiConvGRU",
+      "mse_mean": 0.012493288738187402,
+      "mse_std": 0.007875432192123525,
+      "psnr_mean_db": 19.659046030044557,
+      "psnr_std_db": 2.2761402225654153,
+      "psnr_median_db": 19.84433078765869,
+      "temporal_minus_frame_mean_db": 2.8433455562591554,
+      "temporal_win_rate": 0.99
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "trained_at_this_ratio": false,
+      "method": "DGI",
+      "mse_mean": 0.17524622842669488,
+      "mse_std": 0.008444069432353884,
+      "psnr_mean_db": 7.568564758300782,
+      "psnr_std_db": 0.2112628263450475,
+      "psnr_median_db": 7.559805631637573,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "trained_at_this_ratio": false,
+      "method": "FrameCNN",
+      "mse_mean": 0.012339358706958592,
+      "mse_std": 0.007410960960686569,
+      "psnr_mean_db": 19.631007165908812,
+      "psnr_std_db": 2.1130710198014304,
+      "psnr_median_db": 19.613563537597656,
+      "temporal_minus_frame_mean_db": "",
+      "temporal_win_rate": ""
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "trained_at_this_ratio": false,
+      "method": "BiConvGRU",
+      "mse_mean": 0.00830864549614489,
+      "mse_std": 0.00569071367672885,
+      "psnr_mean_db": 21.376097049713135,
+      "psnr_std_db": 2.113658545526401,
+      "psnr_median_db": 21.344347953796387,
+      "temporal_minus_frame_mean_db": 1.7450898838043214,
+      "temporal_win_rate": 0.84
+    }
+  ]
+}

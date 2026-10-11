@@ -1,6 +1,8 @@
 """Run a small validation-only end-to-end smoke check; not a benchmark."""
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import json
 import sys
 from pathlib import Path
@@ -9,7 +11,7 @@ import torch
 from torch.utils.data import DataLoader
 
 HERE = Path(__file__).resolve().parent
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 sys.path[:0] = [str(PROJECT), str(HERE)]
 
 from mini_repro_dynghost import make_patterns
@@ -27,11 +29,11 @@ def main() -> None:
     transformer = MiniSpatioTemporalTransformer().to(device)
     transformer.load_state_dict(torch.load(HERE / "graph_protocol_v2_trained" / "best_transformer.pt", map_location=device))
     motion_net = SpatialMotionNet().to(device)
-    motion_net.load_state_dict(torch.load(HERE / "spatial_motion_outputs" / "best_spatial_motion_net.pt", map_location=device))
+    motion_net.load_state_dict(torch.load(PROJECT_ROOT / 'spatial_motion_outputs' / "best_spatial_motion_net.pt", map_location=device))
     refiners = {}
     for name in ("cnn", "fixed", "motion"):
         model = ResidualRefiner(name).to(device)
-        model.load_state_dict(torch.load(HERE / "madygraph_gi_plugin_v2_outputs" / f"best_{name}_refiner.pt", map_location=device))
+        model.load_state_dict(torch.load(PROJECT_ROOT / 'madygraph_gi_plugin_v2_outputs' / f"best_{name}_refiner.pt", map_location=device))
         model.eval()
         refiners[name] = model
     transformer.eval(); motion_net.eval()
@@ -74,7 +76,7 @@ def main() -> None:
                 "mean_relative_measurement_residual": sum(r["relative_measurement_residual"] for r in group) / len(group),
                 "mean_motion_epe_px": sum(r["motion_epe_px"] for r in group) / len(group),
             })
-    out = HERE / "notebook_verification_outputs"
+    out = PROJECT_ROOT / 'notebook_verification_outputs'
     out.mkdir(exist_ok=True)
     payload = {
         "purpose": "full validation-set end-to-end diagnostic; not the held-out final test",

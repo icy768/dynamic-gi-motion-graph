@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "required_files": [
+    {
+      "path": "data/MNIST/raw/train-images-idx3-ubyte",
+      "bytes": 47040016,
+      "sha256": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db"
+    },
+    {
+      "path": "data/MNIST/raw/train-labels-idx1-ubyte",
+      "bytes": 60008,
+      "sha256": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5"
+    },
+    {
+      "path": "data/MNIST/raw/t10k-images-idx3-ubyte",
+      "bytes": 7840016,
+      "sha256": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7"
+    },
+    {
+      "path": "data/MNIST/raw/t10k-labels-idx1-ubyte",
+      "bytes": 10008,
+      "sha256": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+    },
+    {
+      "path": "checkpoints/best_transformer.pt",
+      "bytes": 268384,
+      "sha256": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236"
+    },
+    {
+      "path": "checkpoints/best_spatial_motion_net.pt",
+      "bytes": 2530989,
+      "sha256": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  ],
+  "optional_imported_legacy_files": [
+    {
+      "path": "benchmark_outputs/benchmark_summary.csv",
+      "bytes": 1741,
+      "sha256": "7b6746cfa0cae523836f73f6ab82d8f0dbf04dd4e4a56852971e3d590beb2cc7"
+    },
+    {
+      "path": "benchmark_outputs/benchmark_summary.json",
+      "bytes": 5506,
+      "sha256": "e408e26c79fc0e21c4bb896ea7c11985f7adcfd0c03675c5b5f914f47c511e44"
+    },
+    {
+      "path": "benchmark_outputs/per_sequence_results.csv",
+      "bytes": 82663,
+      "sha256": "28a16aaa57af4555d5a9ab88c998acc015558c7e792b39e0ca0b0858ed2d4fbf"
+    },
+    {
+      "path": "benchmark_outputs/sampling_generalization.png",
+      "bytes": 76134,
+      "sha256": "9ae0b61a938957dcd29e90604f9a816f0c923e1565e584f009770abeaff480d9"
+    },
+    {
+      "path": "benchmark_outputs/unseen_example.png",
+      "bytes": 335337,
+      "sha256": "1e45a50ed3d5d84af2d74610222a4c19e33daa78bc520b72efda486d185b785e"
+    },
+    {
+      "path": "frame_cnn_outputs/best_frame_cnn.pt",
+      "bytes": 191733,
+      "sha256": "3261a9e0c4f49eadbdef340a20d465c72d4626ba8f205d6eb60b159052998516"
+    },
+    {
+      "path": "frame_cnn_outputs/frame_cnn_comparison.png",
+      "bytes": 236825,
+      "sha256": "ef9fa9fe71ec0495dabe69fef30ec02856006b26e3ff313330f49fb32473df96"
+    },
+    {
+      "path": "frame_cnn_outputs/frame_cnn_results.json",
+      "bytes": 2406,
+      "sha256": "4290f1443b3721e719a75719503cacfdcc40ccc4e30866305834665b56894740"
+    },
+    {
+      "path": "frame_cnn_outputs/training_history.csv",
+      "bytes": 774,
+      "sha256": "0deeb1cdeb77b1dfd265a2151bb0a8d4d73dea5bbb6226e0a3891b9c50409269"
+    },
+    {
+      "path": "mini_outputs/mini_dgi_moving_mnist.png",
+      "bytes": 288178,
+      "sha256": "032aba60ea17befaa20c20873099df13ffb09b3d924246b66f3a93e34161880b"
+    },
+    {
+      "path": "mixed_sampling_outputs/benchmark_detail.csv",
+      "bytes": 83925,
+      "sha256": "5fe59543333464269ac43d52f63414fcea833768c730caefb113b4ceebf309c4"
+    },
+    {
+      "path": "mixed_sampling_outputs/benchmark_summary.csv",
+      "bytes": 1599,
+      "sha256": "1a7d756e83d852218a8d0f5a3ea25002b2a29230d5a8a17918f10ecc60e29d34"
+    },
+    {
+      "path": "mixed_sampling_outputs/best_mixed_frame_cnn.pt",
+      "bytes": 191829,
+      "sha256": "e3ae4c4c5948a5040719c5d882b7ed1ecbb532a6e54a5e89d2fd1e00d7109b57"
+    },
+    {
+      "path": "mixed_sampling_outputs/best_mixed_temporal_convgru.pt",
+      "bytes": 165931,
+      "sha256": "238fdd467ea0116439bddf4de805c82b75903db3c8c621cc806f6a887310dc9e"
+    },
+    {
+      "path": "mixed_sampling_outputs/mixed_sampling_metrics.png",
+      "bytes": 147058,
+      "sha256": "ee44993ce2782dafe798db4e8b648a50830179bf456b252eb285d5e335629504"
+    },
+    {
+      "path": "mixed_sampling_outputs/results.json",
+      "bytes": 6381,
+      "sha256": "ee9599806f47f63a272e9ed840991d8d8339551eebf99dcc24db310bc9b9eccd"
+    },
+    {
+      "path": "mixed_sampling_outputs/training_history.csv",
+      "bytes": 907,
+      "sha256": "579e84c314ea065bb5e1247855bd74a5e3759addce2b48a1d800d496affbc9e9"
+    },
+    {
+      "path": "motion_tgnn_outputs/best_motion_tgnn.pt",
+      "bytes": 2309971,
+      "sha256": "3d91feaa23813cc7c74d20141539331957c3047b2be5020908f93c4ea74a1163"
+    },
+    {
+      "path": "motion_tgnn_outputs/results.json",
+      "bytes": 3490,
+      "sha256": "0b6f34463081c0891e5d32a072d98cfd4bf46e3c83b03994b2ca113c1aa70e28"
+    },
+    {
+      "path": "oracle_motion_tgnn_outputs/benchmark_detail.csv",
+      "bytes": 45119,
+      "sha256": "81d5478836fb47762d468421d87f30f0f469c005f7fdffb83b302e57dfd89dd3"
+    },
+    {
+      "path": "oracle_motion_tgnn_outputs/benchmark_summary.csv",
+      "bytes": 919,
+      "sha256": "15845bc0b275e54784e1eb84241c92dd5964af90602e0328af24516d6629b5e5"
+    },
+    {
+      "path": "oracle_motion_tgnn_outputs/best_oracle_motion_tgnn.pt",
+      "bytes": 155479,
+      "sha256": "b30bc5eb3762b16e2bb7f5910ba7a41bd3a5c9990495b59f7bfe336df559c79f"
+    },
+    {
+      "path": "oracle_motion_tgnn_outputs/oracle_comparison.png",
+      "bytes": 292623,
+      "sha256": "615fd8549a751892c6d314d5832ed42c5cb4e1474517c68fe27b1de729c7c8df"
+    },
+    {
+      "path": "oracle_motion_tgnn_outputs/results.json",
+      "bytes": 3887,
+      "sha256": "d2ae46d92411382cecaa305a0c81577774d11df817596963f8f28440ef6cfc69"
+    },
+    {
+      "path": "sampling_rate_outputs/sampling_rate_comparison.png",
+      "bytes": 198046,
+      "sha256": "37677f6b469f156430cbf3861ecb7f3d95e60f53b20fe96d2f532910c0ef76ca"
+    },
+    {
+      "path": "sampling_rate_outputs/sampling_rate_results.csv",
+      "bytes": 242,
+      "sha256": "aa72672109f2fa020572f45ced97d3e4ed9789aab561236c6d2ca2c5c2bf9b55"
+    },
+    {
+      "path": "sampling_rate_outputs/sampling_rate_results.json",
+      "bytes": 850,
+      "sha256": "d2c3bba5b241ff40226b8eb16cc1f259b371b6fb47ac8365b4a95275d1d19070"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/benchmark_detail.csv",
+      "bytes": 178709,
+      "sha256": "cdeec7121de3510c020e251b42a42000b3111ac706042c96cbd79b526f9d1c0c"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/benchmark_summary.csv",
+      "bytes": 3144,
+      "sha256": "d7e87cd86da547cb798a8e50af5e060ec67be750c929b04270ae4a96b9987c30"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/best_spatiotemporal_transformer.pt",
+      "bytes": 270728,
+      "sha256": "8e67242403ee1e96306282554e80077a08edbcade105e7c99b125c12aab1a1c5"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/results.json",
+      "bytes": 9248,
+      "sha256": "4fc9bb94405b8ec749c08f816aeb1006dcf3c347cd26a47e945cc0d11f64bfc8"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/spatiotemporal_comparison.png",
+      "bytes": 223126,
+      "sha256": "e890303b3f15d649c5b533749272ffa42cfce08864b1c2c07191384c369aa1a2"
+    },
+    {
+      "path": "spatiotemporal_transformer_outputs/training_history.csv",
+      "bytes": 467,
+      "sha256": "c813098bb9ce17f35bcf86df137de3f25e41257cc0df3a2299d169c93479d53c"
+    },
+    {
+      "path": "temporal_convgru_outputs/best_temporal_convgru.pt",
+      "bytes": 165735,
+      "sha256": "fca988f19033b020b78e8f47a8583cc5b02cab11669172d73ee0372e28ddc9fe"
+    },
+    {
+      "path": "temporal_convgru_outputs/temporal_comparison.png",
+      "bytes": 311016,
+      "sha256": "37b10f2f0effc900ba210f2b04334531393f9e95ac4b57bd99d5342bffcab42c"
+    },
+    {
+      "path": "temporal_convgru_outputs/temporal_results.json",
+      "bytes": 2278,
+      "sha256": "15fc47ce52c1d7c4cbb53b0b1a738b21741faf57e8fe11f187dd1ff8d523e300"
+    },
+    {
+      "path": "temporal_convgru_outputs/training_history.csv",
+      "bytes": 660,
+      "sha256": "564835e810acf1381077c0f6aa3c94be67f28dbc4d4ff9f4482f9d6d63090198"
+    },
+    {
+      "path": "temporal_transformer_outputs/benchmark_detail.csv",
+      "bytes": 130078,
+      "sha256": "e3bfd5f7e18b72dd49e54e253b461dae0b1328deebc8bc9334bae97b0a460c1a"
+    },
+    {
+      "path": "temporal_transformer_outputs/benchmark_summary.csv",
+      "bytes": 2358,
+      "sha256": "7a2cd0f316f83c15ef8bdb6dc301ddac01ed64841617bd9b619892e5f8c31e47"
+    },
+    {
+      "path": "temporal_transformer_outputs/best_temporal_transformer.pt",
+      "bytes": 135614,
+      "sha256": "e69c78d996879bd214de31fee1a09ee293c8c6383e4c4993bff8754add066241"
+    },
+    {
+      "path": "temporal_transformer_outputs/results.json",
+      "bytes": 7193,
+      "sha256": "d78b0d46f99c7dcb7a78c2861361298016a8673b815f35eb2d14c18ffbe30716"
+    },
+    {
+      "path": "temporal_transformer_outputs/training_history.csv",
+      "bytes": 458,
+      "sha256": "2d1e53455157ffd3be11f06e83adc2b6ba9f3d7f91a0aa2f73c5f16ebc2b5436"
+    },
+    {
+      "path": "temporal_transformer_outputs/transformer_comparison.png",
+      "bytes": 190317,
+      "sha256": "ef12eb0d0796b2752600ac912ed07fb42df2685672b225949e67cb2b41453311"
+    },
+    {
+      "path": "tgnn_outputs/benchmark_detail.csv",
+      "bytes": 42237,
+      "sha256": "fc50a71b061c3829ae75bd402d334d5e776895cdab59ae48d9336808ee929c31"
+    },
+    {
+      "path": "tgnn_outputs/benchmark_summary.csv",
+      "bytes": 881,
+      "sha256": "b95a08a7ce8ea27761e7edb6d0b3c9797bce59c4c96a94d754fbea12cba094ce"
+    },
+    {
+      "path": "tgnn_outputs/best_patch_tgnn.pt",
+      "bytes": 1261033,
+      "sha256": "4b1bb3fee611894e3fcea18e887dc9f5e21655baf3336a4b21e1a875dedce419"
+    },
+    {
+      "path": "tgnn_outputs/patch_tgnn_metrics.png",
+      "bytes": 111440,
+      "sha256": "b32363f6f858c4442c364448358138514fb23bd2fcd16065a997ce24659c9baa"
+    },
+    {
+      "path": "tgnn_outputs/results.json",
+      "bytes": 3869,
+      "sha256": "97a5e63a68da5b159862c7cd48cef317ca2697622547033f55210e5ea3f63df6"
+    }
+  ]
+}

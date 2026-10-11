@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv
 import json
 import math
@@ -22,7 +24,7 @@ VAL_SAMPLES = 300
 BATCH_SIZE = 32
 EPOCHS = 12
 LEARNING_RATE = 1e-3
-OUT_DIR = "frame_cnn_outputs"
+OUT_DIR = str(PROJECT_ROOT / 'frame_cnn_outputs')
 
 
 def normalize_per_image(x, eps=1e-8):
@@ -136,8 +138,8 @@ def main():
         print(f"gpu={torch.cuda.get_device_name(0)}")
 
     patterns = make_patterns(NUM_PATTERNS, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device)
-    train_set = MovingMNISTFrames("./data", True, TRAIN_SAMPLES, SEED + 1)
-    val_set = MovingMNISTFrames("./data", False, VAL_SAMPLES, SEED + 2)
+    train_set = MovingMNISTFrames(str(PROJECT_DATA_DIR), True, TRAIN_SAMPLES, SEED + 1)
+    val_set = MovingMNISTFrames(str(PROJECT_DATA_DIR), False, VAL_SAMPLES, SEED + 2)
     train_loader = DataLoader(
         train_set, batch_size=BATCH_SIZE, shuffle=True, num_workers=0, pin_memory=True
     )

@@ -1,0 +1,227 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "parameters": 30609
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2740294963866472,
+      "val_mse": 0.12488403691289325
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.18237168371677398,
+      "val_mse": 0.06377063515052821
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.13562425561249256,
+      "val_mse": 0.031431035782831414
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.13379686459898948,
+      "val_mse": 0.03746369387420903
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.1242877784743905,
+      "val_mse": 0.0367582900604854
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.1169626485556364,
+      "val_mse": 0.03300423918844899
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.11619516503065824,
+      "val_mse": 0.03512610251588436
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.11191951889544725,
+      "val_mse": 0.03031595029460732
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.11012336988002062,
+      "val_mse": 0.034343956332789576
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.10055705934762954,
+      "val_mse": 0.03364474177312028
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "FrameCNN",
+      "mse_mean": 0.05145088385790587,
+      "mse_std": 0.019140077874721426,
+      "psnr_mean_db": 13.182587327957153,
+      "psnr_std_db": 1.6542607156772124,
+      "ssim_mean": 0.22614903390407562,
+      "ssim_std": 0.03437752100841832,
+      "temporal_difference_error_mean": 0.10532737463712692,
+      "temporal_difference_error_std": 0.035821576681202456
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03783179529942572,
+      "mse_std": 0.024100299068197672,
+      "psnr_mean_db": 15.025560913085938,
+      "psnr_std_db": 2.7444697738592376,
+      "ssim_mean": 0.4618780246376991,
+      "ssim_std": 0.1460847155901391,
+      "temporal_difference_error_mean": 0.05619817145168781,
+      "temporal_difference_error_std": 0.023195882614019666
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.04994331081397831,
+      "mse_std": 0.028198832600660573,
+      "psnr_mean_db": 13.60492259979248,
+      "psnr_std_db": 2.286526416965545,
+      "ssim_mean": 0.22343972191214562,
+      "ssim_std": 0.05664723565959777,
+      "temporal_difference_error_mean": 0.07082191849127412,
+      "temporal_difference_error_std": 0.02788881903594678
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "FrameCNN",
+      "mse_mean": 0.043651862195692955,
+      "mse_std": 0.028077174038644324,
+      "psnr_mean_db": 14.307781524658203,
+      "psnr_std_db": 2.4897593338274175,
+      "ssim_mean": 0.3026205579191446,
+      "ssim_std": 0.0650431332086646,
+      "temporal_difference_error_mean": 0.10384584004990756,
+      "temporal_difference_error_std": 0.04540025243855476
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03473871324909851,
+      "mse_std": 0.04826704406378984,
+      "psnr_mean_db": 16.455813417434694,
+      "psnr_std_db": 3.668496782092463,
+      "ssim_mean": 0.5265560268610716,
+      "ssim_std": 0.1904094274528755,
+      "temporal_difference_error_mean": 0.052621856331825256,
+      "temporal_difference_error_std": 0.025834787931229508
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.048200717349536716,
+      "mse_std": 0.05306082207209172,
+      "psnr_mean_db": 14.636380467414856,
+      "psnr_std_db": 3.3676501605402374,
+      "ssim_mean": 0.2775207881629467,
+      "ssim_std": 0.09170010940329619,
+      "temporal_difference_error_mean": 0.06764242235571145,
+      "temporal_difference_error_std": 0.03175061604977365
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "FrameCNN",
+      "mse_mean": 0.021718663135543465,
+      "mse_std": 0.016404978848644624,
+      "psnr_mean_db": 17.38522035598755,
+      "psnr_std_db": 2.4835757343625384,
+      "ssim_mean": 0.432948637008667,
+      "ssim_std": 0.07610147482856609,
+      "temporal_difference_error_mean": 0.06819959942251444,
+      "temporal_difference_error_std": 0.027026569633889178
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.01372541643679142,
+      "mse_std": 0.016777097797841534,
+      "psnr_mean_db": 19.793389492034912,
+      "psnr_std_db": 2.7962662051195273,
+      "ssim_mean": 0.7215968170762062,
+      "ssim_std": 0.1280164626431823,
+      "temporal_difference_error_mean": 0.03558994178660214,
+      "temporal_difference_error_std": 0.01565534600521652
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.019989400650374592,
+      "mse_std": 0.021427464724057776,
+      "psnr_mean_db": 18.031116104125978,
+      "psnr_std_db": 2.75363164331568,
+      "ssim_mean": 0.4058111330866814,
+      "ssim_std": 0.10527223171869235,
+      "temporal_difference_error_mean": 0.04590744689106941,
+      "temporal_difference_error_std": 0.020136830956465204
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "FrameCNN",
+      "mse_mean": 0.01126257814699784,
+      "mse_std": 0.006914899215189152,
+      "psnr_mean_db": 20.204609117507935,
+      "psnr_std_db": 2.5477472175609415,
+      "ssim_mean": 0.6382204017043114,
+      "ssim_std": 0.09039527085949038,
+      "temporal_difference_error_mean": 0.04423124841414392,
+      "temporal_difference_error_std": 0.017738543466102992
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "BiConvGRU",
+      "mse_mean": 0.006438948874128983,
+      "mse_std": 0.003496525153718626,
+      "psnr_mean_db": 22.46469615936279,
+      "psnr_std_db": 2.2253818864689476,
+      "ssim_mean": 0.8588874542713165,
+      "ssim_std": 0.05315929291504745,
+      "temporal_difference_error_mean": 0.026879408448003232,
+      "temporal_difference_error_std": 0.010284687554918126
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "TemporalTransformer",
+      "mse_mean": 0.009218736042967066,
+      "mse_std": 0.004302677408018021,
+      "psnr_mean_db": 20.807931575775147,
+      "psnr_std_db": 2.0378404127728054,
+      "ssim_mean": 0.5881617680191994,
+      "ssim_std": 0.0809505166843865,
+      "temporal_difference_error_mean": 0.033999191145412624,
+      "temporal_difference_error_std": 0.01421312324338581
+    }
+  ],
+  "elapsed_seconds": 49.72320866584778
+}

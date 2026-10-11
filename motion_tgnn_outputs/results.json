@@ -1,0 +1,124 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "graph": "4-neighbor spatial edges plus locally matched temporal edges"
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.27749962985515597,
+      "val_mse": 0.056815586326411
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.17489579945802688,
+      "val_mse": 0.03020124711135092
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.11397878039628268,
+      "val_mse": 0.027491652384439173
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.10111026212573052,
+      "val_mse": 0.03194038958269327
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.09312597028911114,
+      "val_mse": 0.020746594285689448
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.09442464858293534,
+      "val_mse": 0.020375148146316253
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.09470134027302266,
+      "val_mse": 0.022720430580860315
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.09080217398703098,
+      "val_mse": 0.017770880998674934
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0842668814957142,
+      "val_mse": 0.01855624932650244
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.08408420827239751,
+      "val_mse": 0.022733715095576677
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "MotionAwarePatchTGNN",
+      "mse_mean": 0.029945144494995475,
+      "mse_std": 0.012429619333997943,
+      "psnr_mean_db": 15.564514865875244,
+      "psnr_std_db": 1.69603237291211,
+      "ssim_mean": 0.3575785109400749,
+      "ssim_std": 0.06194253810226795,
+      "temporal_difference_error_mean": 0.05736806344240904,
+      "temporal_difference_error_std": 0.019799195861014966
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "MotionAwarePatchTGNN",
+      "mse_mean": 0.021540837939828635,
+      "mse_std": 0.01278402468790465,
+      "psnr_mean_db": 17.188175945281984,
+      "psnr_std_db": 2.018789775900423,
+      "ssim_mean": 0.4254317706823349,
+      "ssim_std": 0.08899154044286636,
+      "temporal_difference_error_mean": 0.05112036738544703,
+      "temporal_difference_error_std": 0.01895123405427585
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "MotionAwarePatchTGNN",
+      "mse_mean": 0.011909341835416854,
+      "mse_std": 0.00785044254128184,
+      "psnr_mean_db": 19.688580989837646,
+      "psnr_std_db": 1.804136903721506,
+      "ssim_mean": 0.5482803310453892,
+      "ssim_std": 0.09199029707129465,
+      "temporal_difference_error_mean": 0.03829015424475074,
+      "temporal_difference_error_std": 0.013753799128397555
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "MotionAwarePatchTGNN",
+      "mse_mean": 0.007638121992349625,
+      "mse_std": 0.0027190765377087442,
+      "psnr_mean_db": 21.42795057296753,
+      "psnr_std_db": 1.5225809618281123,
+      "ssim_mean": 0.6906954935193061,
+      "ssim_std": 0.07965594249731825,
+      "temporal_difference_error_mean": 0.03145820480771363,
+      "temporal_difference_error_std": 0.011389265542773195
+    }
+  ],
+  "parameters": 50297,
+  "elapsed_seconds": 434.1949450969696
+}

@@ -1,34 +1,83 @@
 # 动态鬼成像与运动图重建
 
-本项目研究运动引导的时空图聚合能否改善动态计算鬼成像的重建质量。当前主线是在冻结的交替时空 Transformer 粗重建之后，利用逐帧 GI 测量残差和估计运动进行图细化，并与 CNN 细化、固定坐标图细化比较。
+本项目研究运动引导的图聚合能否改善动态计算鬼成像的重建质量。当前实验以同一个冻结的交替时空 Transformer 作为粗重建器，比较 CNN、固定坐标图和运动图三种细化方案。早期直接用图模型替代 Transformer 的实验仍保存在仓库中。
 
-仓库保存笔记本阶段的代码、研究笔记和已有实验结果。版本 `v0.1.0-notebook-baseline` 是后续服务器实验的起点。当前代码保留已有实验协议和本机路径，服务器适配将在后续版本完成。
+## 工程目录
 
-## 实验范围
+本机唯一项目根目录为 `C:\Users\lingye\Desktop\文献\文献及笔记`。代码、完整 MNIST、必需权重和实验结果均已集中到这里。运行程序根据自身位置确定根目录，无需配置旧 D 盘项目路径。整体移动文件夹后，目录内部的相对位置保持不变即可。
 
-数据为单数字全局平移的合成 Moving MNIST，图像大小 64×64，每条序列 8 帧。当前主协议使用 800 条训练序列、120 条验证序列，测试按保留身份块组织；散斑数为 128 或 256，分别对应 3.125% 和 6.25% 采样率。
+```text
+项目根目录/
+├── run_server_experiment.py        # 统一运行入口
+├── project_paths.py                # 根目录与资源定位
+├── configs/mnist_block3.json       # 本次正式实验配置
+├── scripts/                        # Linux 启动与本地检查
+├── data/MNIST/raw/                 # 完整的四个 MNIST 原始文件
+├── checkpoints/                    # 冻结的 Transformer 与运动估计器
+├── runs/                           # 新训练、验证、最终测试和计时输出
+├── dist/gi_project_server.zip       # 上传用完整工程包
+└── *_outputs/                      # 已归档的研究结果
+```
 
-每帧独立获得 bucket 测量，细化器使用粗视频、测量残差回投影和估计运动。当前实现借鉴 MadyGraph 的方法思路，属于逐帧 GI 适配原型；与原论文的视频快照压缩成像观测模型不同。
+GitHub 保存代码、笔记、CSV、JSON 和结果图；数据、权重、运行输出与压缩包由 `.gitignore` 排除。仅克隆 GitHub 仓库不能恢复完整运行资源。服务器使用 `dist/gi_project_server.zip`，其中只有一个顶层目录 `gi_project/`，包括所需数据和权重。资源大小及 SHA256 记录在 `asset_manifest.json`；上传包内另有 `PACKAGE_MANIFEST.json` 和 `CODE_VERSION.json`。
 
-早期“图模型直接替换 Transformer”的实验也保存在仓库中，供研究路线追溯。两条路线采用不同的比较对象，应分别解读结果。
+## 本次服务器实验
 
-## 代码入口
+这次需要回答的是：在相同粗重建、相同数据和训练预算下，运动图的提升能否在新的测试身份与三个细化器随机种子上保持，同时增加多少推理开销。
 
-| 入口 | 用途 |
+| 项目 | 固定设置 |
 |---|---|
-| `train_madygraph_gi_plugin.py` | 当前 CNN、固定图、运动图细化器训练与评估 |
-| `train_graph_protocol_v2.py` | 受控数据协议与 Transformer、直接图模型训练 |
-| `train_spatial_motion_diagnostic.py` | 当前细化器使用的运动估计器训练 |
-| `evaluate_graph_protocol_v2.py` | 直接重建路线的受控评估 |
-| `benchmark_madygraph_gi_plugin_efficiency.py` | 已有细化方案效率测量脚本，运行前需核对残差接口 |
-| `evaluate_madygraph_measurement_noise.py` | 测量噪声实验 |
-| `mini_repro_dynghost.py`、`train_spatiotemporal_transformer.py` | GI 仿真和早期交替时空 Transformer 基础代码 |
+| 数据 | MNIST 数字生成的单数字全局平移序列，64×64，8 帧 |
+| 训练 / 验证 / 最终测试 | 800 / 120 / 120 个数字身份 |
+| 散斑数 | 128、256，对应 3.125%、6.25% 采样率 |
+| 比较方法 | Transformer 粗重建、CNN 细化、固定图细化、运动图细化 |
+| 训练预算 | 三种细化器分别运行三个种子，每次 5 轮，共 9 次训练 |
+| 共享模型 | 粗重建器和运动估计器保持冻结 |
+| 最终测试 | 保留的 MNIST 身份块 3，在训练全部完成后统一读取 |
 
-完整实验交接见 [动态 GI 研究交接文档](动态GI动态图研究_完整交接文档_2026-09-29.md)。该文档记录截至 2026-09-29 的研究状态。当前仓库与版本说明以本 README 为准，实验结果仍以对应输出文件为准。
+两个采样率混合训练，每个细化器同时支持两者。三个种子只覆盖细化器训练，不代表三个独立训练的完整重建系统。同一随机种子内，三种细化器使用相同训练数据与小批次顺序，模型执行顺序不影响各自的随机初始化和数据顺序。
 
-## 已有结果
+训练入口默认只使用训练集与验证集，以验证误差选择权重。最终测试由独立入口执行，并记录配置和权重指纹；相同实验再次执行时读取已完成结果，配置或权重变化时会拒绝沿用该次最终测试。
 
-以下数据来自 `madygraph_gi_plugin_v2_outputs/benchmark_summary.csv` 的 `speed_bin=all` 行：测试块 1、120 条序列、细化器种子偏移 0。它是一次已有实验，不能替代多个种子和其他测试块的统计。
+主要判据预先设为：两个采样率下，运动图相对 CNN 的平均配对 PSNR 增益均达到 0.5 dB，95% 置信区间下限大于 0，平均 SSIM 不下降。同时报告相对固定图和粗重建的结果。达标只能支持当前合成数据和模型规模下的结论，自然视频与真实光学 GI 仍需后续实验。
+
+## 指标与计时
+
+质量指标包括 PSNR、SSIM、前景 PSNR、时间差分误差和测量一致性。百分比使用实际 MSE：
+
+`MSE 降低率 = 100 × (基准平均 MSE − 细化后平均 MSE) / 基准平均 MSE`
+
+PSNR 增益以 dB 表示，不转换成 PSNR 百分比。先对每个测试身份的三个种子指标取平均，再按身份进行配对 bootstrap；种子间增益波动另行输出，避免把重复身份当成独立测试样本。重建图在指标计算前统一截断到 `[0, 1]`。
+
+效率报告包含完整重建时间、相对粗重建增加的时间、细化模块自身时间、运动估计时间和训练时间。额外时间为“该方案完整时间 − 粗重建完整时间”。CNN 与固定图的完整流程不计入无须调用的运动估计器；运动图包含运动估计。计时从已取得并驻留设备的 bucket 测量开始，不包含光学采集、网络传输与磁盘读写。显存同时记录常驻量和额外峰值；基准脚本一次加载多个模型，绝对峰值不能解释为单独部署某一个模型所需的显存。
+
+## 运行方法
+
+服务器步骤见 [恒源云运行教程](SERVER_RUN.md)。CUDA 镜像应提供兼容的 `torch` 与 `torchvision`；安装其余依赖时使用 `requirements-runtime.txt`，保留镜像中的 CUDA 配套版本。`requirements.txt` 列出全部直接依赖，笔记本原环境记录在 `environment_notebook.json`。
+
+```bash
+python -m pip install -r requirements-runtime.txt
+python run_server_experiment.py --stage check --require-cuda
+bash scripts/run_hengyuan_mnist.sh
+```
+
+启动脚本依次完成资源检查、小规模训练检查、三个种子的正式训练、统一最终测试和效率测量。需要逐步执行时可使用：
+
+```bash
+python run_server_experiment.py --stage smoke --require-cuda
+python run_server_experiment.py --stage train --require-cuda
+python run_server_experiment.py --stage evaluate --require-cuda
+python run_server_experiment.py --stage benchmark --require-cuda
+python package_gi_project.py --results
+```
+
+已完成的正式训练种子可以跳过；尚未完成的种子会重新训练该种子。正式输出位于 `runs/mnist_block3/`，包括训练历史、九份细化器权重、逐序列指标、配对统计、四张结果图、效率表及运行环境。打包结果后生成 `dist/gi_results_block3.zip`。
+
+本地检查使用 `python run_server_experiment.py --stage smoke`；重新制作工程上传包使用 `python package_gi_project.py`。准备检查只读验证身份，不读最终测试块。实际检查记录见 [PREPARATION_CHECKS.json](PREPARATION_CHECKS.json)。服务器 Linux/CUDA 镜像仍需在启动实例后通过同一检查入口确认。
+
+## 已有研究结果
+
+以下为已有 `madygraph_gi_plugin_v2_outputs/benchmark_summary.csv` 中测试块 1、120 条序列、细化器种子偏移 0 的结果，不是尚待开展的块 3 服务器结果。
 
 | 散斑数 | 方法 | PSNR / dB | SSIM |
 |---:|---|---:|---:|
@@ -43,57 +92,18 @@
 
 | 输出位置 | 内容 |
 |---|---|
-| `madygraph_gi_plugin_v2_outputs/` | 当前向量化细化实验、逐序列结果、配对增益、数据清单与效率记录 |
-| `madygraph_gi_plugin_seed1_outputs/`、`madygraph_gi_plugin_seed2_outputs/` | 其他细化器随机种子的已有结果 |
-| `madygraph_gi_motion_block2_outputs/` | 运动图在另一个保留测试身份块上的结果 |
+| `madygraph_gi_plugin_v2_outputs/` | 当前细化路线的已有指标与图表 |
+| `madygraph_gi_plugin_seed1_outputs/`、`madygraph_gi_plugin_seed2_outputs/` | 其他细化器种子的已有结果 |
+| `madygraph_gi_motion_block2_outputs/` | 另一个保留身份块上的已有结果 |
 | `graph_protocol_v2_trained/`、`graph_protocol_v2_outputs/` | 直接重建路线的受控比较 |
-| `transformer_vs_joint_repeat_summary.json`、`joint_motion_tgnn_repeat_summary.json` | 早期多种子模型对比汇总 |
-| `madygraph_gi_plugin_noise_outputs/` | 测量噪声条件下的结果 |
-| `notebook_verification_outputs/` | 已有算子、闭环和过拟合检查记录 |
+| `transformer_vs_joint_repeat_summary.json` | 早期直接替代 Transformer 的多种子比较 |
+| `madygraph_gi_plugin_noise_outputs/` | 已有测量噪声实验 |
+| `notebook_verification_outputs/` | 算子、闭环与过拟合检查记录 |
 
-`*_smoke/`、`*_train_smoke/` 保存的是小规模运行检查，应与正式训练结果区分。`madygraph_gi_plugin_outputs/test_visuals.png` 是早期测试的图像示例，与 v2 或测试块 2 的结果不能直接混用。
+历史交接见 [动态 GI 研究交接文档](动态GI动态图研究_完整交接文档_2026-09-29.md)。历史文档中的本机路径和旧运行方法用于追溯，当前运行方法以本 README 为准。当前实现借鉴 MadyGraph 的运动图思路，是逐帧 GI 适配原型，观测模型与原论文的视频快照压缩成像不同。
 
-现有结论适用于上述合成数据和模型规模。自然视频、真实光学 GI 测量和更大模型尚待验证。三个细化器种子的实验共享粗重建器与运动估计器，随机性只覆盖细化器训练。
+## 版本与源码来源
 
-## 环境与运行
+GitHub 私有仓库为 `icy768/dynamic-gi-motion-graph`，默认分支为 `main`。`v0.1.0-notebook-baseline` 保存整理前的笔记本基线；`v0.1.1-server-ready` 保存本次目录集成与服务器准备。
 
-笔记本环境的实际版本记录在 [environment_notebook.json](environment_notebook.json)。`requirements.txt` 给出直接运行依赖，属于依赖清单；安装后需确认 PyTorch 与 torchvision 匹配，CUDA 安装方式应按实际 GPU 环境选择。
-
-```powershell
-python -m pip install -r requirements.txt
-python train_madygraph_gi_plugin.py --help
-```
-
-现有笔记本 Python 位于 `D:\Anaconda\envs\pytorch_env\python.exe`。在当前电脑、完整 MNIST 数据与既有权重就位后，可使用以下命令进行新的小规模细化训练。输出使用新目录，避免覆盖已归档结果。
-
-```powershell
-python train_madygraph_gi_plugin.py --epochs 5 --variants cnn,fixed,motion --seed-offset 0 --test-block 1 --output-dir runs/local_refiner_seed0
-```
-
-上面的命令会进行训练和测试，文档示例未在此次 Git 整理过程中执行。服务器正式实验计划使用新的保留测试块，并在适配时拆分训练和最终测试流程。
-
-## 数据、权重与路径
-
-数据、权重和论文 PDF 保存在本地，未进入 Git。克隆仓库后需要另行准备这些资源。
-
-| 资源 | 当前本机位置 |
-|---|---|
-| 完整 MNIST 原始数据 | `D:\download\DynGhost-mini-repro\data\MNIST\raw` |
-| Transformer 粗重建权重 | `graph_protocol_v2_trained/best_transformer.pt` |
-| 运动估计器权重 | `spatial_motion_outputs/best_spatial_motion_net.pt` |
-| 其他已训练模型 | 相应实验输出目录中的 `.pt` 文件 |
-| 参考论文 | `动态CGI/`、`原文献/` 中的 PDF |
-
-当前仓库根目录中的 `data/MNIST/raw` 只有训练图像及其压缩文件，不能视为完整 MNIST 数据。依赖模块已经补入本仓库根目录，但多个研究脚本仍将 `PROJECT` 或 `DEFAULT_PROJECT` 指向 D 盘旧项目。部分旧脚本还读取旧项目的输出；服务器迁移时需要统一数据、模型和输出路径。
-
-效率脚本与部分可视化入口保留了历史实现，运行前应核对 checkpoint、测试块及 `physical_residual(bucket, coarse, patterns)` 的参数约定。本次归档保存已有文件，没有重新生成指标或图表。
-
-## 源码来源与版本
-
-本仓库根目录固定为 `C:\Users\lingye\Desktop\文献\文献及笔记`，分支为 `main`。当前研究文件先形成独立快照，再补齐基础模块与说明。
-
-补入的 10 个基础模块来自 `D:\download\DynGhost-mini-repro` 的实际工作目录。该项目当时的 HEAD 为 `130c64e3e35482dbcdc1516f29afe1c25d0d9656`。其中 7 个模块受旧 Git 仓库管理，另 3 个模块当时尚未提交；逐文件 SHA256、旧仓库跟踪状态和来源记录见 [source_provenance.json](source_provenance.json)。
-
-`v0.1.0-notebook-baseline` 标记整理完成的笔记本阶段版本。此次提交使用实际日期，不将此前实验记录日期写成 Git 提交日期。
-
-Git 保存实验代码、自写 Markdown/Word 笔记、CSV/JSON 指标及结果 PNG；忽略数据、模型权重、论文 PDF、缓存和临时文件。完整实验恢复仍需同时保存本地模型与数据。
+10 个基础模块最初从旧项目工作目录补入，来源 HEAD 为 `130c64e3e35482dbcdc1516f29afe1c25d0d9656`。原始文件哈希与旧仓库跟踪状态见 `source_provenance.json`，该文件记录导入时的来源，不是当前修改后文件的哈希。旧工作目录现已不作为运行依赖。

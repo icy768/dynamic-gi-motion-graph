@@ -1,0 +1,139 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "feature_grid": "16x16",
+    "graph": "four-neighbor spatial edges plus oracle bilinear motion edges",
+    "diagnostic_only": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.21039677977561952,
+      "val_mse": 0.026092149189207704
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.08897628240287304,
+      "val_mse": 0.01569077978444208
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.061277432348579165,
+      "val_mse": 0.012016102326985372
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05509142890572548,
+      "val_mse": 0.011300032327320271
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.051535550113767384,
+      "val_mse": 0.010423100982977
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.04994456781074405,
+      "val_mse": 0.010385049445418796
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.048417317867279056,
+      "val_mse": 0.009513404971949057
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.04663715066388249,
+      "val_mse": 0.009085948376862992
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.04590631565079093,
+      "val_mse": 0.013662948999990477
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.047130574099719526,
+      "val_mse": 0.009810624515618352
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "OracleMotionTGNN",
+      "mse_mean": 0.015933567322790623,
+      "mse_std": 0.0074814916739862364,
+      "psnr_mean_db": 18.40359718322754,
+      "psnr_std_db": 1.932398414073784,
+      "ssim_mean": 0.6896465313434601,
+      "ssim_std": 0.06036263599973195,
+      "temporal_difference_error_mean": 0.03773995407857001,
+      "temporal_difference_error_std": 0.012018129933157007
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "OracleMotionTGNN",
+      "mse_mean": 0.009410045542754233,
+      "mse_std": 0.004172126462143423,
+      "psnr_mean_db": 20.6569753074646,
+      "psnr_std_db": 1.8761340382390865,
+      "ssim_mean": 0.7992566359043122,
+      "ssim_std": 0.045741444785338245,
+      "temporal_difference_error_mean": 0.030648879325017333,
+      "temporal_difference_error_std": 0.010395007621102861
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "OracleMotionTGNN",
+      "mse_mean": 0.006169761596247554,
+      "mse_std": 0.003445971504356575,
+      "psnr_mean_db": 22.55874291419983,
+      "psnr_std_db": 1.9360086398107175,
+      "ssim_mean": 0.8756693536043167,
+      "ssim_std": 0.034507724767597545,
+      "temporal_difference_error_mean": 0.025224049179814755,
+      "temporal_difference_error_std": 0.008950698570766896
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "OracleMotionTGNN",
+      "mse_mean": 0.004576256512664258,
+      "mse_std": 0.002213245361906395,
+      "psnr_mean_db": 23.803753147125246,
+      "psnr_std_db": 1.8509952366482196,
+      "ssim_mean": 0.9155107986927032,
+      "ssim_std": 0.025340358720715443,
+      "temporal_difference_error_mean": 0.022060047551058233,
+      "temporal_difference_error_std": 0.007705074167401661
+    }
+  ],
+  "parameters": {
+    "OracleMotionTGNN": 35505,
+    "SpatioTemporalTransformer": 61361
+  },
+  "efficiency": {
+    "OracleMotionTGNN": {
+      "latency_ms": 42.308779999924205,
+      "peak_memory_mb": 47.20361328125
+    },
+    "SpatioTemporalTransformer": {
+      "latency_ms": 6.37598333414644,
+      "peak_memory_mb": 47.20361328125
+    }
+  },
+  "elapsed_seconds": 172.0903913974762
+}

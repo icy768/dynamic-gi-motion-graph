@@ -1,0 +1,195 @@
+{
+  "config": {
+    "seed": 20260902,
+    "rates": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "train_sequences": 800,
+    "val_sequences": 120,
+    "test_sequences": 100,
+    "epochs": 10,
+    "balanced_mixed_sampling": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "frame_train_loss": 0.19419528417289256,
+      "temporal_train_loss": 0.2045660163462162,
+      "frame_val_mse": 0.047042738380453857,
+      "temporal_val_mse": 0.03799087271860723
+    },
+    {
+      "epoch": 2,
+      "frame_train_loss": 0.13656464006751776,
+      "temporal_train_loss": 0.1381265416368842,
+      "frame_val_mse": 0.048500447858774956,
+      "temporal_val_mse": 0.0347430761163802
+    },
+    {
+      "epoch": 3,
+      "frame_train_loss": 0.12617345537990332,
+      "temporal_train_loss": 0.12859192833304406,
+      "frame_val_mse": 0.03253120035078609,
+      "temporal_val_mse": 0.029750362202321412
+    },
+    {
+      "epoch": 4,
+      "frame_train_loss": 0.13525315646082162,
+      "temporal_train_loss": 0.140676284506917,
+      "frame_val_mse": 0.035335717657775,
+      "temporal_val_mse": 0.04237826267441657
+    },
+    {
+      "epoch": 5,
+      "frame_train_loss": 0.11901097849011422,
+      "temporal_train_loss": 0.1160453150421381,
+      "frame_val_mse": 0.056725882726217,
+      "temporal_val_mse": 0.05008046762668528
+    },
+    {
+      "epoch": 6,
+      "frame_train_loss": 0.12101746141910553,
+      "temporal_train_loss": 0.1115472038090229,
+      "frame_val_mse": 0.03521686245367164,
+      "temporal_val_mse": 0.030262240291631316
+    },
+    {
+      "epoch": 7,
+      "frame_train_loss": 0.12051339708268642,
+      "temporal_train_loss": 0.11061553178355098,
+      "frame_val_mse": 0.035856173372788666,
+      "temporal_val_mse": 0.023017481263135173
+    },
+    {
+      "epoch": 8,
+      "frame_train_loss": 0.11575334459543228,
+      "temporal_train_loss": 0.10142630144953728,
+      "frame_val_mse": 0.03402525146326904,
+      "temporal_val_mse": 0.029478262066307555
+    },
+    {
+      "epoch": 9,
+      "frame_train_loss": 0.11614279558882118,
+      "temporal_train_loss": 0.10418132193386555,
+      "frame_val_mse": 0.05647287204240759,
+      "temporal_val_mse": 0.02753443160787962
+    },
+    {
+      "epoch": 10,
+      "frame_train_loss": 0.11488087056204677,
+      "temporal_train_loss": 0.09826303707435727,
+      "frame_val_mse": 0.039572941605971815,
+      "temporal_val_mse": 0.021988834050959364
+    }
+  ],
+  "summary": [
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "FrameCNN",
+      "mse_mean": 0.05145088385790587,
+      "mse_std": 0.019140077874721426,
+      "psnr_mean_db": 13.182587327957153,
+      "psnr_std_db": 1.6542607156772124,
+      "ssim_mean": 0.22614903390407562,
+      "ssim_std": 0.03437752100841832,
+      "temporal_difference_error_mean": 0.10532737463712692,
+      "temporal_difference_error_std": 0.035821576681202456
+    },
+    {
+      "pattern_count": 128,
+      "sampling_ratio": 0.03125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03783179529942572,
+      "mse_std": 0.024100299068197672,
+      "psnr_mean_db": 15.025560913085938,
+      "psnr_std_db": 2.7444697738592376,
+      "ssim_mean": 0.4618780246376991,
+      "ssim_std": 0.1460847155901391,
+      "temporal_difference_error_mean": 0.05619817145168781,
+      "temporal_difference_error_std": 0.023195882614019666
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "FrameCNN",
+      "mse_mean": 0.043651862195692955,
+      "mse_std": 0.028077174038644324,
+      "psnr_mean_db": 14.307781524658203,
+      "psnr_std_db": 2.4897593338274175,
+      "ssim_mean": 0.3026205579191446,
+      "ssim_std": 0.0650431332086646,
+      "temporal_difference_error_mean": 0.10384584004990756,
+      "temporal_difference_error_std": 0.04540025243855476
+    },
+    {
+      "pattern_count": 256,
+      "sampling_ratio": 0.0625,
+      "method": "BiConvGRU",
+      "mse_mean": 0.03473871324909851,
+      "mse_std": 0.04826704406378984,
+      "psnr_mean_db": 16.455813417434694,
+      "psnr_std_db": 3.668496782092463,
+      "ssim_mean": 0.5265560268610716,
+      "ssim_std": 0.1904094274528755,
+      "temporal_difference_error_mean": 0.052621856331825256,
+      "temporal_difference_error_std": 0.025834787931229508
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "FrameCNN",
+      "mse_mean": 0.021718663135543465,
+      "mse_std": 0.016404978848644624,
+      "psnr_mean_db": 17.38522035598755,
+      "psnr_std_db": 2.4835757343625384,
+      "ssim_mean": 0.432948637008667,
+      "ssim_std": 0.07610147482856609,
+      "temporal_difference_error_mean": 0.06819959942251444,
+      "temporal_difference_error_std": 0.027026569633889178
+    },
+    {
+      "pattern_count": 512,
+      "sampling_ratio": 0.125,
+      "method": "BiConvGRU",
+      "mse_mean": 0.01372541643679142,
+      "mse_std": 0.016777097797841534,
+      "psnr_mean_db": 19.793389492034912,
+      "psnr_std_db": 2.7962662051195273,
+      "ssim_mean": 0.7215968170762062,
+      "ssim_std": 0.1280164626431823,
+      "temporal_difference_error_mean": 0.03558994178660214,
+      "temporal_difference_error_std": 0.01565534600521652
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "FrameCNN",
+      "mse_mean": 0.01126257814699784,
+      "mse_std": 0.006914899215189152,
+      "psnr_mean_db": 20.204609117507935,
+      "psnr_std_db": 2.5477472175609415,
+      "ssim_mean": 0.6382204017043114,
+      "ssim_std": 0.09039527085949038,
+      "temporal_difference_error_mean": 0.04423124841414392,
+      "temporal_difference_error_std": 0.017738543466102992
+    },
+    {
+      "pattern_count": 1024,
+      "sampling_ratio": 0.25,
+      "method": "BiConvGRU",
+      "mse_mean": 0.006438948874128983,
+      "mse_std": 0.003496525153718626,
+      "psnr_mean_db": 22.46469615936279,
+      "psnr_std_db": 2.2253818864689476,
+      "ssim_mean": 0.8588874542713165,
+      "ssim_std": 0.05315929291504745,
+      "temporal_difference_error_mean": 0.026879408448003232,
+      "temporal_difference_error_std": 0.010284687554918126
+    }
+  ],
+  "elapsed_seconds": 107.41101598739624
+}

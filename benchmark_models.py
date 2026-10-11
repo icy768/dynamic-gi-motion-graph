@@ -1,3 +1,5 @@
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import csv
 import json
 import math
@@ -18,9 +20,9 @@ from train_temporal_convgru import BidirectionalConvGRU, MovingMNISTSequences
 PATTERN_COUNTS = (128, 256, 512, 1024)
 TEST_SEQUENCES = 100
 BATCH_SIZE = 4
-OUT_DIR = "benchmark_outputs"
-FRAME_MODEL_PATH = os.path.join("frame_cnn_outputs", "best_frame_cnn.pt")
-TEMPORAL_MODEL_PATH = os.path.join("temporal_convgru_outputs", "best_temporal_convgru.pt")
+OUT_DIR = str(PROJECT_ROOT / 'benchmark_outputs')
+FRAME_MODEL_PATH = os.path.join(str(PROJECT_ROOT / 'frame_cnn_outputs'), "best_frame_cnn.pt")
+TEMPORAL_MODEL_PATH = os.path.join(str(PROJECT_ROOT / 'temporal_convgru_outputs'), "best_temporal_convgru.pt")
 
 
 def normalize_per_image(x, eps=1e-8):
@@ -70,7 +72,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"device={device}")
 
-    dataset = MovingMNISTSequences("./data", False, TEST_SEQUENCES, SEED + 100)
+    dataset = MovingMNISTSequences(str(PROJECT_DATA_DIR), False, TEST_SEQUENCES, SEED + 100)
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
     frame_model = FrameCNN().to(device)
     frame_model.load_state_dict(torch.load(FRAME_MODEL_PATH, map_location=device))

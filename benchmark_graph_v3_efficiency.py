@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
+
 import json
 import sys
 import time
@@ -13,7 +15,7 @@ from train_graph_protocol_v2 import JointPairGraph
 from train_spatial_motion_diagnostic import SpatialMotionNet
 
 
-PROJECT = Path(r"D:\download\DynGhost-mini-repro")
+PROJECT = PROJECT_ROOT
 
 
 def measure(name, model, sample, forward, repeats=50):

@@ -1,10 +1,12 @@
 """在固定数据/散斑条件下重复训练交替时空 Transformer。"""
+
+from project_paths import PROJECT_ROOT, DATA_DIR as PROJECT_DATA_DIR
 import argparse,csv,json,random,sys,time
 from pathlib import Path
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
-HERE=Path(__file__).resolve().parent; PROJECT=Path(r"D:\download\DynGhost-mini-repro")
+HERE=Path(__file__).resolve().parent; PROJECT=PROJECT_ROOT
 def save(path,rows):
  with path.open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=rows[0].keys());w.writeheader();w.writerows(rows)
 def main():
