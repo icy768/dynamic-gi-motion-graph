@@ -40,7 +40,7 @@ fi
 "$GI_PYTHON" -u run_server_experiment.py --config configs/mnist_scaleup.json --stage all --require-cuda
 "$GI_PYTHON" package_gi_project.py --results --config configs/mnist_scaleup.json
 GI_ARCHIVE="dist/gi_results_mnist_scaleup_v1.zip"
-GI_CHECKSUM="dist/gi_results_mnist_scaleup_v1.sha256.json"
+GI_CHECKSUM="dist/gi_results_mnist_scaleup_v1_checksums.zip"
 if [[ "$GI_UPLOAD" == 1 ]]; then
     oss cp "$GI_ARCHIVE" oss://
     oss cp "$GI_CHECKSUM" oss://

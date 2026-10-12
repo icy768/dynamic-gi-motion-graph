@@ -112,4 +112,6 @@ GitHub 私有仓库为 `icy768/dynamic-gi-motion-graph`，默认分支为 `main`
 
 `v0.2.0-scaleup-ready` 保存扩大实验的代码、固定数据划分、本地准备检查，以及已完成的 RTX 3090 pilot 指标和图表。MNIST 数据、模型权重及完整上传包仍通过独立工程 ZIP 保存。
 
+`v0.2.1-scaleup-ready` 使用适合恒源云 OSS 的校验压缩包，完整运行入口将上传结果 ZIP 和校验 ZIP，再执行可选关机。
+
 10 个基础模块最初从旧项目工作目录补入，来源 HEAD 为 `130c64e3e35482dbcdc1516f29afe1c25d0d9656`。原始文件哈希与旧仓库跟踪状态见 `source_provenance.json`，该文件记录导入时的来源，不是当前修改后文件的哈希。旧工作目录现已不作为运行依赖。

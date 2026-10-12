@@ -54,7 +54,7 @@ tmux new -s gi_scaleup
 bash scripts/run_hengyuan_scaleup.sh --upload --shutdown-after-upload
 ```
 
-完整脚本顺序完成环境与资源检查、16/8 样本的冒烟检查、训练/验证冻结特征缓存、全部 15 次训练、统一最终测试、效率测量和结果打包。随后上传结果 ZIP 与 SHA256 文件；两次上传均成功后执行关机。自动关机只允许在 `/hy-tmp/gi_project` 目录下使用。运行失败时保留实例和已保存状态，日志显示错误。
+完整脚本顺序完成环境与资源检查、16/8 样本的冒烟检查、训练/验证冻结特征缓存、全部 15 次训练、统一最终测试、效率测量和结果打包。随后上传结果 ZIP 与包含 SHA256 信息的校验 ZIP；两次上传均成功后执行关机。恒源云个人数据不接受单独的 JSON，因此校验信息也压缩上传。自动关机只允许在 `/hy-tmp/gi_project` 目录下使用。运行失败时保留实例和已保存状态，日志显示错误。
 
 如需自己核对后关机，使用：
 
@@ -74,7 +74,7 @@ bash scripts/run_hengyuan_scaleup.sh --upload
 
 质量输出包括 PSNR、SSIM、前景 PSNR、MSE 降低率、时间差分误差、测量一致性、速度分层、配对 95% 置信区间和种子波动。计时包含完整流程、相对粗重建增加的时间、细化器自身时间、运动估计时间及显存。预设主判据保持为两个测量率下运动图相对 CNN 平均增益达到 0.5 dB、置信区间下限高于零、平均 SSIM 不下降；无论判据是否满足，结果都将保存上传。
 
-结果包为 `dist/gi_results_mnist_scaleup_v1.zip`，校验文件为 `dist/gi_results_mnist_scaleup_v1.sha256.json`。从个人数据下载到本地后可通过 `Get-FileHash -Algorithm SHA256` 与校验文件核对，再解压分析。恒源云临时数据保留期限见[数据存储文档](https://gpushare.com/docs/data/storage/)。
+结果包为 `dist/gi_results_mnist_scaleup_v1.zip`，校验包为 `dist/gi_results_mnist_scaleup_v1_checksums.zip`。解压校验包后得到 SHA256 JSON；从个人数据下载结果包后可通过 `Get-FileHash -Algorithm SHA256` 与该文件核对，再解压分析。恒源云临时数据保留期限见[数据存储文档](https://gpushare.com/docs/data/storage/)。
 
 ## 计算时间
 

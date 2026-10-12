@@ -95,8 +95,16 @@ def result_package(config_path, output_path=None):
         if archive.testzip() or len(archive.namelist()) != len(set(archive.namelist())):
             raise RuntimeError("Result archive failed integrity or unique-member checks")
     print(f"results packaged: {output}")
-    write_json(output.with_suffix(".sha256.json"), {"archive": output.name, "bytes": output.stat().st_size,
-                                                  "sha256": sha256_file(output), "config": config})
+    checksum_file = output.with_suffix(".sha256.json")
+    write_json(checksum_file, {"archive": output.name, "bytes": output.stat().st_size,
+                              "sha256": sha256_file(output), "config": config})
+    # Hengyuan personal-data OSS accepts archives, not standalone JSON files.
+    checksum_archive = output.with_name(output.stem + "_checksums.zip")
+    with zipfile.ZipFile(checksum_archive, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        archive.write(checksum_file, checksum_file.name)
+    with zipfile.ZipFile(checksum_archive) as archive:
+        if archive.testzip():
+            raise RuntimeError("Checksum archive failed integrity check")
     return output
 
 

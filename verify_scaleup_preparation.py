@@ -98,10 +98,14 @@ def verify(device):
         assert packed.testzip() is None
         assert not any(name.endswith("/train.pt") or name.endswith("/val.pt") for name in packed.namelist())
         assert "gi_results/prepared_split_manifest.json" in packed.namelist()
+    with zipfile.ZipFile(archive.with_name(archive.stem + "_checksums.zip")) as checksums:
+        assert checksums.testzip() is None
+        info = json.loads(checksums.read(archive.with_suffix(".sha256.json").name))
+        assert info["sha256"] == sha256_file(archive)
     report = {"passed": True, "runtime_source_sha256": code_version()["runtime_source_sha256"],
               "production_protocol": protocol_report(production), "device": str(device),
               "checks": ["assets and split manifest", "historical identity exclusions", "3-seed development train/evaluate/benchmark",
-                         "variant order invariance", "shared cache", "epoch resume equivalence", "final-test change guard", "result ZIP integrity"],
+                         "variant order invariance", "shared cache", "epoch resume equivalence", "final-test change guard", "result ZIP integrity", "OSS-compatible checksum ZIP"],
               "resume_max_parameter_difference": largest,
               "resume_max_metric_difference": history_difference,
               "development_final_identities": old_perm[8:16].tolist(),
