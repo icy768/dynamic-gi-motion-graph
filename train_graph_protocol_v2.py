@@ -159,26 +159,51 @@ def split_indices():
     return train_perm, test_perm
 
 
-def make_train_validation(project: Path):
+def _check_slice(start: int, count: int, total: int, name: str) -> None:
+    if start < 0 or count < 1 or start + count > total:
+        raise ValueError(f"{name} slice [{start}, {start + count}) exceeds the available {total} identities")
+
+
+def make_train_validation(
+    project: Path,
+    train_sequences: int = TRAIN_N,
+    validation_sequences: int = VAL_N,
+    train_start: int = 0,
+    validation_start: int = 0,
+    data_seed_offset: int = 0,
+):
     train_perm, test_perm = split_indices()
+    _check_slice(train_start, train_sequences, len(train_perm), "training")
+    _check_slice(validation_start, validation_sequences, len(test_perm), "validation")
     train = BouncingMovingMNIST(
-        project / "data", True, train_perm[:TRAIN_N], SEED + 701
+        project / "data", True,
+        train_perm[train_start:train_start + train_sequences],
+        SEED + 701 + data_seed_offset,
     )
     val = BouncingMovingMNIST(
-        project / "data", False, test_perm[:VAL_N], SEED + 702
+        project / "data", False,
+        test_perm[validation_start:validation_start + validation_sequences],
+        SEED + 702 + data_seed_offset,
     )
     return train, val
 
 
-def make_test_block(project: Path, block: int = 3):
+def make_test_block(
+    project: Path,
+    block: int = 3,
+    test_sequences: int = TEST_N,
+    test_start: int | None = None,
+    data_seed_offset: int = 0,
+):
     if block < 0:
         raise ValueError("test block must be nonnegative")
     _, test_perm = split_indices()
-    start = VAL_N + TEST_N * block
-    if start + TEST_N > len(test_perm):
-        raise ValueError("test block exceeds available MNIST identities")
+    start = VAL_N + TEST_N * block if test_start is None else test_start
+    _check_slice(start, test_sequences, len(test_perm), "final test")
     return BouncingMovingMNIST(
-        project / "data", False, test_perm[start:start + TEST_N], SEED + 703 + block
+        project / "data", False,
+        test_perm[start:start + test_sequences],
+        SEED + 703 + block + data_seed_offset,
     )
 
 

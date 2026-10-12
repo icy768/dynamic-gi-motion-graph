@@ -1,0 +1,182 @@
+{
+  "passed": true,
+  "runtime_source_sha256": "1b66590fe43e42c2e7bb26b52249b6eb263a1cb9881c33377320b09c3a399680",
+  "production_protocol": {
+    "protocol": {
+      "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+      "counts": [
+        4000,
+        600,
+        600
+      ],
+      "test_block": 4
+    },
+    "historical_exposure_exclusions": 1352,
+    "validation_final_identity_overlap": 0,
+    "final_test_images_generated": false,
+    "final_test_metrics_evaluated": false,
+    "dataset": "Single-digit bouncing Moving-MNIST; 8 frames, 64x64, speed 1-6 px/frame",
+    "raw_data_download_required": false
+  },
+  "device": "cuda",
+  "checks": [
+    "assets and split manifest",
+    "historical identity exclusions",
+    "3-seed development train/evaluate/benchmark",
+    "variant order invariance",
+    "shared cache",
+    "epoch resume equivalence",
+    "final-test change guard",
+    "result ZIP integrity"
+  ],
+  "resume_max_parameter_difference": 4.0978193283081055e-07,
+  "resume_max_metric_difference": 2.60770320892334e-08,
+  "development_final_identities": [
+    1936,
+    6938,
+    9128,
+    9286,
+    8640,
+    313,
+    6760,
+    7365
+  ],
+  "production_final_test_images_generated": false,
+  "production_final_test_metrics_evaluated": false,
+  "development_directory": "tmp/scaleup_checks/1791817733081035600",
+  "checked_at_utc": "2026-10-12T15:12:26+00:00",
+  "production_preflight": {
+    "passed": true,
+    "assets": {
+      "verified_files": 6,
+      "bytes": 57749421,
+      "package_files_verified": 0,
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "python_files_parsed": 47,
+    "runtime": {
+      "created_at_utc": "2026-10-12T15:11:13+00:00",
+      "python": "3.11.15",
+      "platform": "Windows-10-10.0.22631-SP0",
+      "packages": {
+        "torch": "2.13.0+cu126",
+        "torchvision": "0.28.0+cu126",
+        "numpy": "2.4.4",
+        "matplotlib": "3.11.1",
+        "pytorch-msssim": "1.0.0",
+        "Pillow": "12.2.0"
+      },
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+      "code_version": {
+        "commit": "6b74e2e8477af1b717e49fcfbc73ed289be96056",
+        "working_tree_dirty": true,
+        "runtime_source_sha256": "1b66590fe43e42c2e7bb26b52249b6eb263a1cb9881c33377320b09c3a399680"
+      },
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "validation_sequences_used": 2,
+    "reserved_final_test_read": false,
+    "checks": [
+      {
+        "pattern_count": 128,
+        "bucket_dgi_max_abs_difference": 0.0,
+        "zero_measurement_residual_max_abs": 0.0,
+        "three_refiner_forward_shapes": [
+          2,
+          8,
+          1,
+          64,
+          64
+        ]
+      },
+      {
+        "pattern_count": 256,
+        "bucket_dgi_max_abs_difference": 0.0,
+        "zero_measurement_residual_max_abs": 0.0,
+        "three_refiner_forward_shapes": [
+          2,
+          8,
+          1,
+          64,
+          64
+        ]
+      }
+    ],
+    "data_protocol": {
+      "protocol": {
+        "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+        "counts": [
+          4000,
+          600,
+          600
+        ],
+        "test_block": 4
+      },
+      "historical_exposure_exclusions": 1352,
+      "validation_final_identity_overlap": 0,
+      "final_test_images_generated": false,
+      "final_test_metrics_evaluated": false,
+      "dataset": "Single-digit bouncing Moving-MNIST; 8 frames, 64x64, speed 1-6 px/frame",
+      "raw_data_download_required": false
+    }
+  },
+  "production_smoke": {
+    "passed": true,
+    "runtime": {
+      "created_at_utc": "2026-10-12T15:11:30+00:00",
+      "python": "3.11.15",
+      "platform": "Windows-10-10.0.22631-SP0",
+      "packages": {
+        "torch": "2.13.0+cu126",
+        "torchvision": "0.28.0+cu126",
+        "numpy": "2.4.4",
+        "matplotlib": "3.11.1",
+        "pytorch-msssim": "1.0.0",
+        "Pillow": "12.2.0"
+      },
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+      "code_version": {
+        "commit": "6b74e2e8477af1b717e49fcfbc73ed289be96056",
+        "working_tree_dirty": true,
+        "runtime_source_sha256": "1b66590fe43e42c2e7bb26b52249b6eb263a1cb9881c33377320b09c3a399680"
+      },
+      "checkpoint_sha256": {
+        "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+        "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+      }
+    },
+    "dataset_protocol": {
+      "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+      "counts": [
+        4000,
+        600,
+        600
+      ],
+      "test_block": 4
+    },
+    "training_sequences": 16,
+    "validation_sequences": 8,
+    "epochs": 1,
+    "variant_order_max_parameter_difference": 5.140900611877441e-07,
+    "reserved_final_test_read": false,
+    "directory": "runs/preparation_smoke_mnist_scaleup_v1/1791817873370774400",
+    "completed": [
+      "forward",
+      "backward",
+      "checkpoint_selection",
+      "variant_order_invariance",
+      "validation_metrics",
+      "paired_statistics",
+      "figures",
+      "stage_timing"
+    ]
+  }
+}

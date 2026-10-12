@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from gi_experiment import choose_device, load_frozen, make_bank, runtime_metadata, verify_assets, write_json
-from project_paths import DEFAULT_RUN, PROJECT_ROOT, asset_hashes, project_path
+from project_paths import DEFAULT_RUN, PROJECT_ROOT, asset_hashes, project_path, sha256_file
 from train_graph_protocol_v2 import IMAGE_SIZE, RATES, make_train_validation
 from train_madygraph_gi_plugin import ResidualRefiner, csv_write, dgi_from_bucket, gi_forward, physical_residual
 
@@ -41,7 +41,13 @@ def benchmark(refiner_dir, output, device, warmup=15, repeats=60):
     if manifest['checkpoint_sha256'] != asset_hashes():
         raise RuntimeError('The refiners use different frozen checkpoints')
     torch.set_num_threads(1)
-    _, validation = make_train_validation(PROJECT_ROOT)
+    if manifest.get('experiment_config'):
+        from experiment_protocol import training_validation
+        _, validation = training_validation(manifest['experiment_config'])
+    else:
+        _, validation = make_train_validation(PROJECT_ROOT)
+    if int(validation.indices[0]) != manifest['validation_mnist_indices'][0]:
+        raise RuntimeError('Timing sample differs from the training validation split')
     target = next(iter(DataLoader(validation,batch_size=1,shuffle=False)))[0].to(device)
     transformer, motion_net = load_frozen(device)
     models = {}
@@ -56,6 +62,7 @@ def benchmark(refiner_dir, output, device, warmup=15, repeats=60):
                'data_source':'First validation sequence; reserved final-test data are not read',
                'peak_memory_scope':'All benchmark models are resident; report absolute allocation and extra allocation during each operation',
                'refiner_directory':refiner_dir.relative_to(PROJECT_ROOT).as_posix(),'rates':{}}
+    results['refiner_checkpoint_sha256'] = {kind:sha256_file(refiner_dir/f'best_{kind}_refiner.pt') for kind in models}
     table = []
     with torch.inference_mode():
         for rate in RATES:

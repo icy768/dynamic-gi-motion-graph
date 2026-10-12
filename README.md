@@ -23,6 +23,10 @@ GitHub 保存代码、笔记、CSV、JSON 和结果图；数据、权重、运�
 
 ## 本次服务器实验
 
+2026-10-12 的 MNIST block 3 服务器 pilot 已完成，结果位于 `server_results/block3/gi_results/`：运动图相对 CNN 在 128/256 散斑下平均 PSNR 增益为 0.827/0.815 dB，MSE 降低 16.57%/16.25%。这两档都满足本轮预设判据。
+
+下一轮扩大协议已放在 `configs/mnist_scaleup.json`：4,000 条训练、600 条验证、600 条新测试身份，20 轮、5 个种子。使用固定清单排除已知历史曝光身份，并支持共享预计算缓存及逐轮训练恢复。新上传包为 `dist/gi_project_scaleup_server.zip`。完整步骤见 [扩大实验运行说明](SCALEUP_RUN.md)，正式训练尚未开始。
+
 这次需要回答的是：在相同粗重建、相同数据和训练预算下，运动图的提升能否在新的测试身份与三个细化器随机种子上保持，同时增加多少推理开销。
 
 | 项目 | 固定设置 |
@@ -71,7 +75,7 @@ python run_server_experiment.py --stage benchmark --require-cuda
 python package_gi_project.py --results
 ```
 
-已完成的正式训练种子可以跳过；尚未完成的种子会重新训练该种子。正式输出位于 `runs/mnist_block3/`，包括训练历史、九份细化器权重、逐序列指标、配对统计、四张结果图、效率表及运行环境。打包结果后生成 `dist/gi_results_block3.zip`。
+已完成的正式训练种子可以跳过；新版本对未完成的方案逐轮保存并恢复训练。pilot 输出位于 `runs/mnist_block3/`，包括训练历史、九份细化器权重、逐序列指标、配对统计、结果图、效率表及运行环境。pilot 结果包为 `dist/gi_results_block3.zip`；扩大实验使用独立目录与压缩包。
 
 本地检查使用 `python run_server_experiment.py --stage smoke`；重新制作工程上传包使用 `python package_gi_project.py`。准备检查只读验证身份，不读最终测试块。实际检查记录见 [PREPARATION_CHECKS.json](PREPARATION_CHECKS.json)。服务器 Linux/CUDA 镜像仍需在启动实例后通过同一检查入口确认。
 
@@ -105,5 +109,7 @@ python package_gi_project.py --results
 ## 版本与源码来源
 
 GitHub 私有仓库为 `icy768/dynamic-gi-motion-graph`，默认分支为 `main`。`v0.1.0-notebook-baseline` 保存整理前的笔记本基线；`v0.1.1-server-ready` 保存本次目录集成与服务器准备。
+
+`v0.2.0-scaleup-ready` 保存扩大实验的代码、固定数据划分、本地准备检查，以及已完成的 RTX 3090 pilot 指标和图表。MNIST 数据、模型权重及完整上传包仍通过独立工程 ZIP 保存。
 
 10 个基础模块最初从旧项目工作目录补入，来源 HEAD 为 `130c64e3e35482dbcdc1516f29afe1c25d0d9656`。原始文件哈希与旧仓库跟踪状态见 `source_provenance.json`，该文件记录导入时的来源，不是当前修改后文件的哈希。旧工作目录现已不作为运行依赖。

@@ -49,6 +49,7 @@ from train_graph_protocol_v2 import (
     speed_bin_name,
 )
 from train_spatial_motion_diagnostic import SpatialMotionNet
+from gi_experiment import atomic_torch_save
 
 
 HERE = Path(__file__).resolve().parent
@@ -286,7 +287,7 @@ def evaluate_model(model, splits, device, motion_key="motion", bank=None):
     return rows
 
 
-def train_one(kind, splits, device, epochs, output, run_seed=None):
+def train_one(kind, splits, device, epochs, output, run_seed=None, training_fingerprint=None):
     from train_frame_cnn import reconstruction_loss
     from train_mixed_sampling import temporal_error
     from pytorch_msssim import ssim
@@ -299,9 +300,27 @@ def train_one(kind, splits, device, epochs, output, run_seed=None):
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-4, weight_decay=1e-4)
     best_val = float("inf")
     best_path = output / f"best_{kind}_refiner.pt"
+    last_path = output / f"last_{kind}_training.pt"
     history = []
+    best_state = None
+    first_epoch = 1
+    if last_path.is_file():
+        state = torch.load(last_path, map_location="cpu", weights_only=True)
+        if (state["fingerprint"], state["kind"], state["run_seed"], state["epochs"]) != (training_fingerprint, kind, run_seed, epochs):
+            raise RuntimeError("Resume state belongs to a different training protocol")
+        model.load_state_dict(state["model"])
+        optimizer.load_state_dict(state["optimizer"])
+        order_generator.set_state(state["order_generator"])
+        torch.set_rng_state(state["torch_rng"])
+        if device.type == "cuda" and state["cuda_rng"]:
+            torch.cuda.set_rng_state_all(state["cuda_rng"])
+        history, best_val, best_state = state["history"], state["best_val"], state["best_model"]
+        atomic_torch_save(best_state, best_path)
+        first_epoch = state["epoch"] + 1
+        print(f"{kind} resumed after epoch={first_epoch - 1}/{epochs}", flush=True)
     train_n = len(splits["train"][RATES[0]]["target"])
-    for epoch in range(1, epochs + 1):
+    for epoch in range(first_epoch, epochs + 1):
+        epoch_started = time.perf_counter()
         model.train()
         order = torch.randperm(train_n, generator=order_generator)
         total = count = 0
@@ -323,6 +342,8 @@ def train_one(kind, splits, device, epochs, output, run_seed=None):
                     size_average=True,
                 )
             )
+            if not torch.isfinite(loss):
+                raise RuntimeError(f"Non-finite training loss: {kind}, epoch {epoch}")
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -351,12 +372,22 @@ def train_one(kind, splits, device, epochs, output, run_seed=None):
         val_mse = float(np.mean(vals))
         val_ssim = float(np.mean(val_ssims))
         val_score = val_mse + 0.02 * (1.0 - val_ssim)
+        if not np.isfinite(val_score):
+            raise RuntimeError(f"Non-finite validation score: {kind}, epoch {epoch}")
         history.append({"epoch": epoch, "train_loss": total / count, "val_mse": val_mse, "val_ssim": val_ssim, "val_selection_score": val_score,
-                        "minibatch_order_sha256": hashlib.sha256(order.numpy().tobytes()).hexdigest()})
+                        "minibatch_order_sha256": hashlib.sha256(order.numpy().tobytes()).hexdigest(),
+                        "epoch_seconds": time.perf_counter() - epoch_started})
         print(f"{kind} epoch={epoch:02d}/{epochs} loss={total/count:.5f} val_mse={val_mse:.6f} val_ssim={val_ssim:.4f}", flush=True)
         if val_score < best_val:
             best_val = val_score
-            torch.save(model.state_dict(), best_path)
+            best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
+        atomic_torch_save(best_state, best_path)
+        atomic_torch_save({"fingerprint": training_fingerprint, "kind": kind, "run_seed": run_seed,
+                           "epochs": epochs, "epoch": epoch, "model": model.state_dict(),
+                           "optimizer": optimizer.state_dict(), "best_val": best_val, "best_model": best_state,
+                           "history": history, "order_generator": order_generator.get_state(),
+                           "torch_rng": torch.get_rng_state(),
+                           "cuda_rng": torch.cuda.get_rng_state_all() if device.type == "cuda" else []}, last_path)
     model.load_state_dict(torch.load(best_path, map_location=device, weights_only=True))
     return model, history, best_path
 
@@ -383,33 +414,46 @@ def summarize(rows):
 
 
 def main():
-    from gi_experiment import choose_device, load_frozen, make_bank, runtime_metadata, verify_assets, write_json
+    from gi_experiment import choose_device, load_config, load_frozen, make_bank, runtime_metadata, verify_assets, write_json
+    from experiment_protocol import protocol_signature, training_validation
 
     parser = argparse.ArgumentParser(description="Train GI refiners; final-test evaluation is a separate command")
-    parser.add_argument("--epochs", type=int, default=EPOCHS)
+    parser.add_argument("--epochs", type=int, default=None)
+    parser.add_argument("--config", default=None)
+    parser.add_argument("--no-cache", action="store_true", help="Precompute directly for small engineering checks")
     parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--seed-offset", type=int, default=0)
-    parser.add_argument("--variants", default="cnn,fixed,motion")
-    parser.add_argument("--test-block", type=int, default=3)
-    parser.add_argument("--train-limit", type=int, default=TRAIN_N)
-    parser.add_argument("--val-limit", type=int, default=VAL_N)
+    parser.add_argument("--variants", default=None)
+    parser.add_argument("--test-block", type=int, default=None)
+    parser.add_argument("--train-limit", type=int, default=None)
+    parser.add_argument("--val-limit", type=int, default=None)
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--skip-test", dest="skip_test", action="store_true")
     mode.add_argument("--evaluate-test", dest="skip_test", action="store_false", help="Legacy explicit test evaluation; do not use for the reserved final block")
     parser.set_defaults(skip_test=True)
     args = parser.parse_args()
+    config = load_config(args.config) if args.config else None
+    args.epochs = args.epochs if args.epochs is not None else (config["epochs"] if config else EPOCHS)
+    args.variants = args.variants or ",".join(config["variants"] if config else ["cnn", "fixed", "motion"])
+    args.test_block = args.test_block if args.test_block is not None else (config["test_block"] if config else 3)
+    train_count, val_count = (config["train_sequences"], config["validation_sequences"]) if config else (TRAIN_N, VAL_N)
+    args.train_limit = train_count if args.train_limit is None else args.train_limit
+    args.val_limit = val_count if args.val_limit is None else args.val_limit
     kinds = [kind.strip() for kind in args.variants.split(",") if kind.strip()]
     if not kinds or len(kinds) != len(set(kinds)) or set(kinds) - {"cnn", "fixed", "motion", "oracle"}:
         parser.error("variants must be distinct values from cnn,fixed,motion,oracle")
-    if args.epochs < 1 or not 1 <= args.train_limit <= TRAIN_N or not 1 <= args.val_limit <= VAL_N:
+    if args.epochs < 1 or not 1 <= args.train_limit <= train_count or not 1 <= args.val_limit <= val_count:
         parser.error("invalid epochs or train/validation limits")
     if args.seed_offset < 0:
         parser.error("seed offset must be nonnegative")
     if not args.skip_test and args.test_block >= 3:
         parser.error("reserved final blocks must be evaluated with evaluate_madygraph_gi_final.py")
+    if config and "split_manifest" in config and not args.skip_test:
+        parser.error("expanded final tests must use the separate evaluation entry point")
     verify_assets()
-    output = project_path(args.output_dir or (DEFAULT_RUN / f"seed{args.seed_offset}"))
+    run = project_path(config["run_directory"]) if config else DEFAULT_RUN
+    output = project_path(args.output_dir or (run / f"seed{args.seed_offset}"))
     if (output / "results.json").exists():
         parser.error("completed training already exists; choose another output directory")
     output.mkdir(parents=True, exist_ok=True)
@@ -419,7 +463,7 @@ def main():
     print(f"device={device} seed_offset={args.seed_offset} test_evaluation={not args.skip_test}", flush=True)
     if device.type == "cuda":
         torch.cuda.reset_peak_memory_stats(device)
-    train_set, val_set = make_train_validation(PROJECT)
+    train_set, val_set = training_validation(config) if config else make_train_validation(PROJECT)
     train_ids = train_set.indices[:args.train_limit].tolist()
     val_ids = val_set.indices[:args.val_limit].tolist()
     loaders = {
@@ -428,13 +472,19 @@ def main():
     }
     if not args.skip_test:
         loaders["test"] = DataLoader(make_test_block(PROJECT, args.test_block), batch_size=4, shuffle=False)
-    transformer, motion_net = load_frozen(device)
     bank = make_bank(device)
     start_time = time.perf_counter()
-    splits = {}
-    for split_name, loader in loaders.items():
-        print(f"precompute={split_name}", flush=True)
-        splits[split_name] = precompute(loader, transformer, motion_net, bank, device)
+    cache_fingerprint = None
+    if config and config.get("cache_training_features") and not args.no_cache and args.train_limit == train_count and args.val_limit == val_count:
+        from prepare_experiment_cache import load_cache
+        splits, cache_fingerprint = load_cache(config, device)
+        print("shared training features loaded", flush=True)
+    else:
+        transformer, motion_net = load_frozen(device)
+        splits = {}
+        for split_name, loader in loaders.items():
+            print(f"precompute={split_name}", flush=True)
+            splits[split_name] = precompute(loader, transformer, motion_net, bank, device)
     residual_scales = {}
     for rate in RATES:
         scale = max(float(splits["train"][rate]["residual"].square().mean().sqrt()), 1e-8)
@@ -463,7 +513,16 @@ def main():
         "minibatch_order_seed": run_seed + 100000,
         "fairness": "each variant resets initialization seed; an independent CPU generator produces identical epoch orders",
         "runtime": runtime_metadata(device),
+        "experiment_config": config,
+        "dataset_protocol": protocol_signature(config) if config else None,
+        "cache_fingerprint": cache_fingerprint,
     }
+    fingerprint = hashlib.sha256(json.dumps({key: value for key, value in manifest.items() if key != "runtime"}, sort_keys=True).encode()).hexdigest()
+    fingerprint = hashlib.sha256((fingerprint + json.dumps({key: manifest["runtime"][key] for key in ("packages", "device", "gpu", "code_version")}, sort_keys=True)).encode()).hexdigest()
+    if (output / "data_manifest.json").exists():
+        previous = json.loads((output / "data_manifest.json").read_text(encoding="utf-8"))
+        if any(previous.get(key) != value for key, value in manifest.items() if key != "runtime") or previous["runtime"]["code_version"]["runtime_source_sha256"] != manifest["runtime"]["code_version"]["runtime_source_sha256"]:
+            raise RuntimeError("Incomplete training directory belongs to another configuration or source version")
     write_json(output / "data_manifest.json", manifest)
     all_rows = []
     if not args.skip_test:
@@ -480,12 +539,13 @@ def main():
         if device.type == "cuda":
             torch.cuda.synchronize(device)
         train_start = time.perf_counter()
-        model, histories[kind], checkpoint = train_one(kind, splits, device, args.epochs, output, run_seed=run_seed)
+        model, histories[kind], checkpoint = train_one(kind, splits, device, args.epochs, output, run_seed=run_seed, training_fingerprint=fingerprint)
         if device.type == "cuda":
             torch.cuda.synchronize(device)
         params[kind] = {"parameters": sum(p.numel() for p in model.parameters()),
                         "checkpoint": checkpoint.relative_to(PROJECT_ROOT).as_posix(),
-                        "training_seconds": time.perf_counter() - train_start}
+                        "training_seconds": sum(item["epoch_seconds"] for item in histories[kind]),
+                        "current_invocation_seconds": time.perf_counter() - train_start}
         csv_write(output / f"history_{kind}.csv", histories[kind])
         if not args.skip_test:
             rows = evaluate_model(model, splits, device, motion_key="truth_motion" if kind == "oracle" else "motion", bank=bank)

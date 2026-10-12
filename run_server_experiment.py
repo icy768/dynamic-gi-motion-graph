@@ -16,13 +16,15 @@ from gi_experiment import (
     choose_device, load_config, load_frozen, make_bank, runtime_metadata, verify_assets, write_json,
 )
 from project_paths import PROJECT_ROOT, project_path
+from experiment_protocol import protocol_report, protocol_signature, training_validation
 
 
 def command(script, *args):
     subprocess.run([sys.executable, str(PROJECT_ROOT / script), *map(str, args)], cwd=PROJECT_ROOT, check=True)
 
 
-def preflight(device):
+def preflight(device, config=None):
+    config = load_config() if config is None else config
     assets = verify_assets()
     syntax_count = 0
     for path in PROJECT_ROOT.rglob("*.py"):
@@ -37,7 +39,7 @@ def preflight(device):
     from train_graph_protocol_v2 import IMAGE_SIZE, make_train_validation
     from train_madygraph_gi_plugin import ResidualRefiner, dgi_from_bucket, gi_forward, physical_residual, precompute
     from train_mixed_sampling import coarse_sequence
-    _, validation = make_train_validation(PROJECT_ROOT)
+    _, validation = training_validation(config)
     transformer, motion = load_frozen(device)
     bank = make_bank(device)
     loader = DataLoader(Subset(validation, range(2)), batch_size=2, shuffle=False)
@@ -67,25 +69,27 @@ def preflight(device):
                            "three_refiner_forward_shapes": list(target.shape)})
     report = {"passed": True, "assets": assets, "python_files_parsed": syntax_count,
               "runtime": runtime_metadata(device), "validation_sequences_used": 2,
-              "reserved_final_test_read": False, "checks": checks}
+              "reserved_final_test_read": False, "checks": checks, "data_protocol": protocol_report(config)}
     write_json(PROJECT_ROOT / "runs" / "preflight_check.json", report)
+    if "split_manifest" in config:
+        write_json(project_path(config["run_directory"]) / "preflight_check.json", report)
     print(f"preflight passed: {assets['verified_files']} assets, {syntax_count} Python modules, device={device}", flush=True)
     return report
 
 
-def smoke(config, device):
-    directory = PROJECT_ROOT / "runs" / "preparation_smoke"
+def smoke(config, device, config_path="configs/mnist_block3.json"):
+    directory = PROJECT_ROOT / "runs" / ("preparation_smoke_" + config.get("study_id", "legacy"))
     if (directory / "checks.json").is_file():
         existing = json.loads((directory / "checks.json").read_text(encoding="utf-8"))
         current = runtime_metadata(device)
         matching = all(existing["runtime"].get(key) == current[key]
                        for key in ("code_version", "device", "gpu", "checkpoint_sha256", "packages"))
-        if existing.get("passed") and matching:
+        if existing.get("passed") and matching and existing.get("dataset_protocol") == protocol_signature(config):
             print(f"smoke checks already passed: {directory}", flush=True)
             return existing
     token = str(time.time_ns())
     directory = directory / token
-    common = ["--epochs", 1, "--seed-offset", 0, "--skip-test", "--train-limit", 16, "--val-limit", 8, "--device", str(device)]
+    common = ["--config", config_path, "--no-cache", "--epochs", 1, "--seed-offset", 0, "--skip-test", "--train-limit", 16, "--val-limit", 8, "--device", str(device)]
     command("train_madygraph_gi_plugin.py", *common, "--variants", "cnn,fixed,motion", "--output-dir", directory / "seed0")
     command("train_madygraph_gi_plugin.py", *common, "--variants", "motion,fixed,cnn", "--output-dir", directory / "order_check")
     largest_difference = 0.0
@@ -102,24 +106,27 @@ def smoke(config, device):
     from benchmark_madygraph_gi_plugin_efficiency import benchmark
     benchmark(directory / "seed0", directory / "efficiency.json", device, warmup=2, repeats=5)
     report = {"passed": True, "runtime": runtime_metadata(device),
+              "dataset_protocol": protocol_signature(config),
               "training_sequences": 16, "validation_sequences": 8, "epochs": 1,
               "variant_order_max_parameter_difference": largest_difference,
               "reserved_final_test_read": False, "directory": directory.relative_to(PROJECT_ROOT).as_posix(),
               "completed": ["forward", "backward", "checkpoint_selection", "variant_order_invariance",
                             "validation_metrics", "paired_statistics", "figures", "stage_timing"]}
     write_json(directory / "checks.json", report)
-    write_json(PROJECT_ROOT / "runs" / "preparation_smoke" / "checks.json", report)
+    write_json(directory.parent / "checks.json", report)
     print(f"smoke passed; final block remains reserved: {directory}", flush=True)
     return report
 
 
-def train(config, device):
+def train(config, device, config_path="configs/mnist_block3.json"):
     root = project_path(config["run_directory"])
     root.mkdir(parents=True, exist_ok=True)
     snapshot = root / "experiment_config.json"
     if snapshot.exists() and json.loads(snapshot.read_text(encoding="utf-8")) != config:
         raise RuntimeError("Configuration changed inside an existing experiment directory")
     write_json(snapshot, config)
+    if config.get("cache_training_features"):
+        command("prepare_experiment_cache.py", "--config", config_path, "--device", str(device))
     for offset in config["seed_offsets"]:
         directory = root / f"seed{offset}"
         if (directory / "results.json").exists():
@@ -127,14 +134,14 @@ def train(config, device):
             validate_training(root, config, [offset])
             print(f"training already complete: seed{offset}", flush=True)
             continue
-        command("train_madygraph_gi_plugin.py", "--epochs", config["epochs"], "--variants", ",".join(config["variants"]),
+        command("train_madygraph_gi_plugin.py", "--config", config_path, "--epochs", config["epochs"], "--variants", ",".join(config["variants"]),
                 "--seed-offset", offset, "--skip-test", "--test-block", config["test_block"],
                 "--output-dir", directory, "--device", str(device))
 
 
 def main():
     parser = argparse.ArgumentParser(description="Run all resources from the directory containing this script")
-    parser.add_argument("--stage", choices=("check", "smoke", "train", "evaluate", "benchmark", "all"), default="check")
+    parser.add_argument("--stage", choices=("check", "smoke", "cache", "train", "evaluate", "benchmark", "all"), default="check")
     parser.add_argument("--config", default="configs/mnist_block3.json")
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")
     parser.add_argument("--require-cuda", action="store_true")
@@ -142,11 +149,16 @@ def main():
     config = load_config(args.config)
     device = choose_device("cuda" if args.require_cuda else args.device)
     started = time.perf_counter()
-    preflight(device)
+    print(f"study={config.get('study_id', 'mnist_block3')} train={config['train_sequences']} "
+          f"val={config['validation_sequences']} final={config['test_sequences']} epochs={config['epochs']} "
+          f"seeds={config['seed_offsets']} device={device}", flush=True)
+    preflight(device, config)
     if args.stage in {"smoke", "all"}:
-        smoke(config, device)
+        smoke(config, device, args.config)
+    if args.stage == "cache":
+        command("prepare_experiment_cache.py", "--config", args.config, "--device", str(device))
     if args.stage in {"train", "all"}:
-        train(config, device)
+        train(config, device, args.config)
     if args.stage in {"evaluate", "all"}:
         from evaluate_madygraph_gi_final import evaluate_run
         evaluate_run(config, project_path(config["run_directory"]), device)

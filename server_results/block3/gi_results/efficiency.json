@@ -1,0 +1,229 @@
+{
+  "runtime": {
+    "created_at_utc": "2026-10-12T03:12:16+00:00",
+    "python": "3.11.14",
+    "platform": "Linux-5.15.0-161-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchvision": "0.24.1+cu128",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "code_version": {
+      "commit": "6b74e2e8477af1b717e49fcfbc73ed289be96056",
+      "working_tree_dirty": false,
+      "runtime_source_sha256": "035e6ad969a76850d581dea1b3d13d798812bd97941df580b6ad5c56ac895489"
+    },
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  },
+  "batch_size": 1,
+  "frames": 8,
+  "resolution": [
+    64,
+    64
+  ],
+  "warmup": 15,
+  "repeats": 60,
+  "input": "Pre-acquired buckets already on device; simulation, acquisition and host-to-device transfer are excluded",
+  "data_source": "First validation sequence; reserved final-test data are not read",
+  "peak_memory_scope": "All benchmark models are resident; report absolute allocation and extra allocation during each operation",
+  "refiner_directory": "runs/mnist_block3/seed0",
+  "rates": {
+    "128": {
+      "stages": {
+        "dgi": {
+          "median_ms": 0.39996951818466187,
+          "p90_ms": 0.41170865297317505,
+          "mean_ms": 0.40209367871284485,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 21.197265625,
+          "additional_peak_cuda_memory_mb": 2.388671875
+        },
+        "transformer_only": {
+          "median_ms": 2.9052160680294037,
+          "p90_ms": 2.9233869165182114,
+          "mean_ms": 2.909362937013308,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 24.30859375,
+          "additional_peak_cuda_memory_mb": 5.5
+        },
+        "measurement_residual": {
+          "median_ms": 0.2572871744632721,
+          "p90_ms": 0.26359371840953827,
+          "mean_ms": 0.25903905431429547,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 22.8125,
+          "additional_peak_cuda_memory_mb": 4.00390625
+        },
+        "motion_estimator": {
+          "median_ms": 1.2258533388376236,
+          "p90_ms": 1.2415740638971329,
+          "mean_ms": 1.222052052617073,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 21.576171875,
+          "additional_peak_cuda_memory_mb": 2.767578125
+        },
+        "cnn_refiner_only": {
+          "median_ms": 1.0269563645124435,
+          "p90_ms": 1.0402005165815353,
+          "mean_ms": 1.0229403153061867,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 37.55859375,
+          "additional_peak_cuda_memory_mb": 18.75
+        },
+        "fixed_refiner_only": {
+          "median_ms": 4.491884261369705,
+          "p90_ms": 4.534870013594627,
+          "mean_ms": 4.617979439596335,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 39.24658203125,
+          "additional_peak_cuda_memory_mb": 20.43798828125
+        },
+        "motion_refiner_only": {
+          "median_ms": 4.494411870837212,
+          "p90_ms": 4.529695957899094,
+          "mean_ms": 4.563732383151849,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 39.24609375,
+          "additional_peak_cuda_memory_mb": 20.4375
+        }
+      },
+      "pipelines": {
+        "coarse": {
+          "median_ms": 3.4190453588962555,
+          "p90_ms": 3.4439336508512497,
+          "mean_ms": 3.4710101783275604,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 24.43359375,
+          "additional_peak_cuda_memory_mb": 5.625
+        },
+        "cnn": {
+          "median_ms": 4.64216060936451,
+          "p90_ms": 4.676620662212372,
+          "mean_ms": 4.6242280552784605,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 37.93359375,
+          "additional_peak_cuda_memory_mb": 19.125
+        },
+        "fixed": {
+          "median_ms": 8.177027106285095,
+          "p90_ms": 8.256639912724495,
+          "mean_ms": 8.174447032312552,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 39.62158203125,
+          "additional_peak_cuda_memory_mb": 20.81298828125
+        },
+        "motion": {
+          "median_ms": 9.427269920706749,
+          "p90_ms": 9.689131751656532,
+          "mean_ms": 9.497532807290554,
+          "resident_cuda_memory_mb": 18.80859375,
+          "peak_cuda_memory_mb": 39.62158203125,
+          "additional_peak_cuda_memory_mb": 20.81298828125
+        }
+      }
+    },
+    "256": {
+      "stages": {
+        "dgi": {
+          "median_ms": 0.403059646487236,
+          "p90_ms": 0.4346035420894623,
+          "mean_ms": 0.4117388278245926,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 23.21337890625,
+          "additional_peak_cuda_memory_mb": 4.40087890625
+        },
+        "transformer_only": {
+          "median_ms": 2.9246285557746887,
+          "p90_ms": 2.956344187259674,
+          "mean_ms": 2.9298083235820136,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 24.3125,
+          "additional_peak_cuda_memory_mb": 5.5
+        },
+        "measurement_residual": {
+          "median_ms": 0.2588406205177307,
+          "p90_ms": 0.27239657938480377,
+          "mean_ms": 0.2567560101548831,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 26.8203125,
+          "additional_peak_cuda_memory_mb": 8.0078125
+        },
+        "motion_estimator": {
+          "median_ms": 1.237252727150917,
+          "p90_ms": 1.253567636013031,
+          "mean_ms": 1.2299395476778348,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 21.580078125,
+          "additional_peak_cuda_memory_mb": 2.767578125
+        },
+        "cnn_refiner_only": {
+          "median_ms": 1.0330751538276672,
+          "p90_ms": 1.048107072710991,
+          "mean_ms": 1.0556699708104134,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 37.5625,
+          "additional_peak_cuda_memory_mb": 18.75
+        },
+        "fixed_refiner_only": {
+          "median_ms": 4.395255818963051,
+          "p90_ms": 4.495823383331299,
+          "mean_ms": 4.40044105052948,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 39.25048828125,
+          "additional_peak_cuda_memory_mb": 20.43798828125
+        },
+        "motion_refiner_only": {
+          "median_ms": 4.4417604804039,
+          "p90_ms": 4.490111023187637,
+          "mean_ms": 4.404889730115731,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 39.25,
+          "additional_peak_cuda_memory_mb": 20.4375
+        }
+      },
+      "pipelines": {
+        "coarse": {
+          "median_ms": 3.3869799226522446,
+          "p90_ms": 3.4339100122451782,
+          "mean_ms": 3.366138848165671,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 24.4375,
+          "additional_peak_cuda_memory_mb": 5.625
+        },
+        "cnn": {
+          "median_ms": 4.642024636268616,
+          "p90_ms": 4.7144342213869095,
+          "mean_ms": 4.705322285493215,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 37.9375,
+          "additional_peak_cuda_memory_mb": 19.125
+        },
+        "fixed": {
+          "median_ms": 8.136361837387085,
+          "p90_ms": 8.217216283082962,
+          "mean_ms": 8.15048118432363,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 39.62548828125,
+          "additional_peak_cuda_memory_mb": 20.81298828125
+        },
+        "motion": {
+          "median_ms": 9.41762886941433,
+          "p90_ms": 9.554493427276611,
+          "mean_ms": 9.401442855596542,
+          "resident_cuda_memory_mb": 18.8125,
+          "peak_cuda_memory_mb": 39.62548828125,
+          "additional_peak_cuda_memory_mb": 20.81298828125
+        }
+      }
+    }
+  },
+  "additional_time_definition": "Full-pipeline median minus coarse-pipeline median includes residual processing and, for motion, motion estimation. Pure refiner latency is measured separately."
+}

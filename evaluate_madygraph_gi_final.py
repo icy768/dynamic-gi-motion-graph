@@ -21,6 +21,7 @@ from train_graph_protocol_v2 import (
 from train_madygraph_gi_plugin import (
     ResidualRefiner, csv_write, metric_rows, precompute, relative_measurement_residual, summarize,
 )
+from experiment_protocol import final_test, protocol_signature, split_manifest, training_validation
 
 METRICS = ("mse", "psnr_db", "ssim", "foreground_psnr_db", "temporal_difference_error", "relative_measurement_residual")
 LABELS = {"coarse": "Coarse", "cnn": "CNN", "fixed": "Fixed", "motion": "Motion"}
@@ -41,9 +42,18 @@ def validate_training(run_dir, config, offsets, diagnostic=False):
             raise ValueError("Runtime source changed since training; use the original experiment version")
         if manifest["rates"] != config["pattern_counts"] or set(manifest["graph_variants"]) != set(config["variants"]):
             raise ValueError("Training variants or measurement rates differ")
-        if not diagnostic and (manifest["epochs"] != config["epochs"] or manifest["train_val_test_sequences"] != [800, 120, 0]
+        if not diagnostic and (manifest["epochs"] != config["epochs"] or manifest["train_val_test_sequences"] != [config["train_sequences"], config["validation_sequences"], 0]
                                or manifest["reserved_test_block"] != config["test_block"]):
             raise ValueError("Training budget or reserved block differs from the final protocol")
+        if "split_manifest" in config:
+            prepared = split_manifest(config)
+            if manifest.get("dataset_protocol") != protocol_signature(config):
+                raise ValueError("Prepared data protocol differs from training")
+            for field, name in (("training_mnist_indices", "train"), ("validation_mnist_indices", "validation")):
+                expected = prepared["splits"][name]["mnist_indices"]
+                actual = manifest[field]
+                if actual != (expected[:len(actual)] if diagnostic else expected):
+                    raise ValueError("Training identities differ from the prepared split")
         orders = [[epoch["minibatch_order_sha256"] for epoch in results["histories"][kind]] for kind in config["variants"]]
         if any(order != orders[0] for order in orders[1:]):
             raise ValueError("Variant batch orders are not paired")
@@ -213,10 +223,10 @@ def evaluate_run(config, run_dir, device, validation_only=False, sample_limit=8,
     output.mkdir(parents=True, exist_ok=True)
     seed_all(SEED)
     if validation_only:
-        _, validation = make_train_validation(PROJECT_ROOT)
+        _, validation = training_validation(config)
         dataset = Subset(validation, range(min(sample_limit, len(validation))))
     else:
-        dataset = make_test_block(PROJECT_ROOT, config["test_block"])
+        dataset = final_test(config)
         if set(dataset.indices.tolist()) & set(manifests[offsets[0]]["validation_mnist_indices"]):
             raise RuntimeError("Final and validation MNIST identities overlap")
     transformer, motion_net = load_frozen(device)
@@ -278,6 +288,7 @@ def evaluate_run(config, run_dir, device, validation_only=False, sample_limit=8,
         "config": config, "runtime": runtime_metadata(device), "training_signature": training_signature,
         "sequences": len(dataset), "seed_offsets": offsets, "test_block": None if validation_only else config["test_block"],
         "test_mnist_indices": [] if validation_only else dataset.indices.tolist(),
+        "dataset_protocol": protocol_signature(config),
         "summary": summary, "paired_gains": paired, "acceptance_checks": checks,
         "acceptance_evaluated": not validation_only,
         "accepted": None if validation_only else all(all(check[key] for key in ("gain_at_least_threshold", "ci95_positive", "ssim_not_lower")) for check in checks),

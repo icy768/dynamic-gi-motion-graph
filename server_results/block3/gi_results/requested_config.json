@@ -1,0 +1,13 @@
+{
+  "run_directory": "runs/mnist_block3",
+  "epochs": 5,
+  "seed_offsets": [0, 1, 2],
+  "variants": ["cnn", "fixed", "motion"],
+  "train_sequences": 800,
+  "validation_sequences": 120,
+  "test_sequences": 120,
+  "test_block": 3,
+  "pattern_counts": [128, 256],
+  "bootstrap_repeats": 5000,
+  "minimum_psnr_gain_db": 0.5
+}

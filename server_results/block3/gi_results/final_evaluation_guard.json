@@ -1,0 +1,57 @@
+{
+  "fingerprint": "f558a21f1d983b71972c42bff3c5ba999680860716e39f04f7660c0bbcea73a3",
+  "test_block": 3,
+  "training_signature": [
+    {
+      "offset": 0,
+      "manifest_sha256": "06cc4229c0509e831eaf41bb5315210df7fd0e46d865577b1c4b65972aa27cbc",
+      "models": {
+        "cnn": "5e9e5881aa3ca43e0b32458301d665e19b9f29329fe41591873db2e6f54cedb5",
+        "fixed": "dfb4d9ad3227655c02a1f62dc62b2bef64d2bcd80074edcaedb4c249fc9a3fb2",
+        "motion": "e2cc676b4ee0ba90672907c1e6c54a819fdf4228ae654cb308fa186c8469164e"
+      }
+    },
+    {
+      "offset": 1,
+      "manifest_sha256": "68a91af4124837da43dc24e98a96144b19bd7a2b515faf2c5d0fe2297f0435f5",
+      "models": {
+        "cnn": "37ac08a71c8c7ac7209a24dcde73c9cb1b0880b681bba5dbdc241d88ee08f0af",
+        "fixed": "5bca41c345f62580b54008b9500fbe4452f7c879c318511da0b66feba9e435ea",
+        "motion": "08813af4bc13e1c4c0768d30dc6baee5420bd16c42bdfb63e6bdfedfffcfd88e"
+      }
+    },
+    {
+      "offset": 2,
+      "manifest_sha256": "128af2282eac4383b12bd74108eea7d6a79e3fff246c7fe43ea7a4977b3ca48b",
+      "models": {
+        "cnn": "11480a9f248b87d7a2f587a3b806f888f250cc22411030e318b19183462a16b7",
+        "fixed": "ac434ce1ee9f3a62c7c50717a0af6544505136a14d98f875272afe048f5a2213",
+        "motion": "852072475e8e6d3a3e2fc072828462fe1da078a9ec133e34aa2623961e558b33"
+      }
+    }
+  ],
+  "runtime": {
+    "created_at_utc": "2026-10-12T03:12:06+00:00",
+    "python": "3.11.14",
+    "platform": "Linux-5.15.0-161-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchvision": "0.24.1+cu128",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "code_version": {
+      "commit": "6b74e2e8477af1b717e49fcfbc73ed289be96056",
+      "working_tree_dirty": false,
+      "runtime_source_sha256": "035e6ad969a76850d581dea1b3d13d798812bd97941df580b6ad5c56ac895489"
+    },
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  }
+}
