@@ -10,24 +10,41 @@
 项目根目录/
 ├── run_server_experiment.py        # 统一运行入口
 ├── project_paths.py                # 根目录与资源定位
-├── configs/mnist_block3.json       # 本次正式实验配置
+├── configs/mnist_block3.json       # 已完成的 pilot 配置
+├── configs/mnist_scaleup.json      # 已完成的扩大实验配置
 ├── scripts/                        # Linux 启动与本地检查
 ├── data/MNIST/raw/                 # 完整的四个 MNIST 原始文件
 ├── checkpoints/                    # 冻结的 Transformer 与运动估计器
 ├── runs/                           # 新训练、验证、最终测试和计时输出
-├── dist/gi_project_server.zip       # 上传用完整工程包
+├── dist/gi_project_scaleup_server.zip # 扩大实验的完整工程包
+├── server_results/                 # 服务器结果、核查记录与图表
 └── *_outputs/                      # 已归档的研究结果
 ```
 
-GitHub 保存代码、笔记、CSV、JSON 和结果图；数据、权重、运行输出与压缩包由 `.gitignore` 排除。仅克隆 GitHub 仓库不能恢复完整运行资源。服务器使用 `dist/gi_project_server.zip`，其中只有一个顶层目录 `gi_project/`，包括所需数据和权重。资源大小及 SHA256 记录在 `asset_manifest.json`；上传包内另有 `PACKAGE_MANIFEST.json` 和 `CODE_VERSION.json`。
+GitHub 保存代码、笔记、CSV、JSON 和结果图；数据、权重、原始运行目录与压缩包由 `.gitignore` 排除，`server_results/` 中整理后的指标与图表归档入库。仅克隆 GitHub 仓库不能恢复完整运行资源。扩大实验使用 `dist/gi_project_scaleup_server.zip`，其中只有一个顶层目录 `gi_project/`，包括所需数据和权重。资源大小及 SHA256 记录在 `asset_manifest.json`；上传包内另有 `PACKAGE_MANIFEST.json` 和 `CODE_VERSION.json`。
 
-## 本次服务器实验
+## 当前实验进展
 
-2026-10-12 的 MNIST block 3 服务器 pilot 已完成，结果位于 `server_results/block3/gi_results/`：运动图相对 CNN 在 128/256 散斑下平均 PSNR 增益为 0.827/0.815 dB，MSE 降低 16.57%/16.25%。这两档都满足本轮预设判据。
+2026-10-14 的扩大实验已完整完成。单卡 RTX 3090 使用 4,000 个训练身份、600 个验证身份、600 个保留测试身份，三个细化方案各训练 20 轮、5 个种子，共 15 次训练。08:44:52 启动，10:07:02 完成结果上传，约 82 分 10 秒；随后自动关机。结果包校验、训练预算、身份划分、批次配对及最终权重签名均已核对。
 
-下一轮扩大协议已放在 `configs/mnist_scaleup.json`：4,000 条训练、600 条验证、600 条新测试身份，20 轮、5 个种子。使用固定清单排除已知历史曝光身份，并支持共享预计算缓存及逐轮训练恢复。新上传包为 `dist/gi_project_scaleup_server.zip`。完整步骤见 [扩大实验运行说明](SCALEUP_RUN.md)，正式训练尚未开始。
+**扩大实验的整体主判据未通过。** 运动图相对粗重建和固定图仍有改善，但整体平均 PSNR、SSIM 略低于 CNN，完整推理时间约为 CNN 的两倍。
 
-这次需要回答的是：在相同粗重建、相同数据和训练预算下，运动图的提升能否在新的测试身份与三个细化器随机种子上保持，同时增加多少推理开销。
+| 散斑数 | 运动图−CNN PSNR（dB） | 配对 95% 区间 | 相对 CNN 的 MSE 增加 | 高速组 PSNR 差值（dB） |
+|---:|---:|---|---:|---:|
+| 128 | −0.258 | [−0.320, −0.196] | 7.12% | +0.264 |
+| 256 | −0.105 | [−0.154, −0.054] | 3.38% | +0.253 |
+
+高速组为 4–6 像素/帧，每个测量率 200 个身份，MSE 相对 CNN 降低约 5%。这一分组结果保留为后续研究线索，不替代整体主判据。学习曲线显示运动图早期改善较快、CNN 后期继续改善；本轮也改变了训练样本量与测试身份，尚不能将与旧实验的差异只归因于训练轮数。研究范围仍为 64×64、8 帧的 MNIST 单数字合成运动序列，尚无自然视频或真实光学测量下的确认结果。
+
+- [扩大实验完整分析](server_results/scaleup_v1/扩大实验结果_20261014.md)
+- [最终指标与置信区间](server_results/scaleup_v1/artifacts/gi_results/final/results.json)
+- [速度分组图](server_results/scaleup_v1/motion_vs_cnn_by_speed.png)、[验证集学习曲线](server_results/scaleup_v1/validation_learning_curves.png)
+- [结果核查记录](server_results/scaleup_v1/结果核查_20261014.json)
+- [扩大实验运行说明](SCALEUP_RUN.md)
+
+### 已完成的 pilot
+
+2026-10-12 的 MNIST block 3 服务器 pilot 结果位于 `server_results/block3/gi_results/`：运动图相对 CNN 在 128/256 散斑下平均 PSNR 增益为 0.827/0.815 dB，MSE 降低 16.57%/16.25%，均满足该轮预设判据。以下为 pilot 设置，扩大实验的设置与结果以上述记录为准。
 
 | 项目 | 固定设置 |
 |---|---|
@@ -51,13 +68,24 @@ GitHub 保存代码、笔记、CSV、JSON 和结果图；数据、权重、运�
 
 `MSE 降低率 = 100 × (基准平均 MSE − 细化后平均 MSE) / 基准平均 MSE`
 
-PSNR 增益以 dB 表示，不转换成 PSNR 百分比。先对每个测试身份的三个种子指标取平均，再按身份进行配对 bootstrap；种子间增益波动另行输出，避免把重复身份当成独立测试样本。重建图在指标计算前统一截断到 `[0, 1]`。
+PSNR 增益以 dB 表示，不转换成 PSNR 百分比。先对每个测试身份的细化器种子指标取平均（pilot 三个、扩大实验五个），再按身份进行配对 bootstrap；种子间增益波动另行输出，避免把重复身份当成独立测试样本。重建图在指标计算前统一截断到 `[0, 1]`。
 
 效率报告包含完整重建时间、相对粗重建增加的时间、细化模块自身时间、运动估计时间和训练时间。额外时间为“该方案完整时间 − 粗重建完整时间”。CNN 与固定图的完整流程不计入无须调用的运动估计器；运动图包含运动估计。计时从已取得并驻留设备的 bucket 测量开始，不包含光学采集、网络传输与磁盘读写。显存同时记录常驻量和额外峰值；基准脚本一次加载多个模型，绝对峰值不能解释为单独部署某一个模型所需的显存。
 
 ## 运行方法
 
-服务器步骤见 [恒源云运行教程](SERVER_RUN.md)。CUDA 镜像应提供兼容的 `torch` 与 `torchvision`；安装其余依赖时使用 `requirements-runtime.txt`，保留镜像中的 CUDA 配套版本。`requirements.txt` 列出全部直接依赖，笔记本原环境记录在 `environment_notebook.json`。
+扩大实验的完整步骤见 [扩大实验运行说明](SCALEUP_RUN.md)，服务器环境为 Python 3.11、PyTorch 2.9.1+cu128、torchvision 0.24.1+cu128。完整工程包解压后，从项目根目录执行：
+
+```bash
+bash scripts/setup_hengyuan.sh
+bash scripts/run_hengyuan_scaleup.sh --upload --shutdown-after-upload
+```
+
+该入口完成五个种子的训练、最终评估、计时与上传。当前保留测试结果已固定保存；后续新方案先在开发和验证数据上选择，另设确认测试。
+
+### pilot 复现入口
+
+pilot 步骤见 [恒源云运行教程](SERVER_RUN.md)。CUDA 镜像应提供兼容的 `torch` 与 `torchvision`；安装其余依赖时使用 `requirements-runtime.txt`，保留镜像中的 CUDA 配套版本。`requirements.txt` 列出全部直接依赖，笔记本原环境记录在 `environment_notebook.json`。
 
 ```bash
 python -m pip install -r requirements-runtime.txt
@@ -81,7 +109,7 @@ python package_gi_project.py --results
 
 ## 已有研究结果
 
-以下为已有 `madygraph_gi_plugin_v2_outputs/benchmark_summary.csv` 中测试块 1、120 条序列、细化器种子偏移 0 的结果，不是尚待开展的块 3 服务器结果。
+以下为早期 `madygraph_gi_plugin_v2_outputs/benchmark_summary.csv` 中测试块 1、120 条序列、细化器种子偏移 0 的结果。
 
 | 散斑数 | 方法 | PSNR / dB | SSIM |
 |---:|---|---:|---:|
@@ -96,6 +124,8 @@ python package_gi_project.py --results
 
 | 输出位置 | 内容 |
 |---|---|
+| `server_results/scaleup_v1/` | 已完成扩大实验的结果、核查证据和分析图表 |
+| `server_results/block3/gi_results/` | 已完成的 RTX 3090 pilot 结果 |
 | `madygraph_gi_plugin_v2_outputs/` | 当前细化路线的已有指标与图表 |
 | `madygraph_gi_plugin_seed1_outputs/`、`madygraph_gi_plugin_seed2_outputs/` | 其他细化器种子的已有结果 |
 | `madygraph_gi_motion_block2_outputs/` | 另一个保留身份块上的已有结果 |
@@ -113,5 +143,7 @@ GitHub 私有仓库为 `icy768/dynamic-gi-motion-graph`，默认分支为 `main`
 `v0.2.0-scaleup-ready` 保存扩大实验的代码、固定数据划分、本地准备检查，以及已完成的 RTX 3090 pilot 指标和图表。MNIST 数据、模型权重及完整上传包仍通过独立工程 ZIP 保存。
 
 `v0.2.1-scaleup-ready` 使用适合恒源云 OSS 的校验压缩包，完整运行入口将上传结果 ZIP 和校验 ZIP，再执行可选关机。
+
+扩大实验采用提交 `391b6c611067a5f9e5e2bbbf408e99289cbf427a` 的代码完成。本次进度归档补入实验结果和分析，不更改用于本轮训练的代码、配置与保留测试划分。
 
 10 个基础模块最初从旧项目工作目录补入，来源 HEAD 为 `130c64e3e35482dbcdc1516f29afe1c25d0d9656`。原始文件哈希与旧仓库跟踪状态见 `source_provenance.json`，该文件记录导入时的来源，不是当前修改后文件的哈希。旧工作目录现已不作为运行依赖。

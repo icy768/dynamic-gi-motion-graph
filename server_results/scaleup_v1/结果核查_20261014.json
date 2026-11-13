@@ -1,0 +1,195 @@
+{
+  "verified_at_utc": "2026-10-14T04:38:40.819571+00:00",
+  "passed": true,
+  "archive_crc_and_sha256_verified": true,
+  "code_and_config_match_prepared_version": true,
+  "training_runs": 15,
+  "epochs_per_run": 20,
+  "formal_epochs": 300,
+  "training_validation_test_counts": [
+    4000,
+    600,
+    600
+  ],
+  "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+  "known_exposed_test_identities_excluded": 1352,
+  "validation_and_final_identity_disjoint": true,
+  "paired_variant_minibatch_orders_verified": true,
+  "best_weight_and_manifest_signatures_verified": true,
+  "final_evaluation_occurrences_in_log": 1,
+  "stage_all_seconds": 4917.75,
+  "wall_seconds_through_result_upload": 4930.084105,
+  "completion_receipt": {
+    "state": "experiment_completed_and_both_uploads_succeeded",
+    "started_at": "2026-10-14T08:44:52+08:00",
+    "completed_at_utc": "2026-10-14T02:07:02.084105+00:00",
+    "hostname": "I2bb6977e0901301b03",
+    "code_commit": "391b6c611067a5f9e5e2bbbf408e99289cbf427a",
+    "results": [
+      {
+        "filename": "gi_results_mnist_scaleup_v1.zip",
+        "bytes": 14313031,
+        "sha256": "a0ec6ad8d5b05e73118254153462bb889684c6e92f420306155799f3fdba6712"
+      },
+      {
+        "filename": "gi_results_mnist_scaleup_v1_checksums.zip",
+        "bytes": 607,
+        "sha256": "51708af7e4521efccbfacfe430e5bcb95961b78e378d5d452c279ddc992eb033"
+      }
+    ],
+    "automatic_shutdown_requested": true
+  },
+  "scientific_acceptance_passed": false,
+  "seed_training": [
+    {
+      "seed": 0,
+      "elapsed_seconds": 953.7100893259048,
+      "selected_epochs": {
+        "cnn": 20,
+        "fixed": 18,
+        "motion": 18
+      },
+      "parameters": {
+        "cnn": {
+          "parameters": 74745,
+          "checkpoint": "runs/mnist_scaleup_v1/seed0/best_cnn_refiner.pt",
+          "training_seconds": 302.02777859568596,
+          "current_invocation_seconds": 302.1701766885817
+        },
+        "fixed": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed0/best_fixed_refiner.pt",
+          "training_seconds": 323.0943683683872,
+          "current_invocation_seconds": 323.2944086007774
+        },
+        "motion": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed0/best_motion_refiner.pt",
+          "training_seconds": 322.60352623835206,
+          "current_invocation_seconds": 322.80451283976436
+        }
+      },
+      "peak_cuda_memory_mb": 242.51318359375
+    },
+    {
+      "seed": 1,
+      "elapsed_seconds": 950.0357309356332,
+      "selected_epochs": {
+        "cnn": 20,
+        "fixed": 19,
+        "motion": 20
+      },
+      "parameters": {
+        "cnn": {
+          "parameters": 74745,
+          "checkpoint": "runs/mnist_scaleup_v1/seed1/best_cnn_refiner.pt",
+          "training_seconds": 300.436071254313,
+          "current_invocation_seconds": 300.57625387609005
+        },
+        "fixed": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed1/best_fixed_refiner.pt",
+          "training_seconds": 321.885667078197,
+          "current_invocation_seconds": 322.0838500224054
+        },
+        "motion": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed1/best_motion_refiner.pt",
+          "training_seconds": 321.66162353008986,
+          "current_invocation_seconds": 321.8568309433758
+        }
+      },
+      "peak_cuda_memory_mb": 242.51318359375
+    },
+    {
+      "seed": 2,
+      "elapsed_seconds": 954.5808303020895,
+      "selected_epochs": {
+        "cnn": 20,
+        "fixed": 16,
+        "motion": 15
+      },
+      "parameters": {
+        "cnn": {
+          "parameters": 74745,
+          "checkpoint": "runs/mnist_scaleup_v1/seed2/best_cnn_refiner.pt",
+          "training_seconds": 300.9070418663323,
+          "current_invocation_seconds": 301.05586341023445
+        },
+        "fixed": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed2/best_fixed_refiner.pt",
+          "training_seconds": 324.3143472149968,
+          "current_invocation_seconds": 324.5133805051446
+        },
+        "motion": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed2/best_motion_refiner.pt",
+          "training_seconds": 323.2702556028962,
+          "current_invocation_seconds": 323.46879230439663
+        }
+      },
+      "peak_cuda_memory_mb": 242.51318359375
+    },
+    {
+      "seed": 3,
+      "elapsed_seconds": 952.3812137916684,
+      "selected_epochs": {
+        "cnn": 20,
+        "fixed": 19,
+        "motion": 15
+      },
+      "parameters": {
+        "cnn": {
+          "parameters": 74745,
+          "checkpoint": "runs/mnist_scaleup_v1/seed3/best_cnn_refiner.pt",
+          "training_seconds": 300.5405832231045,
+          "current_invocation_seconds": 300.68508046492934
+        },
+        "fixed": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed3/best_fixed_refiner.pt",
+          "training_seconds": 323.5107342004776,
+          "current_invocation_seconds": 323.70845034718513
+        },
+        "motion": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed3/best_motion_refiner.pt",
+          "training_seconds": 322.3901154063642,
+          "current_invocation_seconds": 322.5869928151369
+        }
+      },
+      "peak_cuda_memory_mb": 242.51318359375
+    },
+    {
+      "seed": 4,
+      "elapsed_seconds": 972.5371767058969,
+      "selected_epochs": {
+        "cnn": 20,
+        "fixed": 19,
+        "motion": 16
+      },
+      "parameters": {
+        "cnn": {
+          "parameters": 74745,
+          "checkpoint": "runs/mnist_scaleup_v1/seed4/best_cnn_refiner.pt",
+          "training_seconds": 301.9216592647135,
+          "current_invocation_seconds": 302.0656603015959
+        },
+        "fixed": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed4/best_fixed_refiner.pt",
+          "training_seconds": 322.28832041844726,
+          "current_invocation_seconds": 322.4889676980674
+        },
+        "motion": {
+          "parameters": 27961,
+          "checkpoint": "runs/mnist_scaleup_v1/seed4/best_motion_refiner.pt",
+          "training_seconds": 342.2964597456157,
+          "current_invocation_seconds": 342.49501057714224
+        }
+      },
+      "peak_cuda_memory_mb": 242.51318359375
+    }
+  ]
+}

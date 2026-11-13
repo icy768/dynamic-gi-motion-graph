@@ -1,0 +1,31 @@
+{
+  "protocol_version": 2,
+  "study_id": "mnist_scaleup_v1",
+  "run_directory": "runs/mnist_scaleup_v1",
+  "epochs": 20,
+  "seed_offsets": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "variants": [
+    "cnn",
+    "fixed",
+    "motion"
+  ],
+  "train_sequences": 4000,
+  "validation_sequences": 600,
+  "test_sequences": 600,
+  "test_block": 4,
+  "pattern_counts": [
+    128,
+    256
+  ],
+  "bootstrap_repeats": 5000,
+  "minimum_psnr_gain_db": 0.5,
+  "split_manifest": "configs/mnist_scaleup_splits.json",
+  "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+  "cache_training_features": true
+}

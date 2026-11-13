@@ -1,0 +1,75 @@
+{
+  "fingerprint": "3c5e5e79afdde386d2a205a0aec16c8a7a9c2c35738dd8e10aeb7c715bd9ca49",
+  "test_block": 4,
+  "training_signature": [
+    {
+      "offset": 0,
+      "manifest_sha256": "bced3e0cae32ee0ad7b350fcd39ba8231affaf828412caa9cd1cc05d3587c25d",
+      "models": {
+        "cnn": "fdae8b3f76e828f728e508787938b09fd22c73d9be339fdf8ff1b9f044c91816",
+        "fixed": "98e5e369523efe963b5c75dd9a86306ad2666b461f850d1ca2153b7bbb1c341b",
+        "motion": "03eb11218e84edec2ac05bc25979fc82e5b61a79fa2ad2008cc94e7387549303"
+      }
+    },
+    {
+      "offset": 1,
+      "manifest_sha256": "5bdb1bcb0a10c39d254ffaef122c34fa044a65ff88e2350b327387b362a4b54c",
+      "models": {
+        "cnn": "39304a6a79b2bcf9e5ab56af511fecbeb865d04c1bf447cde173a9926b085857",
+        "fixed": "a8c6785d04f41f5d9353d6941416ee49398bde2b6a7f7e4efebf2026543f0901",
+        "motion": "a1116ccf816987925b7e6f88a42c83279dda926b1565e409653fa7e90b6051a7"
+      }
+    },
+    {
+      "offset": 2,
+      "manifest_sha256": "a6f0474a2d1a94e4ab806b8864f11716ce4d875005abee95e8cf902006211e78",
+      "models": {
+        "cnn": "b6c70688422e06b46be455079a19e708d2332eaddf16ab40f98c224f3bfc509f",
+        "fixed": "bfd28ded990beec4f3d04702bb2eac2633f7a09f40757887715af2a72a6f3826",
+        "motion": "7fcaa8803f39e686395d365e892aa0888e8b9f870e561dc67a0ffe5308b0b02b"
+      }
+    },
+    {
+      "offset": 3,
+      "manifest_sha256": "e84e40860f6d45da6bdc1023a6e3c427709963cb96f9746316da1bbbd4703839",
+      "models": {
+        "cnn": "d61d931fb64c9b88814fbca94749f561adb07882e2caf0908f08034f00295751",
+        "fixed": "662136583e7bd6b2b114dff6a29d5e8059f006cadad4e7522b5412d47692852e",
+        "motion": "09559b8197bb66ed2ad820a8255beefdd61c9ead256ce311994eac837551af9b"
+      }
+    },
+    {
+      "offset": 4,
+      "manifest_sha256": "7e8242106f5e2726d4fcc46af1c1602e73e420ea5b14a83bed769cd0d5eb82ea",
+      "models": {
+        "cnn": "4ae25cad47e47a078518bed7ec5f5cbe84cedb193450f4c305de580f71c8598e",
+        "fixed": "5fcbd4b145b6d2956199a97e87c920cca86097ddd0c141f57f3c6f7a822a5145",
+        "motion": "ceea022dedfcc28582a8509d7a76b762a6d678193c9b04e7e40d3bf2ee245eb5"
+      }
+    }
+  ],
+  "runtime": {
+    "created_at_utc": "2026-10-14T02:06:16+00:00",
+    "python": "3.11.14",
+    "platform": "Linux-5.15.0-156-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchvision": "0.24.1+cu128",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "code_version": {
+      "commit": "391b6c611067a5f9e5e2bbbf408e99289cbf427a",
+      "working_tree_dirty": false,
+      "runtime_source_sha256": "8dfd43d07ea1f271037271d55a3dfe4a9ca5f95dddc55bc116addd9f3cf3145a"
+    },
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  }
+}

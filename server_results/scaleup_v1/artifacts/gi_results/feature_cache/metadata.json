@@ -1,0 +1,45 @@
+{
+  "signature": {
+    "protocol": {
+      "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+      "counts": [
+        4000,
+        600,
+        600
+      ],
+      "test_block": 4
+    },
+    "frozen": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    },
+    "runtime_source_sha256": "8dfd43d07ea1f271037271d55a3dfe4a9ca5f95dddc55bc116addd9f3cf3145a",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchvision": "0.24.1+cu128",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090"
+  },
+  "files": {
+    "train": {
+      "name": "train.pt",
+      "bytes": 3195974205,
+      "sha256": "804fa442a784eca3a2d7a56a276755c26585ad41609d779e1185f920bd73c2d3",
+      "sequences": 4000,
+      "elapsed_seconds": 48.576537415385246
+    },
+    "val": {
+      "name": "val.pt",
+      "bytes": 479401357,
+      "sha256": "98012f8f0c745ebcf1104e9a5042975316554d8e45790445334f21f8f221b380",
+      "sequences": 600,
+      "elapsed_seconds": 6.066363774240017
+    }
+  },
+  "final_test_metrics_evaluated": false
+}

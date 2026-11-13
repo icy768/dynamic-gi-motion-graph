@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "assets": {
+    "verified_files": 6,
+    "bytes": 57749421,
+    "package_files_verified": 69,
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  },
+  "python_files_parsed": 47,
+  "runtime": {
+    "created_at_utc": "2026-10-14T00:44:57+00:00",
+    "python": "3.11.14",
+    "platform": "Linux-5.15.0-156-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.9.1+cu128",
+      "torchvision": "0.24.1+cu128",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "code_version": {
+      "commit": "391b6c611067a5f9e5e2bbbf408e99289cbf427a",
+      "working_tree_dirty": false,
+      "runtime_source_sha256": "8dfd43d07ea1f271037271d55a3dfe4a9ca5f95dddc55bc116addd9f3cf3145a"
+    },
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  },
+  "validation_sequences_used": 2,
+  "reserved_final_test_read": false,
+  "checks": [
+    {
+      "pattern_count": 128,
+      "bucket_dgi_max_abs_difference": 0.0,
+      "zero_measurement_residual_max_abs": 0.0,
+      "three_refiner_forward_shapes": [
+        2,
+        8,
+        1,
+        64,
+        64
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "bucket_dgi_max_abs_difference": 0.0,
+      "zero_measurement_residual_max_abs": 0.0,
+      "three_refiner_forward_shapes": [
+        2,
+        8,
+        1,
+        64,
+        64
+      ]
+    }
+  ],
+  "data_protocol": {
+    "protocol": {
+      "split_manifest_sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387",
+      "counts": [
+        4000,
+        600,
+        600
+      ],
+      "test_block": 4
+    },
+    "historical_exposure_exclusions": 1352,
+    "validation_final_identity_overlap": 0,
+    "final_test_images_generated": false,
+    "final_test_metrics_evaluated": false,
+    "dataset": "Single-digit bouncing Moving-MNIST; 8 frames, 64x64, speed 1-6 px/frame",
+    "raw_data_download_required": false
+  }
+}

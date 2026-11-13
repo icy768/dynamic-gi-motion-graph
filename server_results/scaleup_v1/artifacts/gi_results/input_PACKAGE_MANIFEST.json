@@ -1,0 +1,354 @@
+{
+  "code_version": {
+    "commit": "391b6c611067a5f9e5e2bbbf408e99289cbf427a",
+    "working_tree_dirty": false,
+    "runtime_source_sha256": "8dfd43d07ea1f271037271d55a3dfe4a9ca5f95dddc55bc116addd9f3cf3145a"
+  },
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 356,
+      "sha256": "0b73329605b859e69b140afea015fc2f792048ef6c8544834c4cdbb9a6490cf4"
+    },
+    {
+      "path": "asset_manifest.json",
+      "bytes": 10086,
+      "sha256": "aab7a171175240978fe392c43a8c10a1d419bfb96ed46f782221800ccfdd2924"
+    },
+    {
+      "path": "benchmark_graph_v3_efficiency.py",
+      "bytes": 2649,
+      "sha256": "0b696a13d89c1137195c5a2141349daec41b7049b31429243795fb1819e0b0ad"
+    },
+    {
+      "path": "benchmark_madygraph_gi_plugin_efficiency.py",
+      "bytes": 8226,
+      "sha256": "7a24d1e1326f34763915afb83360b338fe4c73854ee06c8013ec2717a8f24d88"
+    },
+    {
+      "path": "benchmark_models.py",
+      "bytes": 9202,
+      "sha256": "f2247d3b8daa9a780278330688f96ecab1d4e9a03800f9343579a1b5dd07c4a9"
+    },
+    {
+      "path": "benchmark_transformer_vs_joint.py",
+      "bytes": 2593,
+      "sha256": "3a34448b944baf1e1a70a771e62c4c89821b0b206ee67588c447a6c132ce0bfe"
+    },
+    {
+      "path": "checkpoints/best_spatial_motion_net.pt",
+      "bytes": 2530989,
+      "sha256": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    },
+    {
+      "path": "checkpoints/best_transformer.pt",
+      "bytes": 268384,
+      "sha256": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236"
+    },
+    {
+      "path": "configs/mnist_block3.json",
+      "bytes": 322,
+      "sha256": "f3d5827e7bc2810e3689f339ca9f8f67285c4094595a82b5a2e46a89ef1be3dc"
+    },
+    {
+      "path": "configs/mnist_scaleup.json",
+      "bytes": 632,
+      "sha256": "57e43f5af0c57a18971af69a1cf3e269a5bce20da8ef1efc9fa33aec9aea32ef"
+    },
+    {
+      "path": "configs/mnist_scaleup_splits.json",
+      "bytes": 97958,
+      "sha256": "4d33ddffb4ead29b010007a4eaae9abee265830738ae3f3fd570f205c566d387"
+    },
+    {
+      "path": "data/MNIST/raw/t10k-images-idx3-ubyte",
+      "bytes": 7840016,
+      "sha256": "0fa7898d509279e482958e8ce81c8e77db3f2f8254e26661ceb7762c4d494ce7"
+    },
+    {
+      "path": "data/MNIST/raw/t10k-labels-idx1-ubyte",
+      "bytes": 10008,
+      "sha256": "ff7bcfd416de33731a308c3f266cc351222c34898ecbeaf847f06e48f7ec33f2"
+    },
+    {
+      "path": "data/MNIST/raw/train-images-idx3-ubyte",
+      "bytes": 47040016,
+      "sha256": "ba891046e6505d7aadcbbe25680a0738ad16aec93bde7f9b65e87a2fc25776db"
+    },
+    {
+      "path": "data/MNIST/raw/train-labels-idx1-ubyte",
+      "bytes": 60008,
+      "sha256": "65a50cbbf4e906d70832878ad85ccda5333a97f0f4c3dd2ef09a8a9eef7101c5"
+    },
+    {
+      "path": "diagnose_dgi_motion_correlation.py",
+      "bytes": 4400,
+      "sha256": "b8c3d020c07f75b9d3d1f31ebe80356cba5d2d2c518215d6e08ea643ab1daf2a"
+    },
+    {
+      "path": "evaluate_graph_protocol_v2.py",
+      "bytes": 18279,
+      "sha256": "1654ceec3feaadeff5fd3a1303eb702909b2bc76663aec99a58ad28d27c0f543"
+    },
+    {
+      "path": "evaluate_madygraph_gi_final.py",
+      "bytes": 20434,
+      "sha256": "855bdf4932495159a6613a491cccabc8768c07f8f2404906a8c32cb57111bb12"
+    },
+    {
+      "path": "evaluate_madygraph_measurement_noise.py",
+      "bytes": 7987,
+      "sha256": "773fe031bc10275a69b83011b632d9d8834d367015811dbca25353c3a4c37858"
+    },
+    {
+      "path": "experiment_protocol.py",
+      "bytes": 3430,
+      "sha256": "67a5227e96aa621bb7e8ef41b24f44e5dc0768d8657857ebfb49640dffa78b2f"
+    },
+    {
+      "path": "finetune_fair_oracle_tgnn.py",
+      "bytes": 4957,
+      "sha256": "130d4e192dd46d520d0b77d169d87c1bbabcaeaa2fdc15137b678410ff1ab234"
+    },
+    {
+      "path": "gi_experiment.py",
+      "bytes": 5984,
+      "sha256": "2a0beca39168fd9e5ad28f24a00f283cc901ee75b9e17948796b16738c984000"
+    },
+    {
+      "path": "inspect_madygraph_gi_plugin.py",
+      "bytes": 2887,
+      "sha256": "ca6b7eb4cd1ce20498aceb4f491dfe03c63bb5d53ee40f4fe3d343d393640c3b"
+    },
+    {
+      "path": "mini_repro_dynghost.py",
+      "bytes": 4255,
+      "sha256": "4ce5226482dab33bc0f32bb85d6dfd581da7fd8d5c168089f20a51f3417887f7"
+    },
+    {
+      "path": "motion_edge_diagnostic.py",
+      "bytes": 4843,
+      "sha256": "1d42a65f51997ae4cd3cc79d56a7b1bf349cef768050d4410b9b961302a643bb"
+    },
+    {
+      "path": "oracle_motion_graph_ablation.py",
+      "bytes": 9397,
+      "sha256": "95fe80b0fd241344687ec80ca28dbf063e3436bbee8c297c3c9fec8ab818f952"
+    },
+    {
+      "path": "package_gi_project.py",
+      "bytes": 7382,
+      "sha256": "102f0cecae18f4371616bd734de0fdce0faa354086cb9dae60e84ab56e293e2e"
+    },
+    {
+      "path": "phase_correlation_motion_diagnostic.py",
+      "bytes": 5674,
+      "sha256": "e411ff9a9cd36328f2d711a180bd9151d6cbaabe7c8374d820f9618001a415d1"
+    },
+    {
+      "path": "prepare_experiment_cache.py",
+      "bytes": 4245,
+      "sha256": "a934c739f34ae4587c758f9ab1940f8d3cfaf6192de7db3c4b4ded0391096474"
+    },
+    {
+      "path": "prepare_scaleup_data.py",
+      "bytes": 6112,
+      "sha256": "5a768c07997e26ccdfe86c811a25e60af919d623832c0be840a7bb7b56409fd5"
+    },
+    {
+      "path": "project_paths.py",
+      "bytes": 2565,
+      "sha256": "1615027da5be94ce08cd6d9fec1cf0ef006aa92e621b36c7ce1b629205e37fae"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9523,
+      "sha256": "5755227afa9a5b74d0be34db8d1047897fdcf5bbea9810fefab401020775868a"
+    },
+    {
+      "path": "requirements-hengyuan.txt",
+      "bytes": 232,
+      "sha256": "7b7dec8829d9fdb7f7ef34ca56830fb780c0646838cb29b2c67253db41afb080"
+    },
+    {
+      "path": "requirements-runtime.txt",
+      "bytes": 134,
+      "sha256": "cfc6ea898518131038ac736c95d886517723c30ff05eb169c52f426498355aa1"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 221,
+      "sha256": "e31df45203936f6892730a54847c30575e38ae7645658c0980bd90d64549c61d"
+    },
+    {
+      "path": "run_eight_sequence_overfit.py",
+      "bytes": 3841,
+      "sha256": "7865e67a854eacc0bb961ad81f5b0ce4e8297638935e9ed984f7b374fd241121"
+    },
+    {
+      "path": "run_notebook_smoke.py",
+      "bytes": 4510,
+      "sha256": "76f47e4f119ad7b674575b08da0ba42a93f4a9a65dcbee54a70a44e67c6efa09"
+    },
+    {
+      "path": "run_server_experiment.py",
+      "bytes": 9898,
+      "sha256": "1d8dfa5df3469a93bfded696875f29e610ed22cf16dc8384f284bcd6ead69e94"
+    },
+    {
+      "path": "SCALEUP_PREPARATION_CHECKS.json",
+      "bytes": 5674,
+      "sha256": "9ebbc6210e6d5d57d2d979991fe12b88b023ac7360a0d7a9d0766f5a7548110e"
+    },
+    {
+      "path": "SCALEUP_RUN.md",
+      "bytes": 6311,
+      "sha256": "249fa2fc37613cc7a8dd9358b50e36d184c40a9fbb9fcba9abacf0c82f590100"
+    },
+    {
+      "path": "scripts/run_hengyuan_mnist.sh",
+      "bytes": 341,
+      "sha256": "3f4c6cc38cda93484e870f6f3e0e2f3eb66f88f4bc3ae0cf2988ac45ac454bc5"
+    },
+    {
+      "path": "scripts/run_hengyuan_scaleup.sh",
+      "bytes": 2118,
+      "sha256": "224b41bf8ecab61f1e685b356a94ccf5e33bcb14cfff63e59c1ccb178d158427"
+    },
+    {
+      "path": "scripts/run_local_check.ps1",
+      "bytes": 330,
+      "sha256": "f596f33c201c7f3c96022b9ba01933740e9af3627e0b83c39e4ccb3c08e3ea2c"
+    },
+    {
+      "path": "scripts/setup_hengyuan.sh",
+      "bytes": 913,
+      "sha256": "2f25302a3c35d0facbb55b6059d9e0adcd8be7811ddf400c879be850075e2a6f"
+    },
+    {
+      "path": "SERVER_RUN.md",
+      "bytes": 6526,
+      "sha256": "71dcf1e022eb86be88c555e9f74829e0589834e1611df98d1d474d05754bdaab"
+    },
+    {
+      "path": "summarize_joint_repeats.py",
+      "bytes": 1276,
+      "sha256": "220c3ef560a3fc6dd5c3afdfb8890a9b410e740a6b88d7b30aa763af5a17c03e"
+    },
+    {
+      "path": "summarize_transformer_vs_joint.py",
+      "bytes": 1502,
+      "sha256": "c8925635f53407ff837bb504f5bd769b09f161fb548029e91544eaf9b13c72f1"
+    },
+    {
+      "path": "train_coordinate_motion.py",
+      "bytes": 4697,
+      "sha256": "07b1f7008b076f0eb614196c90fd02f3328e426ff6caa2d748dac454c3b9cd51"
+    },
+    {
+      "path": "train_dgi_motion_estimator.py",
+      "bytes": 6250,
+      "sha256": "a733bdacc94f837ecfc57ad96b0923f9e282520602d7deee6379404dd45a991d"
+    },
+    {
+      "path": "train_estimated_motion_tgnn.py",
+      "bytes": 7402,
+      "sha256": "d126a3775eb58f40f0a10c0c24b0fc4819acb758827ef590a1424144498b352f"
+    },
+    {
+      "path": "train_frame_cnn.py",
+      "bytes": 9473,
+      "sha256": "0142acc625d1105ceedf90e671b2b05249d3f9be54995a2e8a4a7077189d304b"
+    },
+    {
+      "path": "train_graph_protocol_v2.py",
+      "bytes": 24655,
+      "sha256": "aeed455e864f7913c1b84e3800757ca6e9f261f0f37a5ea9ef9f270295ff2b84"
+    },
+    {
+      "path": "train_joint_motion_tgnn.py",
+      "bytes": 6127,
+      "sha256": "80c9aa01655a5045ffdc552a908394c8ded123280bb91d98596d005bd4e36928"
+    },
+    {
+      "path": "train_madygraph_gi_plugin.py",
+      "bytes": 29970,
+      "sha256": "171d99b7197c7660542ad57e60893a750491f93212d0d419dbb2427414610dd0"
+    },
+    {
+      "path": "train_mixed_sampling.py",
+      "bytes": 7299,
+      "sha256": "640c65f07e97ca435bc15179fea04ca7e1b2057323e0e8b601dfd2c81620384d"
+    },
+    {
+      "path": "train_motion_tgnn.py",
+      "bytes": 8877,
+      "sha256": "3c057bad74e52d3891e70d0844ac0cc1ecb6f5159b2955f8c3fb4d09e0e6699d"
+    },
+    {
+      "path": "train_multiscale_correlation_motion.py",
+      "bytes": 6282,
+      "sha256": "b2b6f7618185514e8016736b225bfa8a7102bb5febf6eeefc37dd87d97898162"
+    },
+    {
+      "path": "train_oracle_motion_tgnn.py",
+      "bytes": 14736,
+      "sha256": "4692356a2efe44298ab8b71e081f1ec639809ffd4d304619b375479ff7ade525"
+    },
+    {
+      "path": "train_patch_tgnn.py",
+      "bytes": 12387,
+      "sha256": "a80cbe914a0e5d03767fad0be2420a3cb6136d79f216f0318a50bde457a105a6"
+    },
+    {
+      "path": "train_residual_multiscale_motion.py",
+      "bytes": 5133,
+      "sha256": "cfb3c1f8df81771f689995c5ef9bdd84633864b196c30a51cb9b3ccc917a5a46"
+    },
+    {
+      "path": "train_spatial_estimated_graph.py",
+      "bytes": 5505,
+      "sha256": "95237dd6bbc2cecb06ba94bc3ad759b96ae4d22d55a9e40e75d43c23e50a4425"
+    },
+    {
+      "path": "train_spatial_motion_diagnostic.py",
+      "bytes": 4752,
+      "sha256": "d77f47bdbb65e2f1c745e9d491b6092e5d983ca14f2e3f844624054db22fec7f"
+    },
+    {
+      "path": "train_spatiotemporal_transformer.py",
+      "bytes": 8279,
+      "sha256": "8a3058e8430047afe9a553b9d4e1ac6f6a2c8b3a9001f29d07a48dc0731d23e1"
+    },
+    {
+      "path": "train_temporal_convgru.py",
+      "bytes": 11595,
+      "sha256": "8ee0e510a3bd391c00d83ccf18d63e4ad971e2e1fc8ceb1e149f38bb794bc3ad"
+    },
+    {
+      "path": "train_temporal_transformer.py",
+      "bytes": 7923,
+      "sha256": "52532fb973ff6e0e5051269cf17d96311b033eb87523a47ec2ca8fb113568944"
+    },
+    {
+      "path": "train_transformer_repeat.py",
+      "bytes": 3887,
+      "sha256": "770295f8331caa27f78b13b1a770f9c99933b0ea4234a0603d5c90b7dbe0da1c"
+    },
+    {
+      "path": "verify_gi_measurement_and_warp.py",
+      "bytes": 3722,
+      "sha256": "b90c6ce750ed67add190a7adf3b23e53b4f336ca9f2d6d94a94aedd68fd8d17d"
+    },
+    {
+      "path": "verify_madygraph_gi_vectorization.py",
+      "bytes": 4727,
+      "sha256": "a529ffc1e8d4db8f25b3b543d87da48c7811f14895e542853204e667e1ef60b7"
+    },
+    {
+      "path": "verify_scaleup_preparation.py",
+      "bytes": 6697,
+      "sha256": "49f45784bd5a500c50dfc699c2c39500d19eefd4eb44b7c2d970693ee46be82e"
+    }
+  ]
+}

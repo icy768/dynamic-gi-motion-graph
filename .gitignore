@@ -42,6 +42,7 @@ venv/
 .idea/
 *.log
 *.tmp
+.launcher.lock
 *.bak
 ~$*
 /111.docx
