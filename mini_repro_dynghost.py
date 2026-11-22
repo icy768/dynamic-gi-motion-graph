@@ -23,9 +23,17 @@ os.makedirs(OUT_DIR, exist_ok=True)
 def normalize01(x, eps=1e-8):
     return (x - x.min()) / (x.max() - x.min() + eps)
 
-def make_patterns(m, h, w, seed=SEED):
+def make_patterns(m, h, w, seed=SEED, frames=None):
+    """Binary 0/1 speckles.
+
+    frames=None: one set shared by every frame, shape (M, H, W) -- all experiments up to
+    scaleup_v1 used this. frames=T: an independent set per frame, shape (T, M, H, W), as a
+    real DMD projects (route C / E1). Frame 0 of the per-frame bank equals the shared set
+    for the same seed, because the generator fills the tensor in order.
+    """
     gen = torch.Generator().manual_seed(seed)
-    return (torch.rand((m, h, w), generator=gen) > 0.5).float()
+    shape = (m, h, w) if frames is None else (frames, m, h, w)
+    return (torch.rand(shape, generator=gen) > 0.5).float()
 
 def translate(img, dx, dy):
     theta = torch.tensor([[[1.0, 0.0, -2.0 * dx / IMAGE_SIZE],

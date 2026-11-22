@@ -101,9 +101,21 @@ def metric_rows(pred, target, labels, indices):
     ]
 
 
+def _check_per_frame(patterns: torch.Tensor, frames: int) -> None:
+    """Patterns are (M,H,W) shared by all frames, or (T,M,H,W) with one set per frame."""
+    if patterns.dim() == 4 and patterns.shape[0] != frames:
+        raise ValueError(f"per-frame patterns have {patterns.shape[0]} frames, sequence has {frames}")
+    if patterns.dim() not in (3, 4):
+        raise ValueError(f"patterns must be (M,H,W) or (T,M,H,W), got {tuple(patterns.shape)}")
+
+
 def gi_forward(image: torch.Tensor, patterns: torch.Tensor) -> torch.Tensor:
     """Apply the per-frame GI sensing matrix to image sequences."""
     batch, frames, _, height, width = image.shape
+    _check_per_frame(patterns, frames)
+    if patterns.dim() == 4:
+        matrix = patterns.reshape(frames, patterns.shape[1], -1) / math.sqrt(height * width)
+        return torch.einsum("btn,tmn->btm", image.reshape(batch, frames, -1), matrix)
     matrix = patterns.reshape(patterns.shape[0], -1) / math.sqrt(height * width)
     return image.reshape(batch, frames, -1) @ matrix.T
 
@@ -111,8 +123,13 @@ def gi_forward(image: torch.Tensor, patterns: torch.Tensor) -> torch.Tensor:
 def physical_residual(bucket: torch.Tensor, coarse: torch.Tensor, patterns: torch.Tensor):
     """Backproject measured bucket residuals; does not require target images."""
     batch, frames, _, height, width = coarse.shape
-    matrix = patterns.reshape(patterns.shape[0], -1) / math.sqrt(height * width)
+    _check_per_frame(patterns, frames)
     coarse_bucket = gi_forward(coarse, patterns)
+    if patterns.dim() == 4:
+        matrix = patterns.reshape(frames, patterns.shape[1], -1) / math.sqrt(height * width)
+        residual = torch.einsum("btm,tmn->btn", bucket - coarse_bucket, matrix) / patterns.shape[1]
+        return residual.reshape(batch, frames, 1, height, width)
+    matrix = patterns.reshape(patterns.shape[0], -1) / math.sqrt(height * width)
     residual = ((bucket - coarse_bucket) @ matrix) / patterns.shape[0]
     return residual.reshape(batch, frames, 1, height, width)
 
@@ -121,14 +138,24 @@ def dgi_from_bucket(bucket: torch.Tensor, patterns: torch.Tensor) -> torch.Tenso
     """DGI from measured buckets using the same P/sqrt(H*W) operator."""
     batch, frames, count = bucket.shape
     height, width = patterns.shape[-2:]
-    if count != len(patterns):
+    _check_per_frame(patterns, frames)
+    if count != patterns.shape[-3]:
         raise ValueError("bucket count does not match patterns")
-    raw_bucket = bucket.reshape(batch * frames, count) * math.sqrt(height * width)
-    illumination = patterns.sum((1, 2)).clamp_min(1e-8)
-    normalized = raw_bucket / illumination[None]
-    centered = normalized - normalized.mean(1, keepdim=True)
-    centered_patterns = patterns - patterns.mean(0, keepdim=True)
-    reconstruction = torch.einsum("nm,mhw->nhw", centered, centered_patterns) / count
+    if patterns.dim() == 4:
+        raw_bucket = bucket * math.sqrt(height * width)
+        illumination = patterns.sum((2, 3)).clamp_min(1e-8)
+        normalized = raw_bucket / illumination[None]
+        centered = normalized - normalized.mean(2, keepdim=True)
+        centered_patterns = patterns - patterns.mean(1, keepdim=True)
+        reconstruction = torch.einsum("btm,tmhw->bthw", centered, centered_patterns) / count
+        reconstruction = reconstruction.reshape(batch * frames, height, width)
+    else:
+        raw_bucket = bucket.reshape(batch * frames, count) * math.sqrt(height * width)
+        illumination = patterns.sum((1, 2)).clamp_min(1e-8)
+        normalized = raw_bucket / illumination[None]
+        centered = normalized - normalized.mean(1, keepdim=True)
+        centered_patterns = patterns - patterns.mean(0, keepdim=True)
+        reconstruction = torch.einsum("nm,mhw->nhw", centered, centered_patterns) / count
     low = reconstruction.amin((-2, -1), keepdim=True)
     high = reconstruction.amax((-2, -1), keepdim=True)
     reconstruction = (reconstruction - low) / (high - low + 1e-8)

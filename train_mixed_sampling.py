@@ -19,8 +19,13 @@ BATCH, EPOCHS, LR = 8, 10, 1e-3
 OUT = str(PROJECT_ROOT / 'mixed_sampling_outputs')
 
 def coarse_sequence(x, patterns):
+    """DGI of every frame. patterns: (M,H,W) shared by all frames, or (T,M,H,W) per frame."""
     b, t, c, h, w = x.shape
-    return dgi_dynamic(x.reshape(b*t, c, h, w), patterns).reshape_as(x)
+    if patterns.dim() == 3:
+        return dgi_dynamic(x.reshape(b*t, c, h, w), patterns).reshape_as(x)
+    if patterns.dim() != 4 or patterns.shape[0] != t:
+        raise ValueError(f"per-frame patterns must be (T={t}, M, H, W), got {tuple(patterns.shape)}")
+    return torch.stack([dgi_dynamic(x[:, k], patterns[k]) for k in range(t)], dim=1)
 
 def frame_forward(model, x):
     b, t, c, h, w = x.shape

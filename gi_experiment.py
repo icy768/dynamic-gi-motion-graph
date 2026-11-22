@@ -104,10 +104,14 @@ def load_frozen(device):
     return transformer, motion
 
 
-def make_bank(device):
+def make_bank(device, per_frame=False):
+    """per_frame=False: one pattern set shared by all frames, (M,H,W) -- scaleup_v1 and earlier.
+    per_frame=True: an independent set per frame, (SEQ_LEN,M,H,W) -- route C / E1."""
     from mini_repro_dynghost import make_patterns
-    from train_graph_protocol_v2 import IMAGE_SIZE, RATES, SEED
-    return {rate: make_patterns(rate, IMAGE_SIZE, IMAGE_SIZE, seed=SEED).to(device) for rate in RATES}
+    from train_graph_protocol_v2 import IMAGE_SIZE, RATES, SEED, SEQ_LEN
+    frames = SEQ_LEN if per_frame else None
+    return {rate: make_patterns(rate, IMAGE_SIZE, IMAGE_SIZE, seed=SEED, frames=frames).to(device)
+            for rate in RATES}
 
 
 def runtime_metadata(device) -> dict:
