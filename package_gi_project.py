@@ -21,9 +21,12 @@ def runtime_package(runtime_only=False, output_path=None):
         paths = set(PROJECT_ROOT.glob("*.py"))
         paths.update(path for directory in ("scripts", "configs") for path in (PROJECT_ROOT / directory).rglob("*")
                      if path.is_file() and path.suffix in {".sh", ".ps1", ".json"})
-        paths.update(PROJECT_ROOT / name for name in ("README.md", "SERVER_RUN.md", "SCALEUP_RUN.md",
-                     "requirements.txt", "requirements-runtime.txt", "requirements-hengyuan.txt", "asset_manifest.json",
-                     "SCALEUP_PREPARATION_CHECKS.json", ".gitattributes"))
+        paths.update(PROJECT_ROOT / name for name in ("README.md", "SERVER_RUN.md", "SCALEUP_RUN.md", "E1_RUN.md",
+                     "requirements.txt", "requirements-runtime.txt", "requirements-hengyuan.txt", "requirements-e1.txt",
+                     "asset_manifest.json", "SCALEUP_PREPARATION_CHECKS.json", ".gitattributes"))
+        # E1 unit checks compare against the NumPy feasibility code.
+        paths.update((PROJECT_ROOT / "motion_pooling").glob("*.py"))
+        paths.update((PROJECT_ROOT / "motion_pooling").glob("lam_*.json"))
     else:
         paths = {project_path(name) for name in tracked if name}
     manifest = json.loads((PROJECT_ROOT / "asset_manifest.json").read_text(encoding="utf-8"))

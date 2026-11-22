@@ -59,13 +59,20 @@ class BouncingMovingMNIST(Dataset):
         source_indices: np.ndarray,
         seed: int,
         max_offset: float = 10.0,
+        interpolation: str = "bilinear",
     ) -> None:
+        # interpolation places the digit at sub-pixel positions. "bilinear" is used by every
+        # experiment up to scaleup_v1; E1 uses "bicubic" (clamped to [0,1]) so the data generator
+        # differs from the bilinear shift model inside the physical layer.
+        if interpolation not in ("bilinear", "bicubic"):
+            raise ValueError("interpolation must be bilinear or bicubic")
         self.mnist = datasets.MNIST(
             root=root, train=train, download=False, transform=transforms.ToTensor()
         )
         self.indices = np.asarray(source_indices, dtype=np.int64)
         self.length = len(self.indices)
         self.max_offset = max_offset
+        self.interpolation = interpolation
         rng = np.random.default_rng(seed)
         self.start_x = rng.uniform(-max_offset, max_offset, size=self.length)
         self.start_y = rng.uniform(-max_offset, max_offset, size=self.length)
@@ -100,9 +107,14 @@ class BouncingMovingMNIST(Dataset):
             grid = F.affine_grid(
                 theta, (1, 1, IMAGE_SIZE, IMAGE_SIZE), align_corners=False
             )
-            frames.append(F.grid_sample(
-                image[None], grid, align_corners=False, padding_mode="zeros"
-            )[0])
+            if self.interpolation == "bilinear":
+                frames.append(F.grid_sample(
+                    image[None], grid, align_corners=False, padding_mode="zeros"
+                )[0])
+            else:
+                frames.append(F.grid_sample(
+                    image[None], grid, mode="bicubic", align_corners=False, padding_mode="zeros"
+                )[0].clamp(0.0, 1.0))
             if frame_index + 1 < SEQ_LEN:
                 if x + vx < -self.max_offset or x + vx > self.max_offset:
                     vx = -vx
@@ -129,6 +141,7 @@ class BouncingMovingMNIST(Dataset):
                 "angle_rad": float(self.angle[i]),
                 "speed_pixels_per_frame": float(self.speed[i]),
                 "max_offset": float(self.max_offset),
+                **({} if self.interpolation == "bilinear" else {"interpolation": self.interpolation}),
             }
             for i in range(self.length)
         ]
