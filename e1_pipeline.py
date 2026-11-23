@@ -115,7 +115,9 @@ def dev_config(cfg):
     s["motion_net"]["epochs"] = 6
     s["refiner"]["epochs"] = 6
     s["refiner"]["seed_offsets"] = [0]
+    s["refiner"]["train_group5"] = False          # needs the physical layer on all training sequences
     s["physical_layer"]["batch"] = 16
+    s["physical_layer"]["grid"] = {"mu": [0.0, 0.0003, 0.001], "tv": [0.0001, 0.0003, 0.001]}
     s["bootstrap_repeats"] = 1000
     return s
 
@@ -132,7 +134,7 @@ def role_data(cfg, manifest, run, role):
     """Target sequences for a role, generated once and cached."""
     path = run / "data" / f"{role}.pt"
     if path.is_file():
-        return torch.load(path, map_location="cpu", weights_only=True)
+        return torch.load(path, map_location="cpu", weights_only=True, mmap=True)
     if role == "test" and not (run / "evaluate" / "STARTED").is_file():
         raise RuntimeError("final test sequences are generated only by the evaluate stage")
     ds = role_dataset(cfg, manifest, role)
@@ -404,8 +406,8 @@ def _train_refiners(cfg, run, device, folder, train_feat, val_feat):
 
 
 def stage_cnn(cfg, manifest, run, device):
-    train_feat = torch.load(run / "features" / "train.pt", map_location="cpu", weights_only=True)
-    val_feat = torch.load(run / "features" / "validation.pt", map_location="cpu", weights_only=True)
+    train_feat = torch.load(run / "features" / "train.pt", map_location="cpu", weights_only=True, mmap=True)
+    val_feat = torch.load(run / "features" / "validation.pt", map_location="cpu", weights_only=True, mmap=True)
     _train_refiners(cfg, run, device, "cnn", train_feat, val_feat)
 
 
@@ -451,7 +453,7 @@ def stage_tune(cfg, manifest, run, device):
     if (out / "choice.json").is_file():
         return
     pl = cfg["physical_layer"]
-    val_feat = torch.load(run / "features" / "validation.pt", map_location="cpu", weights_only=True)
+    val_feat = torch.load(run / "features" / "validation.pt", map_location="cpu", weights_only=True, mmap=True)
     bank = make_bank(device, per_frame=True)
     ids = tuning_ids(val_feat[RATES[0]]["speed"], pl["tuning_per_speed_bin"])
     grid = [{"mu": mu, "tv": tv} for mu in pl["grid"]["mu"] for tv in pl["grid"]["tv"]]
@@ -506,11 +508,11 @@ def stage_physcnn(cfg, manifest, run, device):
     for role in ("train", "validation"):
         path = run / "features" / f"{role}_phys.pt"
         if not path.is_file():
-            base = torch.load(run / "features" / f"{role}.pt", map_location="cpu", weights_only=True)
+            base = torch.load(run / "features" / f"{role}.pt", map_location="cpu", weights_only=True, mmap=True)
             started = time.perf_counter()
             atomic_torch_save(phys_features(cfg, run, base, bank, device), path)
             log(f"physical-layer features {role}: {time.perf_counter() - started:.0f} s")
-        feats[role] = torch.load(path, map_location="cpu", weights_only=True)
+        feats[role] = torch.load(path, map_location="cpu", weights_only=True, mmap=True)
     _train_refiners(cfg, run, device, "physcnn", feats["train"], feats["validation"])
 
 
