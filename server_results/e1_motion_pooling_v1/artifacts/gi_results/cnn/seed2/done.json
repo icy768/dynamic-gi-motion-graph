@@ -1,0 +1,186 @@
+{
+  "fingerprint": "f7b8e7b3ef7b6a1571263cb2366d07c4fbfc60325beeb2c26dba33095ce05391",
+  "seed_offset": 2,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.0563152611926198,
+      "val_mse": 0.008228242163507577,
+      "val_ssim": 0.8571751104295253,
+      "val_selection_score": 0.01108473995491707,
+      "minibatch_order_sha256": "44485e15970d8a0a9e72ed6e296f590d6c09fddbe358ad924d162ae0d44ed4bd",
+      "epoch_seconds": 18.710426717996597
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.05473251558095217,
+      "val_mse": 0.008138811232929583,
+      "val_ssim": 0.8558991518616677,
+      "val_selection_score": 0.01102082819569623,
+      "minibatch_order_sha256": "58bd8d2b8af4e9c3666bc02da874408d53bf0adbb58a5e53d2f647a7e2d7f0a0",
+      "epoch_seconds": 18.729580216109753
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.052931324724107984,
+      "val_mse": 0.007596230374135,
+      "val_ssim": 0.8707130788763364,
+      "val_selection_score": 0.010181968796608272,
+      "minibatch_order_sha256": "20ee441fbec9dff351fff15d63132cde5029292b6c085e694879fdba6ce3ab03",
+      "epoch_seconds": 25.04846989363432
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05049384671449661,
+      "val_mse": 0.007586165937245823,
+      "val_ssim": 0.8740732473134994,
+      "val_selection_score": 0.010104700990975834,
+      "minibatch_order_sha256": "833030306faf926dfed9b6af3bf1b77820a9d3518cd3af400d516e1533ef0e1c",
+      "epoch_seconds": 18.664997592568398
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.04889752179384232,
+      "val_mse": 0.007103924846548277,
+      "val_ssim": 0.8801357314487298,
+      "val_selection_score": 0.00950121021757368,
+      "minibatch_order_sha256": "5e8a192b8874d0310883c8f4722f69617c8a90597ac13156f8e135aa732587db",
+      "epoch_seconds": 20.002321511507034
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.04773599424213171,
+      "val_mse": 0.0068995451898566295,
+      "val_ssim": 0.8826108028491338,
+      "val_selection_score": 0.009247329132873953,
+      "minibatch_order_sha256": "b654edf67ac751ea23a2560649d23c54a3101e793e108c51b5cf61aa756a09bb",
+      "epoch_seconds": 18.846642188727856
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.046919448293745517,
+      "val_mse": 0.006750396444015981,
+      "val_ssim": 0.8854921533167363,
+      "val_selection_score": 0.009040553377681256,
+      "minibatch_order_sha256": "4e7151c2685bd96d7338ab8a68d2390e3e8ec562089ab59a8fa08414805ed7ce",
+      "epoch_seconds": 18.386319540441036
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.04645132783800363,
+      "val_mse": 0.006781487438323287,
+      "val_ssim": 0.8850739754736423,
+      "val_selection_score": 0.00908000792885044,
+      "minibatch_order_sha256": "66baccb4f15bcf69d101733e2636bc5ca725c922bb647aaf86cca6d7d69d99f3",
+      "epoch_seconds": 18.062321215867996
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0459482603892684,
+      "val_mse": 0.006908692107972456,
+      "val_ssim": 0.8831570268174013,
+      "val_selection_score": 0.00924555157162443,
+      "minibatch_order_sha256": "9f96ecc3f6d82824346fa6dddf00b5dfd707c8f5d5869ff144ec19d159e49bef",
+      "epoch_seconds": 20.878747910261154
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.04565304961428046,
+      "val_mse": 0.006801212796708569,
+      "val_ssim": 0.8855423552791277,
+      "val_selection_score": 0.009090365691126014,
+      "minibatch_order_sha256": "75f404cfdfb8f25642175a5db706efdb1bada1f5365c95dbc0cb16e07f76aa82",
+      "epoch_seconds": 22.406067796051502
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.04521647645533085,
+      "val_mse": 0.006651256245677359,
+      "val_ssim": 0.8872008885443211,
+      "val_selection_score": 0.008907238474790937,
+      "minibatch_order_sha256": "6835f0263bbdafa680904c86a066a3c2d9b81aed360388a286a5d93cb0a5d46f",
+      "epoch_seconds": 17.8779678940773
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.04494870315119624,
+      "val_mse": 0.0066996690328232945,
+      "val_ssim": 0.8862506772081057,
+      "val_selection_score": 0.00897465548866118,
+      "minibatch_order_sha256": "c9982bd21dbf8688c021486689f206490db8d5aa7411abea4fd55f683a19237a",
+      "epoch_seconds": 17.90722231566906
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.04472579584270716,
+      "val_mse": 0.006680278979086627,
+      "val_ssim": 0.8884228971103827,
+      "val_selection_score": 0.008911821036878974,
+      "minibatch_order_sha256": "f5c429eb8ec9d0e48deae9f5b438a171d8802514b66de09366b8434a4edeca9f",
+      "epoch_seconds": 17.803678452968597
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.0446311454474926,
+      "val_mse": 0.0064477364773241185,
+      "val_ssim": 0.8901441191633542,
+      "val_selection_score": 0.008644854094057033,
+      "minibatch_order_sha256": "7994f5b5a5de5b0f91d41cbfe00e01495a650c0c39e24e222ced15db1953747a",
+      "epoch_seconds": 17.739614345133305
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.044343636497855186,
+      "val_mse": 0.006473376765206922,
+      "val_ssim": 0.8905818791190783,
+      "val_selection_score": 0.008661739182825357,
+      "minibatch_order_sha256": "66e4bb8be5e8d5c2aa550cb55304bec76686831a07d16641fffd3bf16a146dfa",
+      "epoch_seconds": 18.147414058446884
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.044238477740436793,
+      "val_mse": 0.006442650702277509,
+      "val_ssim": 0.8897206607460976,
+      "val_selection_score": 0.008648237487355558,
+      "minibatch_order_sha256": "055d8e2740533b560e8dfb6940f89a6b1d4080fa485f8cddbcca384f6d67dccc",
+      "epoch_seconds": 26.28661049902439
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.04391638918593526,
+      "val_mse": 0.00642320911817175,
+      "val_ssim": 0.8904534082114697,
+      "val_selection_score": 0.008614140953942357,
+      "minibatch_order_sha256": "dc6a07c7d7bafef88efa0ee4b0c6c5e9df97e797d8eb508e760a2069414e296b",
+      "epoch_seconds": 31.478965051472187
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.04391608575358987,
+      "val_mse": 0.0064801335374068,
+      "val_ssim": 0.8908487957219283,
+      "val_selection_score": 0.008663157622968234,
+      "minibatch_order_sha256": "5db54b7fbf929141c5b3296ae341ecbbf8924b7030517602d092d8e012fd946c",
+      "epoch_seconds": 20.32859678566456
+    },
+    {
+      "epoch": 19,
+      "train_loss": 0.043684471148997546,
+      "val_mse": 0.006331952206382993,
+      "val_ssim": 0.8935491991043091,
+      "val_selection_score": 0.008460968224296811,
+      "minibatch_order_sha256": "13b7f645b9bf2073dcf970cb5b82ce245f08cd23836b79a0c2a591a06d250fd4",
+      "epoch_seconds": 23.14296106994152
+    },
+    {
+      "epoch": 20,
+      "train_loss": 0.043624805711209774,
+      "val_mse": 0.006406983970858467,
+      "val_ssim": 0.8865657505393029,
+      "val_selection_score": 0.00867566896007241,
+      "minibatch_order_sha256": "a4098ea70fa0a25c37d83c88e9e92b6dc191d246f119a88083451b72e359f905",
+      "epoch_seconds": 40.843133591115475
+    }
+  ]
+}

@@ -1,0 +1,1276 @@
+{
+  "study_id": "e1_motion_pooling_v1",
+  "verdict": {
+    "primary_pass": true,
+    "stop_route_c": false,
+    "by_count": {
+      "128": {
+        "gain_vs_cnn_db": 13.073377653757731,
+        "ci95_lower_db": 12.862485298538209,
+        "ssim_change_vs_cnn": 0.05087917241454125,
+        "measurement_residual_change_vs_cnn": -0.04379866982160214,
+        "gain_vs_coarse_db": 14.60948180993398,
+        "final_motion_epe_px": 0.08558280183312794,
+        "pass": true,
+        "stop_condition": false
+      },
+      "256": {
+        "gain_vs_cnn_db": 17.114434774398802,
+        "ci95_lower_db": 16.989333369541168,
+        "ssim_change_vs_cnn": 0.06927787683407466,
+        "measurement_residual_change_vs_cnn": -0.03491633681120584,
+        "gain_vs_coarse_db": 18.393481302261353,
+        "final_motion_epe_px": 0.03968068078470727,
+        "pass": true,
+        "stop_condition": false
+      }
+    }
+  },
+  "criteria": {
+    "primary": "At both bucket counts: phys_est (group 3) minus cnn (group 2) paired PSNR gain >= min_gain_vs_cnn_db, its 95% bootstrap lower bound > 0, mean SSIM change >= 0 and mean relative measurement residual change < 0",
+    "min_gain_vs_cnn_db": 1.0,
+    "stop": "Route C stops if at both bucket counts phys_est minus coarse (group 1) < stop_gain_vs_coarse_db while the final motion EPE < stop_motion_epe_px",
+    "stop_gain_vs_coarse_db": 0.5,
+    "stop_motion_epe_px": 0.2,
+    "written_before_any_validation_or_test_result": "2026-11-22"
+  },
+  "summary": [
+    {
+      "pattern_count": 128,
+      "method": "cnn",
+      "sequences": 600,
+      "mse_mean": 0.007448550619223777,
+      "psnr_db_mean": 21.796001558303832,
+      "ssim_mean": 0.87833518020312,
+      "foreground_psnr_db_mean": 15.630791193962098,
+      "temporal_difference_error_mean": 0.039624585891297706,
+      "relative_measurement_residual_mean": 0.046448033354245126
+    },
+    {
+      "pattern_count": 128,
+      "method": "coarse",
+      "sequences": 600,
+      "mse_mean": 0.010633549229047882,
+      "psnr_db_mean": 20.259897402127585,
+      "ssim_mean": 0.8190416515866915,
+      "foreground_psnr_db_mean": 14.49822151819865,
+      "temporal_difference_error_mean": 0.0491807425301522,
+      "relative_measurement_residual_mean": 0.11214820481215915
+    },
+    {
+      "pattern_count": 128,
+      "method": "phys_cnn",
+      "sequences": 600,
+      "mse_mean": 0.00031366184892309926,
+      "psnr_db_mean": 38.92896605491638,
+      "ssim_mean": 0.9924518762230874,
+      "foreground_psnr_db_mean": 32.417686103820806,
+      "temporal_difference_error_mean": 0.00772875059415431,
+      "relative_measurement_residual_mean": 0.004282094304449855
+    },
+    {
+      "pattern_count": 128,
+      "method": "phys_est",
+      "sequences": 600,
+      "mse_mean": 0.0006320600728092055,
+      "psnr_db_mean": 34.86937921206157,
+      "ssim_mean": 0.9292143526176612,
+      "foreground_psnr_db_mean": 28.406230076154074,
+      "temporal_difference_error_mean": 0.013910416573829328,
+      "relative_measurement_residual_mean": 0.0026493635326429892
+    },
+    {
+      "pattern_count": 128,
+      "method": "phys_own",
+      "sequences": 600,
+      "mse_mean": 0.01681023441099872,
+      "psnr_db_mean": 17.99542548020681,
+      "ssim_mean": 0.3807161488632361,
+      "foreground_psnr_db_mean": 11.809465045928954,
+      "temporal_difference_error_mean": 0.07164734274459382,
+      "relative_measurement_residual_mean": 0.0024197818052683335
+    },
+    {
+      "pattern_count": 128,
+      "method": "phys_true",
+      "sequences": 600,
+      "mse_mean": 0.0003179135154277901,
+      "psnr_db_mean": 35.49468420028686,
+      "ssim_mean": 0.9429554595549902,
+      "foreground_psnr_db_mean": 29.033979244232178,
+      "temporal_difference_error_mean": 0.012015420467747995,
+      "relative_measurement_residual_mean": 0.002365391128793514
+    },
+    {
+      "pattern_count": 256,
+      "method": "cnn",
+      "sequences": 600,
+      "mse_mean": 0.004834847135546928,
+      "psnr_db_mean": 23.590113094965616,
+      "ssim_mean": 0.9133065466880798,
+      "foreground_psnr_db_mean": 17.201021286328636,
+      "temporal_difference_error_mean": 0.032240822835980606,
+      "relative_measurement_residual_mean": 0.03790118719777092
+    },
+    {
+      "pattern_count": 256,
+      "method": "coarse",
+      "sequences": 600,
+      "mse_mean": 0.006529277712688781,
+      "psnr_db_mean": 22.31106656710307,
+      "ssim_mean": 0.8820397328337034,
+      "foreground_psnr_db_mean": 16.0999577999115,
+      "temporal_difference_error_mean": 0.03819138791722556,
+      "relative_measurement_residual_mean": 0.08629749612572292
+    },
+    {
+      "pattern_count": 256,
+      "method": "phys_cnn",
+      "sequences": 600,
+      "mse_mean": 4.1653797616466665e-05,
+      "psnr_db_mean": 44.17825292332967,
+      "ssim_mean": 0.998504417816798,
+      "foreground_psnr_db_mean": 37.84285925420125,
+      "temporal_difference_error_mean": 0.0038139214051188903,
+      "relative_measurement_residual_mean": 0.00337827023526188
+    },
+    {
+      "pattern_count": 256,
+      "method": "phys_est",
+      "sequences": 600,
+      "mse_mean": 9.296804574963365e-05,
+      "psnr_db_mean": 40.70454786936442,
+      "ssim_mean": 0.9825844235221545,
+      "foreground_psnr_db_mean": 34.38656713803609,
+      "temporal_difference_error_mean": 0.006861270484902585,
+      "relative_measurement_residual_mean": 0.0029848503865650853
+    },
+    {
+      "pattern_count": 256,
+      "method": "phys_own",
+      "sequences": 600,
+      "mse_mean": 0.005718726198344181,
+      "psnr_db_mean": 22.796578652064007,
+      "ssim_mean": 0.6283949007590611,
+      "foreground_psnr_db_mean": 16.494881499608358,
+      "temporal_difference_error_mean": 0.04370553401764482,
+      "relative_measurement_residual_mean": 0.001888287206044576
+    },
+    {
+      "pattern_count": 256,
+      "method": "phys_true",
+      "sequences": 600,
+      "mse_mean": 9.598449607741106e-05,
+      "psnr_db_mean": 40.565849475860595,
+      "ssim_mean": 0.9822666995724042,
+      "foreground_psnr_db_mean": 34.245373220443724,
+      "temporal_difference_error_mean": 0.006978371007523189,
+      "relative_measurement_residual_mean": 0.003019286682829261
+    }
+  ],
+  "paired": [
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 12.442433017730714,
+      "psnr_gain_ci95_lower_db": 12.16375467119217,
+      "psnr_gain_ci95_upper_db": 12.695701706027984,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.037622683942317964,
+      "measurement_residual_change": -0.037672187369957096,
+      "per_seed_gain_db": [
+        12.447424488067627,
+        12.4391126537323,
+        12.475052709579467,
+        12.409950160980225,
+        12.440625076293946
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 13.796034326553345,
+      "psnr_gain_ci95_lower_db": 13.526039680957794,
+      "psnr_gain_ci95_upper_db": 14.03561138677597,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.079305519759655,
+      "measurement_residual_change": -0.10053415244881762,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 0.3674466896057129,
+      "psnr_gain_ci95_lower_db": 0.21089513278007507,
+      "psnr_gain_ci95_upper_db": 0.598701899766922,
+      "paired_win_rate": 0.85,
+      "ssim_gain_mean": 0.006105507910251618,
+      "measurement_residual_change": -0.00013008371519390493,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.3536013088226317,
+      "psnr_gain_ci95_lower_db": 1.2607621545314787,
+      "psnr_gain_ci95_upper_db": 1.4532911240577697,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.04168283581733703,
+      "measurement_residual_change": -0.06286196507886052,
+      "per_seed_gain_db": [
+        1.3486098384857177,
+        1.356921672821045,
+        1.320981616973877,
+        1.3860841655731202,
+        1.3554092502593995
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -3.2616209745407105,
+      "psnr_gain_ci95_lower_db": -3.3971089154481886,
+      "psnr_gain_ci95_upper_db": -3.1223723855018615,
+      "paired_win_rate": 0.0,
+      "ssim_gain_mean": -0.4722218282520771,
+      "measurement_residual_change": -0.10081398606067524,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.057655301094055,
+      "psnr_gain_ci95_lower_db": 16.793789543151856,
+      "psnr_gain_ci95_upper_db": 17.275683679819107,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.5515273480117321,
+      "measurement_residual_change": 0.00027983361185761167,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 16.518497285842894,
+      "psnr_gain_ci95_lower_db": 16.219860506582258,
+      "psnr_gain_ci95_upper_db": 16.78659837603569,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.09409200286865235,
+      "measurement_residual_change": -0.03659103819186567,
+      "per_seed_gain_db": [
+        16.461819162368773,
+        16.477379541397095,
+        16.5368706035614,
+        16.595553750991822,
+        16.520863370895384
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "1-2",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 4.076064268112183,
+      "psnr_gain_ci95_lower_db": 4.006524598789215,
+      "psnr_gain_ci95_upper_db": 4.143568548870086,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.056469318926334375,
+      "measurement_residual_change": 0.0010811491780914368,
+      "per_seed_gain_db": [
+        4.014394674301148,
+        4.038266887664795,
+        4.061817893981933,
+        4.185603590011596,
+        4.080238294601441
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 13.261786693572999,
+      "psnr_gain_ci95_lower_db": 12.958615894031523,
+      "psnr_gain_ci95_upper_db": 13.533649452352524,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.057060154616832726,
+      "measurement_residual_change": -0.046023929169517946,
+      "per_seed_gain_db": [
+        13.316813821792602,
+        13.262074508666991,
+        13.269046821594237,
+        13.229464454650879,
+        13.231533861160278
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 14.87095531463623,
+      "psnr_gain_ci95_lower_db": 14.576969029426575,
+      "psnr_gain_ci95_upper_db": 15.134541688203813,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.11803009659051895,
+      "measurement_residual_change": -0.11521709303662647,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 0.4400638198852539,
+      "psnr_gain_ci95_lower_db": 0.2334866704940796,
+      "psnr_gain_ci95_upper_db": 0.7118635575771329,
+      "paired_win_rate": 0.875,
+      "ssim_gain_mean": 0.008143365383148193,
+      "measurement_residual_change": -0.0001670435455162078,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.6091686210632326,
+      "psnr_gain_ci95_lower_db": 1.5257607579231263,
+      "psnr_gain_ci95_upper_db": 1.6936761564254763,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.06096994197368622,
+      "measurement_residual_change": -0.06919316386710853,
+      "per_seed_gain_db": [
+        1.554141492843628,
+        1.6088808059692383,
+        1.6019084930419922,
+        1.6414908599853515,
+        1.6394214534759521
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -2.1574842596054076,
+      "psnr_gain_ci95_lower_db": -2.292807232022285,
+      "psnr_gain_ci95_upper_db": -2.0283841919898986,
+      "paired_win_rate": 0.015,
+      "ssim_gain_mean": -0.4367917685210705,
+      "measurement_residual_change": -0.11528819461032981,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.028439574241638,
+      "psnr_gain_ci95_lower_db": 16.735895532131195,
+      "psnr_gain_ci95_upper_db": 17.269288313031197,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.5548218651115895,
+      "measurement_residual_change": 7.110157370334492e-05,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.34001986694336,
+      "psnr_gain_ci95_lower_db": 17.01662063989639,
+      "psnr_gain_ci95_upper_db": 17.624004431343078,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.11738895332813262,
+      "measurement_residual_change": -0.04466522785829147,
+      "per_seed_gain_db": [
+        17.342586984634398,
+        17.299300031661986,
+        17.32204372406006,
+        17.42297622680664,
+        17.31319236755371
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "2-4",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 4.078233173370361,
+      "psnr_gain_ci95_lower_db": 4.009589070510864,
+      "psnr_gain_ci95_upper_db": 4.147176167774201,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.0603287987112999,
+      "measurement_residual_change": 0.0013587013112264683,
+      "per_seed_gain_db": [
+        4.025773162841797,
+        4.037225522994995,
+        4.052996902465821,
+        4.1935117721557615,
+        4.081658506393433
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 13.515913249969483,
+      "psnr_gain_ci95_lower_db": 13.008976742744446,
+      "psnr_gain_ci95_upper_db": 13.970734476971623,
+      "paired_win_rate": 0.985,
+      "ssim_gain_mean": 0.057954678684473036,
+      "measurement_residual_change": -0.04769989292533136,
+      "per_seed_gain_db": [
+        13.563396935462952,
+        13.544249110221863,
+        13.496516189575196,
+        13.500536456108094,
+        13.474867558479309
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 15.161455788612365,
+      "psnr_gain_ci95_lower_db": 14.64515046775341,
+      "psnr_gain_ci95_upper_db": 15.622083161473274,
+      "paired_win_rate": 0.985,
+      "ssim_gain_mean": 0.13318248674273492,
+      "measurement_residual_change": -0.11274527835310437,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.0684044551849365,
+      "psnr_gain_ci95_lower_db": 0.6030328063964844,
+      "psnr_gain_ci95_upper_db": 1.5888619565963744,
+      "paired_win_rate": 0.85,
+      "ssim_gain_mean": 0.026974447518587113,
+      "measurement_residual_change": -0.0005547899508383125,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.645542538642883,
+      "psnr_gain_ci95_lower_db": 1.5657054240226747,
+      "psnr_gain_ci95_upper_db": 1.7319894537448883,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.07522780805826187,
+      "measurement_residual_change": -0.06504538542777301,
+      "per_seed_gain_db": [
+        1.598058853149414,
+        1.617206678390503,
+        1.6649395990371705,
+        1.6609193325042724,
+        1.6865882301330566
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -1.374310531616211,
+      "psnr_gain_ci95_lower_db": -1.512815474152565,
+      "psnr_gain_ci95_upper_db": -1.2359667595624926,
+      "paired_win_rate": 0.09,
+      "ssim_gain_mean": -0.4059629113972187,
+      "measurement_residual_change": -0.11308308834966738,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 16.535766320228575,
+      "psnr_gain_ci95_lower_db": 15.996681735992432,
+      "psnr_gain_ci95_upper_db": 17.013068793058395,
+      "paired_win_rate": 0.985,
+      "ssim_gain_mean": 0.5391453981399537,
+      "measurement_residual_change": 0.0003378099965630099,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.54037633705139,
+      "psnr_gain_ci95_lower_db": 16.977656611299516,
+      "psnr_gain_ci95_upper_db": 18.0505234218359,
+      "paired_win_rate": 0.99,
+      "ssim_gain_mean": 0.13086913186311722,
+      "measurement_residual_change": -0.04524155109922868,
+      "per_seed_gain_db": [
+        17.552371668815614,
+        17.525637593269348,
+        17.487319049835204,
+        17.638612513542174,
+        17.497940859794618
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "4-6",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 4.02446308708191,
+      "psnr_gain_ci95_lower_db": 3.9370465563774113,
+      "psnr_gain_ci95_upper_db": 4.11073010582924,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.07291445317864417,
+      "measurement_residual_change": 0.0024583418261026964,
+      "per_seed_gain_db": [
+        3.988974733352661,
+        3.9813884830474855,
+        3.99080286026001,
+        4.138076057434082,
+        4.023073301315308
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 13.073377653757731,
+      "psnr_gain_ci95_lower_db": 12.862485298538209,
+      "psnr_gain_ci95_upper_db": 13.277901320966084,
+      "paired_win_rate": 0.9916666666666667,
+      "ssim_gain_mean": 0.05087917241454125,
+      "measurement_residual_change": -0.04379866982160214,
+      "per_seed_gain_db": [
+        13.10921174844106,
+        13.081812090873719,
+        13.080205240249633,
+        13.0466503572464,
+        13.049008831977844
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 14.60948180993398,
+      "psnr_gain_ci95_lower_db": 14.395758856852849,
+      "psnr_gain_ci95_upper_db": 14.812353704452516,
+      "paired_win_rate": 0.9916666666666667,
+      "ssim_gain_mean": 0.11017270103096961,
+      "measurement_residual_change": -0.10949884127951615,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 0.6253049882253011,
+      "psnr_gain_ci95_lower_db": 0.4378678766091665,
+      "psnr_gain_ci95_upper_db": 0.8311067110697427,
+      "paired_win_rate": 0.8583333333333333,
+      "ssim_gain_mean": 0.013741106937328974,
+      "measurement_residual_change": -0.0002839724038494751,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 1.5361041561762492,
+      "psnr_gain_ci95_lower_db": 1.4856231260458628,
+      "psnr_gain_ci95_upper_db": 1.5861965071201323,
+      "paired_win_rate": 0.9983333333333333,
+      "ssim_gain_mean": 0.05929352861642838,
+      "measurement_residual_change": -0.06570017145791401,
+      "per_seed_gain_db": [
+        1.5002700614929199,
+        1.527669719060262,
+        1.5292765696843464,
+        1.5628314526875813,
+        1.5604729779561362
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": -2.2644719219207765,
+      "psnr_gain_ci95_lower_db": -2.366157428542773,
+      "psnr_gain_ci95_upper_db": -2.167102619131406,
+      "paired_win_rate": 0.035,
+      "ssim_gain_mean": -0.43832550272345544,
+      "measurement_residual_change": -0.10972842300689081,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 16.87395373185476,
+      "psnr_gain_ci95_lower_db": 16.656656634847323,
+      "psnr_gain_ci95_upper_db": 17.075899012684822,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.548498203754425,
+      "measurement_residual_change": 0.0002295817273746555,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 17.132964496612548,
+      "psnr_gain_ci95_lower_db": 16.901558769853914,
+      "psnr_gain_ci95_upper_db": 17.353266463486353,
+      "paired_win_rate": 0.9966666666666667,
+      "ssim_gain_mean": 0.11411669601996739,
+      "measurement_residual_change": -0.04216593904979527,
+      "per_seed_gain_db": [
+        17.118925938606264,
+        17.100772388776143,
+        17.115411125818888,
+        17.219047497113547,
+        17.110665532747905
+      ]
+    },
+    {
+      "pattern_count": 128,
+      "speed_bin": "all",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 4.059586842854817,
+      "psnr_gain_ci95_lower_db": 4.015856736850738,
+      "psnr_gain_ci95_upper_db": 4.101241554514567,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.06323752360542616,
+      "measurement_residual_change": 0.0016327307718068669,
+      "per_seed_gain_db": [
+        4.009714190165202,
+        4.018960297902425,
+        4.035205885569255,
+        4.172397139867146,
+        4.06165670077006
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 16.30164011383057,
+      "psnr_gain_ci95_lower_db": 16.099631683015822,
+      "psnr_gain_ci95_upper_db": 16.514846175622942,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.05637906110286713,
+      "measurement_residual_change": -0.029507604917977003,
+      "per_seed_gain_db": [
+        16.26512435913086,
+        16.323769273757936,
+        16.344533100128174,
+        16.275201988220214,
+        16.29957184791565
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.430495824813843,
+      "psnr_gain_ci95_lower_db": 17.2331457760334,
+      "psnr_gain_ci95_upper_db": 17.625027443408964,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.07951057285070419,
+      "measurement_residual_change": -0.07864465477643534,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -0.1562149429321289,
+      "psnr_gain_ci95_lower_db": -0.1949737958908081,
+      "psnr_gain_ci95_upper_db": -0.11620208501815796,
+      "paired_win_rate": 0.28,
+      "ssim_gain_mean": -0.0003715357184410095,
+      "measurement_residual_change": 3.779898601351306e-05,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.1288557109832764,
+      "psnr_gain_ci95_lower_db": 1.0308416092872619,
+      "psnr_gain_ci95_upper_db": 1.2281650394439698,
+      "paired_win_rate": 0.98,
+      "ssim_gain_mean": 0.02313151174783706,
+      "measurement_residual_change": -0.04913704985845834,
+      "per_seed_gain_db": [
+        1.1653714656829834,
+        1.1067265510559081,
+        1.085962724685669,
+        1.1552938365936278,
+        1.1309239768981934
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -0.1612291717529297,
+      "psnr_gain_ci95_lower_db": -0.3205530676841736,
+      "psnr_gain_ci95_upper_db": -0.006979739904403959,
+      "paired_win_rate": 0.41,
+      "ssim_gain_mean": -0.2654992750287056,
+      "measurement_residual_change": -0.07993627759831724,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.59172499656677,
+      "psnr_gain_ci95_lower_db": 17.470284407138823,
+      "psnr_gain_ci95_upper_db": 17.71733417582512,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.3450098478794098,
+      "measurement_residual_change": 0.0012916228218819014,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 19.891654735565183,
+      "psnr_gain_ci95_lower_db": 19.724857615089416,
+      "psnr_gain_ci95_upper_db": 20.06055386505127,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.07180789482593536,
+      "measurement_residual_change": -0.029248590679548218,
+      "per_seed_gain_db": [
+        19.997649002075196,
+        19.805903635025025,
+        19.85648067474365,
+        19.94232036590576,
+        19.855920000076296
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "1-2",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 3.5900146217346185,
+      "psnr_gain_ci95_lower_db": 3.457556455802917,
+      "psnr_gain_ci95_upper_db": 3.7215391678810112,
+      "paired_win_rate": 0.99,
+      "ssim_gain_mean": 0.015428833723068233,
+      "measurement_residual_change": 0.00025901423842879007,
+      "per_seed_gain_db": [
+        3.7325246429443357,
+        3.48213436126709,
+        3.5119475746154785,
+        3.6671183776855467,
+        3.5563481521606444
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.10685542678833,
+      "psnr_gain_ci95_lower_db": 16.915540225934983,
+      "psnr_gain_ci95_upper_db": 17.29938310585022,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.07017284035682678,
+      "measurement_residual_change": -0.036898301279114094,
+      "per_seed_gain_db": [
+        17.100677814483642,
+        17.10367467880249,
+        17.1685004901886,
+        17.05263524055481,
+        17.10878890991211
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 18.48322918891907,
+      "psnr_gain_ci95_lower_db": 18.306280092954637,
+      "psnr_gain_ci95_upper_db": 18.663577612876892,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.10279601603746415,
+      "measurement_residual_change": -0.08893987307179486,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -0.12395170211791992,
+      "psnr_gain_ci95_lower_db": -0.16396047973632813,
+      "psnr_gain_ci95_upper_db": -0.08476573610305786,
+      "paired_win_rate": 0.305,
+      "ssim_gain_mean": -0.0002825528383255005,
+      "measurement_residual_change": 2.939408295787871e-05,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.3763737621307373,
+      "psnr_gain_ci95_lower_db": 1.2853466408729555,
+      "psnr_gain_ci95_upper_db": 1.4734532502174378,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.032623175680637356,
+      "measurement_residual_change": -0.05204157179268077,
+      "per_seed_gain_db": [
+        1.3825513744354248,
+        1.3795545101165771,
+        1.3147286987304687,
+        1.4305939483642578,
+        1.374440279006958
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 0.567655086517334,
+      "psnr_gain_ci95_lower_db": 0.42032835984230044,
+      "psnr_gain_ci95_upper_db": 0.7191355419158935,
+      "paired_win_rate": 0.715,
+      "ssim_gain_mean": -0.2521401643753052,
+      "measurement_residual_change": -0.08999385909846751,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.915574102401735,
+      "psnr_gain_ci95_lower_db": 17.7892612092495,
+      "psnr_gain_ci95_upper_db": 18.04219381737709,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.3549361804127693,
+      "measurement_residual_change": 0.0010539860266726463,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 20.539214035034185,
+      "psnr_gain_ci95_lower_db": 20.37796791000366,
+      "psnr_gain_ci95_upper_db": 20.697484401226042,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.08609395515918732,
+      "measurement_residual_change": -0.036314568874135145,
+      "per_seed_gain_db": [
+        20.64291645050049,
+        20.436974754333495,
+        20.5135401058197,
+        20.580920457839966,
+        20.521718406677245
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "2-4",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 3.4323586082458495,
+      "psnr_gain_ci95_lower_db": 3.310780132007599,
+      "psnr_gain_ci95_upper_db": 3.550589589691162,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.015921114802360536,
+      "measurement_residual_change": 0.0005837324049789458,
+      "per_seed_gain_db": [
+        3.5422386360168456,
+        3.333300075531006,
+        3.3450396156311033,
+        3.5282852172851564,
+        3.4129294967651367
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 17.934808782577516,
+      "psnr_gain_ci95_lower_db": 17.754782967472078,
+      "psnr_gain_ci95_upper_db": 18.11983432240486,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.08128172904253006,
+      "measurement_residual_change": -0.03834310423652641,
+      "per_seed_gain_db": [
+        17.93654224395752,
+        17.929993524551392,
+        17.959136123657228,
+        17.909105672836304,
+        17.93926634788513
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 19.26671889305115,
+      "psnr_gain_ci95_lower_db": 19.096063242197037,
+      "psnr_gain_ci95_upper_db": 19.43914845609665,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.11932748317718506,
+      "measurement_residual_change": -0.0823534093692433,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": -0.13592853546142578,
+      "psnr_gain_ci95_lower_db": -0.17341228580474852,
+      "psnr_gain_ci95_upper_db": -0.09832955646514895,
+      "paired_win_rate": 0.26,
+      "ssim_gain_mean": -0.00029908329248428344,
+      "measurement_residual_change": 3.611581982113421e-05,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.3319101104736328,
+      "psnr_gain_ci95_lower_db": 1.2500154794216156,
+      "psnr_gain_ci95_upper_db": 1.4191045516014098,
+      "paired_win_rate": 0.995,
+      "ssim_gain_mean": 0.038045754134655,
+      "measurement_residual_change": -0.04401030513271689,
+      "per_seed_gain_db": [
+        1.330176649093628,
+        1.3367253684997558,
+        1.3075827693939208,
+        1.3576132202148437,
+        1.3274525451660155
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 1.0501103401184082,
+      "psnr_gain_ci95_lower_db": 0.9260284466743469,
+      "psnr_gain_ci95_upper_db": 1.1745482246875762,
+      "paired_win_rate": 0.905,
+      "ssim_gain_mean": -0.24329505681991578,
+      "measurement_residual_change": -0.08329749006225029,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 18.21660855293274,
+      "psnr_gain_ci95_lower_db": 18.095558869361877,
+      "psnr_gain_ci95_upper_db": 18.337168821573258,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.3626225399971008,
+      "measurement_residual_change": 0.0009440806930069811,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 21.333550714492798,
+      "psnr_gain_ci95_lower_db": 21.175156079435347,
+      "psnr_gain_ci95_upper_db": 21.49596534752846,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.09769176340103149,
+      "measurement_residual_change": -0.03800559133384377,
+      "per_seed_gain_db": [
+        21.421614322662354,
+        21.236364545822145,
+        21.294192848205565,
+        21.3984632396698,
+        21.317118616104125
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "4-6",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 200,
+      "paired_psnr_gain_mean_db": 3.3987419319152834,
+      "psnr_gain_ci95_lower_db": 3.2888501235961916,
+      "psnr_gain_ci95_upper_db": 3.50611355009079,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.016410034358501434,
+      "measurement_residual_change": 0.00033751290268264704,
+      "per_seed_gain_db": [
+        3.485072078704834,
+        3.3063710212707518,
+        3.33505672454834,
+        3.489357566833496,
+        3.377852268218994
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_cnn",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 17.114434774398802,
+      "psnr_gain_ci95_lower_db": 16.989333369541168,
+      "psnr_gain_ci95_upper_db": 17.2420318719546,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.06927787683407466,
+      "measurement_residual_change": -0.03491633681120584,
+      "per_seed_gain_db": [
+        17.10078147252401,
+        17.11914582570394,
+        17.157389904658,
+        17.078980967203776,
+        17.115875701904297
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 18.393481302261353,
+      "psnr_gain_ci95_lower_db": 18.275583550691604,
+      "psnr_gain_ci95_upper_db": 18.519177747249604,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.10054469068845114,
+      "measurement_residual_change": -0.08331264573915784,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_true_vs_phys_est",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": -0.13869839350382487,
+      "psnr_gain_ci95_lower_db": -0.16153758255640666,
+      "psnr_gain_ci95_upper_db": -0.116107328414917,
+      "paired_win_rate": 0.2816666666666667,
+      "ssim_gain_mean": -0.0003177239497502645,
+      "measurement_residual_change": 3.443629626417532e-05,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "cnn_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 1.2790465278625487,
+      "psnr_gain_ci95_lower_db": 1.2259640890439352,
+      "psnr_gain_ci95_upper_db": 1.332539918597539,
+      "paired_win_rate": 0.99,
+      "ssim_gain_mean": 0.03126681385437647,
+      "measurement_residual_change": -0.048396308927952006,
+      "per_seed_gain_db": [
+        1.2926998297373453,
+        1.2743354765574137,
+        1.236091397603353,
+        1.3145003350575766,
+        1.2776056003570557
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_own_vs_coarse",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 0.4855120849609375,
+      "psnr_gain_ci95_lower_db": 0.3906013462543487,
+      "psnr_gain_ci95_upper_db": 0.5777278284231822,
+      "paired_win_rate": 0.6766666666666666,
+      "ssim_gain_mean": -0.25364483207464217,
+      "measurement_residual_change": -0.08440920891967835,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_est_vs_phys_own",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 17.907969217300415,
+      "psnr_gain_ci95_lower_db": 17.835005861202877,
+      "psnr_gain_ci95_upper_db": 17.98512031968435,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.3541895227630933,
+      "measurement_residual_change": 0.0010965631805205096,
+      "per_seed_gain_db": []
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_cnn_vs_cnn",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 20.588139828364056,
+      "psnr_gain_ci95_lower_db": 20.483357243299483,
+      "psnr_gain_ci95_upper_db": 20.69479633011818,
+      "paired_win_rate": 1.0,
+      "ssim_gain_mean": 0.08519787112871806,
+      "measurement_residual_change": -0.034522916962509045,
+      "per_seed_gain_db": [
+        20.68739325841268,
+        20.493080978393554,
+        20.554737876256308,
+        20.64056802113851,
+        20.56491900761922
+      ]
+    },
+    {
+      "pattern_count": 256,
+      "speed_bin": "all",
+      "comparison": "phys_cnn_vs_phys_est",
+      "sequences": 600,
+      "paired_psnr_gain_mean_db": 3.4737050539652508,
+      "psnr_gain_ci95_lower_db": 3.40497673552831,
+      "psnr_gain_ci95_upper_db": 3.543436116600036,
+      "paired_win_rate": 0.9966666666666667,
+      "ssim_gain_mean": 0.015919994294643396,
+      "measurement_residual_change": 0.00039341984869679437,
+      "per_seed_gain_db": [
+        3.586611785888672,
+        3.373935152689616,
+        3.3973479715983075,
+        3.561587053934733,
+        3.449043305714925
+      ]
+    }
+  ],
+  "motion_epe_by_round_px": {
+    "128": [
+      0.9234361052513123,
+      0.7338424921035767,
+      0.4019831717014313,
+      0.232587993144989,
+      0.14988970756530762,
+      0.11358741670846939,
+      0.0971338301897049,
+      0.08948434144258499,
+      0.08669203519821167,
+      0.08558280766010284
+    ],
+    "256": [
+      0.7556552886962891,
+      0.5301399827003479,
+      0.1698726862668991,
+      0.06775160133838654,
+      0.044513676315546036,
+      0.04039320722222328,
+      0.03984697908163071,
+      0.03973536193370819,
+      0.039720676839351654,
+      0.03968067839741707
+    ]
+  },
+  "timing_seconds": {
+    "coarse_and_motion_seconds": 3.7711286693811417,
+    "cnn_M128_seed0_seconds": 0.8051754012703896,
+    "cnn_M128_seed1_seconds": 0.21957024931907654,
+    "cnn_M128_seed2_seconds": 0.2204989790916443,
+    "cnn_M128_seed3_seconds": 0.21768400073051453,
+    "cnn_M128_seed4_seconds": 0.21230950206518173,
+    "phys_est_M128_seconds": 96.90582457184792,
+    "cnn_M256_seed0_seconds": 1.735530085861683,
+    "cnn_M256_seed1_seconds": 0.9168180301785469,
+    "cnn_M256_seed2_seconds": 0.2404482439160347,
+    "cnn_M256_seed3_seconds": 0.23063825815916061,
+    "cnn_M256_seed4_seconds": 0.2588173598051071,
+    "phys_est_M256_seconds": 103.90955769270658
+  },
+  "test_sequences": 600,
+  "chosen_physical_layer": {
+    "128": {
+      "mu": 0.0,
+      "tv": 0.001,
+      "validation_psnr_db": 34.91208267211914
+    },
+    "256": {
+      "mu": 0.001,
+      "tv": 0.001,
+      "validation_psnr_db": 40.66085433959961
+    }
+  },
+  "runtime": {
+    "created_at_utc": "2026-11-23T18:52:32+00:00",
+    "python": "3.11.10",
+    "platform": "Linux-5.4.0-159-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": "2.9.1",
+      "torchvision": "0.24.1",
+      "numpy": "2.2.6",
+      "matplotlib": "3.11.2",
+      "pytorch-msssim": "1.0.0",
+      "Pillow": "12.3.0"
+    },
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "code_version": {
+      "commit": "1fcefaa47f15107e26e19a045913fa5191dda649",
+      "working_tree_dirty": false,
+      "runtime_source_sha256": "de0f558056dc3d5a38b2fda383ba23078af91f69b340d4e54cd20a20a820b257"
+    },
+    "checkpoint_sha256": {
+      "transformer": "628a5b7128a16a9983aec2739bda18d9e61d1a03751fc3de90ee1a5554b8a236",
+      "motion_estimator": "00cffd74957969ba03bc25c139843b3f27354e5cb6caac04d40ac20834f9ff65"
+    }
+  },
+  "confidence_interval_scope": "paired bootstrap over test identities after averaging refiner seeds; conditional on one coarse Transformer and one motion network"
+}

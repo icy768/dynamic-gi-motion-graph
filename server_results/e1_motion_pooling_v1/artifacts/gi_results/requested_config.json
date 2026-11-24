@@ -1,0 +1,113 @@
+{
+  "study_id": "e1_motion_pooling_v1",
+  "run_directory": "runs/e1_motion_pooling_v1",
+  "split_manifest": "configs/e1_splits.json",
+  "split_manifest_sha256": "bf1e676d34b95bb64402fdc7d5d051a5377fc606991dc43bdf4285500ff112ca",
+  "roles": {
+    "train": {
+      "split": "train",
+      "start": 0,
+      "count": 4000
+    },
+    "validation": {
+      "split": "validation",
+      "start": 0,
+      "count": 600
+    },
+    "test": {
+      "split": "test",
+      "start": 0,
+      "count": 600
+    }
+  },
+  "pattern_mode": "per_frame",
+  "pattern_counts": [
+    128,
+    256
+  ],
+  "coarse": {
+    "epochs": 20,
+    "batch": 8,
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "temporal_weight": 0.15
+  },
+  "motion_net": {
+    "epochs": 20,
+    "batch": 8,
+    "lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "refiner": {
+    "kind": "cnn",
+    "epochs": 20,
+    "seed_offsets": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_group5": true
+  },
+  "physical_layer": {
+    "batch": 32,
+    "tuning_per_speed_bin": 40,
+    "fixed": {
+      "iters": 100,
+      "tv_eps": 0.02,
+      "rounds": 8,
+      "pad": 16,
+      "pair_stages": [
+        [
+          4.0,
+          0.5
+        ],
+        [
+          0.5,
+          0.125
+        ],
+        [
+          0.125,
+          0.03
+        ]
+      ],
+      "stages": [
+        [
+          2.0,
+          0.25
+        ],
+        [
+          0.75,
+          0.125
+        ],
+        [
+          0.15,
+          0.03
+        ]
+      ]
+    },
+    "grid": {
+      "mu": [
+        0.0,
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "tv": [
+        0.0003,
+        0.001,
+        0.003
+      ]
+    }
+  },
+  "bootstrap_repeats": 5000,
+  "criteria": {
+    "primary": "At both bucket counts: phys_est (group 3) minus cnn (group 2) paired PSNR gain >= min_gain_vs_cnn_db, its 95% bootstrap lower bound > 0, mean SSIM change >= 0 and mean relative measurement residual change < 0",
+    "min_gain_vs_cnn_db": 1.0,
+    "stop": "Route C stops if at both bucket counts phys_est minus coarse (group 1) < stop_gain_vs_coarse_db while the final motion EPE < stop_motion_epe_px",
+    "stop_gain_vs_coarse_db": 0.5,
+    "stop_motion_epe_px": 0.2,
+    "written_before_any_validation_or_test_result": "2026-11-22"
+  }
+}

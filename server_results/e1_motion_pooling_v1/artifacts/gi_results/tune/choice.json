@@ -1,0 +1,16 @@
+{
+  "rule": "highest mean validation PSNR of group 3 (estimated motion) per bucket count",
+  "tuning_sequences": 120,
+  "choice": {
+    "128": {
+      "mu": 0.0,
+      "tv": 0.001,
+      "validation_psnr_db": 34.91208267211914
+    },
+    "256": {
+      "mu": 0.001,
+      "tv": 0.001,
+      "validation_psnr_db": 40.66085433959961
+    }
+  }
+}
